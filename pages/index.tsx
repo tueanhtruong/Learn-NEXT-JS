@@ -17,8 +17,11 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.tsx</code>
+        </p> */}
+        <p className={styles.description}>
+          Hello <code className={styles.code}>Mai Thi charming OCD</code> yeu dau
         </p>
 
         <div className={styles.grid}>
