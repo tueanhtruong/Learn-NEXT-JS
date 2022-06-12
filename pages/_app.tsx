@@ -1,8 +1,20 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.scss';
+import '../components/components.scss';
+import type { AppProps } from 'next/app';
+import Screen from '../components/Screen';
+import Navbar from '../components/Navbar';
+// import { useRouter } from 'next/router';
+// import { Navigator } from '../services';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  // const router = useRouter();
+  // Navigator.setTopRouter(router);
+  return (
+    <Screen showNavbar>
+      <Navbar />
+      <Component {...pageProps} />;
+    </Screen>
+  );
 }
 
-export default MyApp
+export default MyApp;
