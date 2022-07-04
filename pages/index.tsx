@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { IMAGES } from '../app-config/images';
 import { Button, Grid, Text, View } from '../components/commons';
 
 const Home: NextPage = () => {
@@ -11,21 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <View className="c-container">
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <View isRow className="mb-16">
-          <Button label="Test Button" className="mr-16" />
-          <Button label="Test Button 2" variant="outline" />
-        </View>
-        <Grid.Wrap>
-          <Grid.Item>
-            <Text>Text 1</Text>
-          </Grid.Item>
-          <Grid.Item>
-            <Text>Text 2</Text>
-          </Grid.Item>
-        </Grid.Wrap>
+        <h1>Welcome to Landing Page</h1>
       </View>
     </div>
   );

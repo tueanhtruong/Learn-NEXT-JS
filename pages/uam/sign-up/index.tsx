@@ -9,12 +9,16 @@ const SignUp: NextPage = () => {
       <h1>Sign Up Page</h1>
       <View isRow>
         <Link href={PATHS.root} passHref>
-          <Button variant="outline" className="mr-16">
-            Back
-          </Button>
+          <a>
+            <Button variant="outline" className="mr-16">
+              Back
+            </Button>
+          </a>
         </Link>
         <Link href={PATHS.signIn} passHref>
-          <Button>Sign In</Button>
+          <a>
+            <Button>Sign In</Button>
+          </a>
         </Link>
       </View>
     </View>

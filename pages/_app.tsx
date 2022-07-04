@@ -3,12 +3,12 @@ import '../components/components.scss';
 import type { AppProps } from 'next/app';
 import Screen from '../components/Screen';
 import Navbar from '../components/Navbar';
-// import { useRouter } from 'next/router';
-// import { Navigator } from '../services';
+// import { Provider } from 'react-redux';
+import { wrapper } from '../redux/store';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  // const router = useRouter();
-  // Navigator.setTopRouter(router);
+type MyAppProps = AppProps;
+
+function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <Screen showNavbar>
       <Navbar />
@@ -17,4 +17,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

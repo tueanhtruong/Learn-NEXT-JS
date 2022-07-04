@@ -49,6 +49,17 @@ const Navbar: React.FC<Props> = ({
 
   const navbarUnAuthItems = [
     {
+      id: 'Dev',
+      label: 'Dev Center',
+      type: NAV_TYPES.isText,
+      path: PATHS.dev,
+      onClick: () =>
+        router.push({
+          pathname: PATHS.dev,
+        }),
+    },
+
+    {
       id: 'LogIn',
       label: 'LOG IN',
       type: NAV_TYPES.isButton,
@@ -122,7 +133,9 @@ const Navbar: React.FC<Props> = ({
           /> */}
 
           <Link href={PATHS.root} passHref>
-            <Image className={'justify-center cmp-navbar__logo'} src={IMAGES.logo} />
+            <a>
+              <Image className={'justify-center cmp-navbar__logo'} src={IMAGES.logo} />
+            </a>
           </Link>
 
           <BurgerButton
@@ -138,6 +151,7 @@ const Navbar: React.FC<Props> = ({
           id="navigation-menu"
           className={cn('navbar-menu', {
             ['is-active']: toggleNavbar === true,
+            ['cmp-navbar__items--hide']: toggleNavbar === true,
           })}
           flexGrow={1}
         >

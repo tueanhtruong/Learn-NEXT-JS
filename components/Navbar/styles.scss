@@ -136,7 +136,16 @@
     }
   }
   @include desktopScreen {
+    .navbar-menu {
+      box-shadow: none;
+    }
+  }
+  @include desktopScreen {
     .cmp-navbar {
+      &__items--hide {
+        display: none;
+      }
+
       &__end {
         flex-direction: column;
         &--dropdown {
