@@ -5,9 +5,6 @@ import { Button, Form, Input, InputPassword, View } from '../../../components/co
 import { SigninSchema } from '../helpers';
 import { Formik, FormikProps } from 'formik';
 import { useRef } from 'react';
-// import appConfig from '../../../app-config';
-// import { signIn } from 'next-auth/react';
-// import { FcGoogle } from 'react-icons/fc';
 import { IRootState } from '../../../redux/rootReducer';
 import { connect } from 'react-redux';
 import { signInAction } from '../../../redux/auth/authSlice';

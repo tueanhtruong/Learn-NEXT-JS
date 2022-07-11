@@ -1,5 +1,5 @@
 import React from 'react';
-import { Callback } from 'src/redux/types';
+import { Callback } from '../redux/type';
 /**
  * useKeyPress
  * @param {string} key - the name of the key to respond to, compared against event.key

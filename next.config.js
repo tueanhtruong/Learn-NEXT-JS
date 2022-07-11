@@ -6,5 +6,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
+  pageExtensions: ['page.tsx'],
 };
 module.exports = nextConfig;
