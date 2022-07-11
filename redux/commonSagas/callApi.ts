@@ -3,6 +3,7 @@ import { ApiResponse } from 'apisauce';
 import _ from 'lodash';
 import { Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
+import { Toastify } from '../../services';
 
 const sanitizeActionType = (actionType: string) =>
   actionType.split('/').pop()?.replace('_REQUEST', '').replaceAll('_', ' ');
@@ -32,7 +33,7 @@ export function* callApi<TResponse extends unknown = any, TError extends Error =
     if (failureAction) yield put(failureAction(errorBuilder(response.data)));
 
     if (response?.originalError?.message === 'CONNECTION_TIMEOUT') {
-      console.error('Connection timeout. Please check your network and try again.');
+      Toastify.error('Connection timeout. Please check your network and try again.');
     }
     if (onFailure) {
       yield call(
@@ -46,24 +47,29 @@ export function* callApi<TResponse extends unknown = any, TError extends Error =
   }
 }
 
-// export function* callAuth<TResponse extends unknown = any, TError extends Error = Error>(
-//   api,
-//   action: {
-//     asyncAction: AsyncActionCreatorBuilder<
-//       any,
-//       [string, [TResponse, any]],
-//       [string, [TError, any]]
-//     >;
-//     responseExtractor?: (res) => TResponse;
-//     errorBuilder?: (err) => any;
-//   },
-//   ...args: any[]
-// ) {
-//   const { asyncAction, responseExtractor = undefined, errorBuilder = (err) => err } = action;
-//   try {
-//     const response = yield call(api, ...args);
-//     yield put(asyncAction.success(responseExtractor?.(response), undefined));
-//   } catch (err) {
-//     yield put(asyncAction.failure(errorBuilder(err), undefined));
-//   }
-// }
+export function* callAuth<TResponse extends unknown = any, TError extends Error = Error>(
+  api: any,
+  action: {
+    successAction: ActionCreatorWithoutPayload | ActionCreatorWithPayload<any>;
+    responseExtractor?: (res: any) => TResponse;
+    failureAction?: ActionCreatorWithoutPayload | ActionCreatorWithPayload<any>;
+    errorBuilder?: (err: any) => any;
+  },
+  ...args: any[]
+) {
+  const {
+    successAction,
+    failureAction,
+    responseExtractor = undefined,
+    errorBuilder = (err) => err,
+  } = action;
+  try {
+    const response: ApiResponse<{ data: any }> = yield call(api, ...args);
+    yield put(successAction(responseExtractor?.(response)));
+  } catch (err: any) {
+    if (failureAction) yield put(failureAction(errorBuilder(err)));
+    if (err.message) {
+      Toastify.error(err.message);
+    }
+  }
+}

@@ -1,11 +1,14 @@
 export const PATHS = {
   root: '/',
   dev: '/dev',
-  uam: '/uam',
-  signIn: '/uam/sign-in',
-  signUp: '/uam/sign-up',
+  uam: '/auth',
+  signIn: '/auth/sign-in',
+  signUp: '/auth/sign-up',
   forgotPassword: '/forgot-password',
   firstTimeLogin: '/send-code',
   resetPassword: '/reset-password',
-  myAccount: '/my-accounts',
+  myProfile: '/my-profile',
+  shopping: '/shopping',
 };
+
+export const PRIVATE_PATHS = [PATHS.myProfile];

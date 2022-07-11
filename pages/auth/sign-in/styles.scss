@@ -1,0 +1,30 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.ctn-uam {
+  height: calc(90vh - $navbar-height);
+  .ctn-uam {
+    &__background {
+      top: calc(-1 * $navbar-height);
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      background-image: url('../../../assets/images/bg-uam.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    &__container {
+      max-width: 546px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 32px;
+      border-radius: 16px;
+      backdrop-filter: blur(5px);
+      @include mobileScreen {
+        width: 90%;
+      }
+    }
+  }
+}

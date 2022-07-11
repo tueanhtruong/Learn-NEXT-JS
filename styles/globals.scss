@@ -2,6 +2,7 @@
 @use './mixin' as *;
 @use './helpers' as *;
 @use './config' as *;
+@use './react-toastify' as *;
 @import '~bulma';
 @import '~bulma-tooltip';
 @import '../assets/fonts/styles.css';

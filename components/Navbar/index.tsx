@@ -2,12 +2,16 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import { IMAGES } from '../../app-config/images';
 import { PATHS } from '../../app-config/paths';
-import { Navigator } from '../../services';
-import { Button, Image, Text, View } from '../commons';
+import { IRootState } from '../../redux/rootReducer';
+import { Button, Text, View } from '../commons';
 import { ButtonVariant } from '../commons/Button';
 import BurgerButton from './BurgerButton';
+import { signOut } from 'next-auth/react';
+import { signOutAction } from '../../redux/auth/authSlice';
+import Image from 'next/image';
 
 const NAV_TYPES = {
   isNavlink: 'NAV_LINK',
@@ -15,35 +19,45 @@ const NAV_TYPES = {
   isText: 'TEXT',
 };
 
-const Navbar: React.FC<Props> = ({
-  user,
-  //   showSecondBurger,
-  isAuthenticated = false,
-  //   showSidebar,
-  //   onSignOut,
-  //   onSetSidebar,
-}) => {
+const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, onSignOut }) => {
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   const getUserName = () => {
-    if (!user?.firstName) return 'Anonymous';
-    return `${user.firstName} ${user.lastName}`;
+    if (!user?.name) return 'Anonymous';
+    return `${user.name}`;
+  };
+
+  const handleSignOut = () => {
+    if (user?.emailPasswordAuthentication) return onSignOut();
+    return signOut();
   };
 
   // menu
   const navbarAuthItems = [
     {
+      id: 'Dev',
+      label: 'Dev Center',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.dev,
+    },
+    {
+      id: 'profile',
+      label: 'My Profile',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.myProfile,
+    },
+    {
       id: 'UserName',
       label: getUserName(),
       type: NAV_TYPES.isText,
     },
-
     {
       id: 'LogIn',
       label: 'Log out',
       type: NAV_TYPES.isText,
+      onClick: () => handleSignOut(),
     },
   ];
 
@@ -72,17 +86,25 @@ const Navbar: React.FC<Props> = ({
 
   const renderNavItems = (item: any) => {
     switch (item.type) {
-      //   case NAV_TYPES.isNavlink:
-      //     return (
-      //       <NavLink
-      //         key={item.id}
-      //         onClick={() => setToggleNavbar(!toggleNavbar)}
-      //         className={"cmp-navbar__end--item cmp-navbar__end--item--link"
-      //         to={item.href}
-      //         label={item.label}
-      //         activeClassName={"cmp-navbar__end--item--active"
-      //       />
-      //     );
+      case NAV_TYPES.isNavlink:
+        return (
+          <Link
+            href={item.href}
+            key={item.id}
+            // onClick={() => setToggleNavbar(!toggleNavbar)}
+            // className={"cmp-navbar__end--item cmp-navbar__end--item--link"}
+            // to={item.href}
+            // label={item.label}
+            // activeClassName={"cmp-navbar__end--item--active"}
+          >
+            <a
+              onClick={() => setToggleNavbar(!toggleNavbar)}
+              className={'cmp-navbar__end--item cmp-navbar__end--item--link'}
+            >
+              {item.label}
+            </a>
+          </Link>
+        );
       case NAV_TYPES.isButton:
         return (
           <Button
@@ -125,16 +147,15 @@ const Navbar: React.FC<Props> = ({
     >
       <View className={cn('cmp-navbar__container', 'c-container')}>
         <View isRow flexGrow={1} className={cn('cmp-navbar__branch', 'navbar-brand')}>
-          {/* <BurgerButton
-            className={cn('cmp-navbar__sidebar-burger', { show: showSecondBurger })}
-            target="sidebar-menu"
-            isActive={showSidebar}
-            onClick={() => onSetSidebar(!showSidebar)}
-          /> */}
-
           <Link href={PATHS.root} passHref>
             <a>
-              <Image className={'justify-center cmp-navbar__logo'} src={IMAGES.logo} />
+              <Image
+                className={'justify-center cmp-navbar__logo'}
+                src={IMAGES.logoCode}
+                alt="Unset"
+                width={54}
+                height={54}
+              />
             </a>
           </Link>
 
@@ -164,9 +185,16 @@ const Navbar: React.FC<Props> = ({
   );
 };
 
-type Props = {
-  user?: any;
-  isAuthenticated?: boolean;
-};
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+const mapStateToProps = (state: IRootState) => ({
+  user: state.auth.authUser,
+  isAuthenticated: state.auth?.isAuthenticated,
+});
 
-export default Navbar;
+const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+  onSignOut: () => dispatch(signOutAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+
+// export default Navbar;

@@ -1,0 +1,18 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.cmp-view-item {
+  &__label {
+    font-weight: 500;
+    color: $color-black-200;
+  }
+  &__value {
+    word-wrap: break-word;
+  }
+
+  &__empty {
+    @include mobileScreen {
+      display: none;
+    }
+  }
+}

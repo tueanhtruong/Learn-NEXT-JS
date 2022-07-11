@@ -1,0 +1,28 @@
+@use './mixin' as *;
+@use './vars' as *;
+
+.Toastify__toast {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  font-weight: normal;
+  font-family: $font-primary;
+  backdrop-filter: blur(5px);
+  padding: 16px;
+  color: #fff;
+}
+.Toastify__close-button--light {
+  opacity: 1;
+  color: #fff;
+}
+.Toastify__toast--success {
+  background: #3dbc59;
+}
+.Toastify__toast--info {
+  background: #455a64;
+}
+.Toastify__toast--warning {
+  background: $orange-gradient-transparent;
+}
+.Toastify__toast--error {
+  background: $color-red;
+}

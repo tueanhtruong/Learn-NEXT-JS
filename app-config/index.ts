@@ -11,6 +11,15 @@ const configs = {
 const googleServices = {
   CAPTCHA_KEY: process.env.REACT_APP_RECAPTCHA_CLIENT_KEY,
   TRACKING_ID: process.env.REACT_APP_TRACKING_ID,
+  GOOGLE_ID: process.env.GOOGLE_ID,
+  GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+  NEXT_AUTH_URL: process.env.NEXT_AUTH_URL,
+  API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+  AUTH_DOMAIN: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID,
+  STORAGE_BUCKET: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  APP_ID: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 const common = {

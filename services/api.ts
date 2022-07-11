@@ -1,18 +1,31 @@
 import apisauce from 'apisauce';
-// import { Auth } from 'aws-amplify';
-// import axios from 'axios';
 import appConfig from '../app-config';
-// import { ACCOUNT_STATUS } from '../app-config/constants';
-// import { MockAccounts, MockProperties, MockRoles, WorkRequests } from '../mocks';
+import { ConfirmSignUpPayload, SignInPayload, SignUpPayload } from '../redux/auth/type';
 
 import { newCancelToken } from '../utils';
-// import { TokenService } from '.';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut as signOutFirebase,
+  sendPasswordResetEmail,
+  Auth,
+  sendEmailVerification,
+  User,
+} from 'firebase/auth';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 
+const config = {
+  apiKey: appConfig.API_KEY,
+  authDomain: appConfig.AUTH_DOMAIN,
+  projectId: appConfig.PROJECT_ID,
+  storageBucket: appConfig.STORAGE_BUCKET,
+  messagingSenderId: appConfig.MESSAGING_SENDER_ID,
+  appId: appConfig.APP_ID,
+};
 const create = (baseURL = appConfig.API_URL || '') => {
-  //
-  // Create and configure an apisauce-based api object.
-  //
-
+  const app = getApps().length > 0 ? getApp() : initializeApp(config);
+  const auth = getAuth(app);
   const api = apisauce.create({
     baseURL,
     headers: {
@@ -37,29 +50,20 @@ const create = (baseURL = appConfig.API_URL || '') => {
   const getRoot = () => api.get('');
 
   // ====================== Auth ======================
-  // const signIn = (body: SignInPayload) => Auth.signIn(body.username, body.password);
-  // const signUp = (body: SignUpPayload) => {
-  //   const params = {
-  //     username: body.username,
-  //     password: body.password,
-  //   };
-
-  //   // const attributes = { phone_number: body.phoneNumber, given_name: body.firstName, family_name: body.lastName };
-  //   const attributes = {
-  //     email: body.username,
-  //     given_name: body.firstName,
-  //     family_name: body.lastName,
-  //   };
-
-  //   return Auth.signUp({ ...params, attributes });
-  // };
-
+  const signIn = (body: SignInPayload) =>
+    signInWithEmailAndPassword(auth, body.username, body.password);
+  const signUp = (body: SignUpPayload) => {
+    return createUserWithEmailAndPassword(auth, body.email, body.password);
+  };
+  const confirmSignUp = (body: User) => {
+    return sendEmailVerification(body);
+  };
   // const resendSignUp = (body: ResendSignUpPayload) => Auth.resendSignUp(body.username);
 
   // const confirmSignUp = (body: ConfirmSignUpPayload) =>
   //   Auth.confirmSignUp(body.username, body.code);
 
-  // const signOut = () => Auth.signOut();
+  const signOut = () => signOutFirebase(auth);
 
   // const getPermission = () => api.get('/me/permission', {}, newCancelToken());
 
@@ -90,7 +94,13 @@ const create = (baseURL = appConfig.API_URL || '') => {
   //
   return {
     getRoot,
-
+    app,
+    auth,
+    // ====================== Auth ======================
+    signUp,
+    signOut,
+    confirmSignUp,
+    signIn,
     // ====================== Content ======================
     getTodoList,
     getUsers,

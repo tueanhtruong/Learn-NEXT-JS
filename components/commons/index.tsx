@@ -7,3 +7,7 @@ export { default as Text } from './Text';
 export { default as Grid } from './Grid';
 export { default as Element } from './Element';
 export { default as Icon } from './Icon';
+export { default as Input } from './Input';
+export { default as InputPassword } from './InputPassword';
+export { default as Form } from './Form';
+export { default as ViewItem } from './ViewItem';

@@ -3,6 +3,7 @@ import { API } from './../services';
 /* ------------- Sagas ------------- */
 
 import contentSaga from './content/saga';
+import authSaga from './auth/authSaga';
 
 /* ------------- API ------------- */
 export const api = API.create();
@@ -14,5 +15,6 @@ export default function* root() {
     // some sagas only receive an action
     // takeLatest(StartupTypes.STARTUP, startup),
     ...contentSaga(api),
+    ...authSaga(api),
   ]);
 }

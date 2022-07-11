@@ -50,4 +50,6 @@ export const {
   getTodoListActionSuccess,
 } = contentSlice.actions;
 
+export const contentState = contentSlice.getInitialState();
+
 export default contentSlice.reducer;
