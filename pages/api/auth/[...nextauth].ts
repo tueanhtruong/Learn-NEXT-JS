@@ -1,11 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { FirebaseAdapter } from '@next-auth/firebase-adapter';
-import firebaseClient from '../../../firebase/config';
-import * as firestoreFunctions from 'firebase/firestore';
 import 'firebase/firestore';
 import appConfig from '../../../app-config';
-import { getFirestore } from 'firebase/firestore';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options

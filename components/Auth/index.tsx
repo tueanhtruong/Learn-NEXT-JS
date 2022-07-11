@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { IRootState } from '../../redux/rootReducer';
 import { setAuthenticated, setIsCorrectRoute } from '../../redux/auth/authSlice';
 import { AuthUser } from '../../redux/auth/type';
-// import { useSession } from 'next-auth/react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { PATHS, PRIVATE_PATHS } from '../../app-config/paths';
@@ -21,7 +20,6 @@ const Screen: NextPage<Props> = ({
   onSetIsCorrectRoute,
   children,
 }) => {
-  // const { data: session } = useSession();
   const router = useRouter();
 
   const authCheck = (url: string) => {
@@ -49,6 +47,7 @@ const Screen: NextPage<Props> = ({
         image: user.photoURL ?? '',
         name: user.displayName ?? '',
         emailPasswordAuthentication: true,
+        uid: user.uid,
       });
     } else if (!authUser) onSetAuthenticated(null);
   };
@@ -56,10 +55,6 @@ const Screen: NextPage<Props> = ({
   useComponentDidMount(() => {
     setTimeout(handleCheckAuthUser, 700);
   });
-
-  // useEffect(() => {
-  //   authCheck(router.asPath);
-  // }, [isAuthenticated]);
 
   useEffect(() => {
     // on initial load - run auth check
@@ -81,13 +76,6 @@ const Screen: NextPage<Props> = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
-
-  // useEffect(() => {
-  //   console.log('session: ', session);
-  //   if (session && !isAuthenticated) onSetAuthenticated(session?.user as AuthUser);
-  //   // if (!session && isAuthenticated) onSetAuthenticated(null);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [session]);
 
   if (!isCorrectRoute)
     return (

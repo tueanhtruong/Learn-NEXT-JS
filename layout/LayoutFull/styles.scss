@@ -1,0 +1,10 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.ctn-layout-full {
+  flex-direction: row;
+  padding: 40px 8px;
+  @include mobileScreen {
+    padding: 20px 8px;
+  }
+}

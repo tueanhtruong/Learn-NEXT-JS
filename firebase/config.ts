@@ -17,10 +17,10 @@ const config = {
 };
 
 // Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(config);
+// const app = getApps().length > 0 ? getApp() : initializeApp(config);
 
-const db = getFirestore(app);
+// const db = getFirestore(app);
 
-const storage = getStorage(app);
+// const storage = getStorage(app);
 
-export default { config, app, db, storage };
+export default { config };

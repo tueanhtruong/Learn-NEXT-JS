@@ -1,0 +1,10 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.p-profile {
+  .p-profile {
+    &__avatar {
+      border-radius: 50%;
+    }
+  }
+}

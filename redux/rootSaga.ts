@@ -4,6 +4,8 @@ import { API } from './../services';
 
 import contentSaga from './content/saga';
 import authSaga from './auth/authSaga';
+import configurationSaga from './configuration/saga';
+import profileSaga from './profile/saga';
 
 /* ------------- API ------------- */
 export const api = API.create();
@@ -16,5 +18,7 @@ export default function* root() {
     // takeLatest(StartupTypes.STARTUP, startup),
     ...contentSaga(api),
     ...authSaga(api),
+    ...configurationSaga(api),
+    ...profileSaga(api),
   ]);
 }

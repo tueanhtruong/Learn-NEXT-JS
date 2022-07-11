@@ -5,6 +5,7 @@ import { User } from 'firebase/auth';
 
 export interface IAuthState {
   isAuthenticated?: boolean;
+  isAdmin: boolean;
   authUser?: AuthUser;
   loading: boolean;
   isCorrectRoute: boolean;
@@ -15,6 +16,7 @@ const initialState: IAuthState = {
   authUser: undefined,
   loading: false,
   isCorrectRoute: false,
+  isAdmin: false,
 };
 
 export const authSlice = createSlice({
@@ -29,6 +31,9 @@ export const authSlice = createSlice({
       state.isAuthenticated = !!user;
       state.authUser = user ?? undefined;
     },
+    setIsAdminRole: (state, action: PayloadAction<boolean>) => {
+      state.isAdmin = action.payload;
+    },
     ////////////////////////////// signInAction //////////////////////////////
     signInAction: (state, action: PayloadAction<SignInPayload | null>) => {
       state.loading = true;
@@ -42,6 +47,7 @@ export const authSlice = createSlice({
         image: user.photoURL ?? '',
         name: user.displayName ?? '',
         emailPasswordAuthentication: true,
+        uid: user.uid,
       };
     },
     signInActionFailed: (state) => {
@@ -52,7 +58,16 @@ export const authSlice = createSlice({
       state.loading = true;
     },
     signUpActionSuccess: (state, action: PayloadAction<{ user: User } | null>) => {
+      const { user } = action.payload as { user: User };
       state.loading = false;
+      state.isAuthenticated = true;
+      state.authUser = {
+        email: user.email ?? '',
+        image: user.photoURL ?? '',
+        name: user.displayName ?? '',
+        emailPasswordAuthentication: true,
+        uid: user.uid,
+      };
     },
     signUpActionFailed: (state) => {
       state.loading = false;
@@ -65,6 +80,7 @@ export const authSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = false;
       state.authUser = undefined;
+      state.isAdmin = false;
     },
     signOutActionFailed: (state) => {
       state.loading = false;
@@ -86,6 +102,7 @@ export const authSlice = createSlice({
 export const {
   setAuthenticated,
   setIsCorrectRoute,
+  setIsAdminRole,
   ////////////////////////////// signInAction //////////////////////////////
   signInAction,
   signInActionFailed,

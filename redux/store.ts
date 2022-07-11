@@ -6,7 +6,9 @@ import rootSaga from './rootSaga';
 import createRootReducer, { rootState } from './rootReducer';
 import {
   sendEmailVerificationAction,
+  signInActionFailed,
   signInActionSuccess,
+  signUpActionFailed,
   signUpActionSuccess,
 } from './auth/authSlice';
 
@@ -19,8 +21,10 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [
           signInActionSuccess.type,
+          signInActionFailed.type,
           sendEmailVerificationAction.type,
           signUpActionSuccess.type,
+          signUpActionFailed.type,
         ],
       },
     }).concat(sagaMiddleware),

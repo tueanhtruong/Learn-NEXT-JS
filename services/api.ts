@@ -14,6 +14,15 @@ import {
   User,
 } from 'firebase/auth';
 import { getApp, getApps, initializeApp } from 'firebase/app';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 const config = {
   apiKey: appConfig.API_KEY,
@@ -26,6 +35,7 @@ const config = {
 const create = (baseURL = appConfig.API_URL || '') => {
   const app = getApps().length > 0 ? getApp() : initializeApp(config);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const api = apisauce.create({
     baseURL,
     headers: {
@@ -58,6 +68,14 @@ const create = (baseURL = appConfig.API_URL || '') => {
   const confirmSignUp = (body: User) => {
     return sendEmailVerification(body);
   };
+  const saveUserEmail = async (body: User) => {
+    const colRef = doc(db, 'my-users', body.uid);
+    const initialUser = {
+      email: body.email,
+      uid: body.uid,
+    };
+    return setDoc(colRef, initialUser);
+  };
   // const resendSignUp = (body: ResendSignUpPayload) => Auth.resendSignUp(body.username);
 
   // const confirmSignUp = (body: ConfirmSignUpPayload) =>
@@ -84,6 +102,19 @@ const create = (baseURL = appConfig.API_URL || '') => {
   const getUsers = () =>
     api.get('https://jsonplaceholder.typicode.com/users', {}, newCancelToken());
 
+  // ====================== Configuration ======================
+  const getConfigAdmins = async () => {
+    const docRef = doc(db, 'configuration', 'admin');
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
+
+  // ====================== Profile ======================
+  const getMyProfile = async (body: { uid: string }) => {
+    const docRef = doc(db, 'my-users', body.uid);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
   //
   // Return back a collection of functions that we would consider our
   // interface.  Most of the time it'll be just the list of all the
@@ -101,9 +132,14 @@ const create = (baseURL = appConfig.API_URL || '') => {
     signOut,
     confirmSignUp,
     signIn,
+    saveUserEmail,
     // ====================== Content ======================
     getTodoList,
     getUsers,
+    // ====================== Configuration ======================
+    getConfigAdmins,
+    // ====================== Profile ======================
+    getMyProfile,
   };
 };
 

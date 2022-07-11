@@ -9,6 +9,7 @@ export const PATHS = {
   resetPassword: '/reset-password',
   myProfile: '/my-profile',
   shopping: '/shopping',
+  configuration: '/configuration',
 };
 
 export const PRIVATE_PATHS = [PATHS.myProfile];

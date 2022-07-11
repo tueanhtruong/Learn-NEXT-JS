@@ -19,7 +19,7 @@ const NAV_TYPES = {
   isText: 'TEXT',
 };
 
-const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, onSignOut }) => {
+const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSignOut }) => {
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const router = useRouter();
@@ -41,6 +41,43 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, onSignOut }) =
       label: 'Dev Center',
       type: NAV_TYPES.isNavlink,
       href: PATHS.dev,
+    },
+    {
+      id: 'shop',
+      label: 'Shop',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.shopping,
+    },
+    {
+      id: 'profile',
+      label: 'My Profile',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.myProfile,
+    },
+    {
+      id: 'UserName',
+      label: getUserName(),
+      type: NAV_TYPES.isText,
+    },
+    {
+      id: 'LogIn',
+      label: 'Log out',
+      type: NAV_TYPES.isText,
+      onClick: () => handleSignOut(),
+    },
+  ];
+  const navbarAdminItems = [
+    {
+      id: 'Dev',
+      label: 'Dev Center',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.dev,
+    },
+    {
+      id: 'config',
+      label: 'Configuration',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.configuration,
     },
     {
       id: 'profile',
@@ -137,7 +174,11 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, onSignOut }) =
 
   const renderNavListItems = (items: Array<any>) => items.map((item) => renderNavItems(item));
 
-  const listItems = isAuthenticated ? navbarAuthItems : navbarUnAuthItems;
+  const listItems = isAuthenticated
+    ? isAdmin
+      ? navbarAdminItems
+      : navbarAuthItems
+    : navbarUnAuthItems;
   return (
     <nav
       className={cn('cmp-navbar', 'navbar', 'jump-down')}
@@ -188,7 +229,8 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, onSignOut }) =
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 const mapStateToProps = (state: IRootState) => ({
   user: state.auth.authUser,
-  isAuthenticated: state.auth?.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
+  isAdmin: state.auth.isAdmin,
 });
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({

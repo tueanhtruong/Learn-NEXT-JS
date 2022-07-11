@@ -5,6 +5,7 @@ export interface AuthUser {
   image: string;
   name: string;
   emailPasswordAuthentication?: boolean;
+  uid: string;
 }
 export interface SignUpPayload {
   password: string;

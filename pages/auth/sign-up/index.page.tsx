@@ -21,7 +21,6 @@ const SignUp: NextPage<Props> = ({ loading, onSignUp }) => {
   const formRef = useRef<FormikProps<FormValue>>(null);
 
   const handleSubmit = (value: FormValue) => {
-    console.log('value: ', value);
     onSignUp({
       email: value.email,
       password: value.password,

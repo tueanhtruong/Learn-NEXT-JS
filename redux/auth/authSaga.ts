@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, takeLatest } from 'redux-saga/effects';
 import { Apis } from '../../services/api';
 import { callAuth } from '../commonSagas/callApi';
 import {
@@ -55,9 +55,19 @@ function* handleSignOut(api: any, action: { payload: any }) {
   );
 }
 
-function* handleSignUpSuccess(action: { payload: { user: any } }) {
+function* handleSignUpSuccess(api: any, action: { payload: { user: any } }) {
   const { user } = action.payload;
-  yield put(sendEmailVerificationAction({ user }));
+  yield call(
+    callAuth,
+    api,
+    {
+      successAction: sendEmailVerificationAction,
+      responseExtractor: () => ({ user }),
+      failureAction: signOutActionFailed,
+    },
+    user
+  );
+  // yield put(sendEmailVerificationAction({ user }));
 }
 
 function* handleSendEmailVerification(api: any, action: { payload: { user: any } }) {
@@ -79,7 +89,11 @@ export default function contentSaga(apiInstance: Apis) {
     takeLatest<string, any>(signUpAction.type, handleSignUp, apiInstance.signUp),
     takeLatest<string, any>(signInAction.type, handleSignIn, apiInstance.signIn),
     takeLatest<string, any>(signOutAction.type, handleSignOut, apiInstance.signOut),
-    takeLatest<string, any>(signUpActionSuccess.type, handleSignUpSuccess),
+    takeLatest<string, any>(
+      signUpActionSuccess.type,
+      handleSignUpSuccess,
+      apiInstance.saveUserEmail
+    ),
     takeLatest<string, any>(
       sendEmailVerificationAction.type,
       handleSendEmailVerification,
