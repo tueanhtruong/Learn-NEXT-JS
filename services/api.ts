@@ -14,15 +14,10 @@ import {
   User,
 } from 'firebase/auth';
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getFirestore,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { Profile } from '../redux/profile/type';
+import { GetPresignedPayload } from '../redux/file/type';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 const config = {
   apiKey: appConfig.API_KEY,
@@ -36,6 +31,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
   const app = getApps().length > 0 ? getApp() : initializeApp(config);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const storage = getStorage();
   const api = apisauce.create({
     baseURL,
     headers: {
@@ -115,6 +111,19 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };
+  const updateMyProfile = async (body: Profile) => {
+    const docRef = doc(db, 'my-users', body.uid);
+    return updateDoc(docRef, { ...body });
+  };
+  // ====================== File ======================
+  const uploadFile = (body: GetPresignedPayload) => {
+    const storageRef = ref(storage, body.fileName);
+    return body.fileData && uploadBytes(storageRef, body.fileData);
+  };
+  const getDecodeUrl = (body: string) => {
+    const storageRef = ref(storage, body);
+    return getDownloadURL(storageRef);
+  };
   //
   // Return back a collection of functions that we would consider our
   // interface.  Most of the time it'll be just the list of all the
@@ -140,6 +149,10 @@ const create = (baseURL = appConfig.API_URL || '') => {
     getConfigAdmins,
     // ====================== Profile ======================
     getMyProfile,
+    updateMyProfile,
+    // ====================== File ======================
+    uploadFile,
+    getDecodeUrl,
   };
 };
 

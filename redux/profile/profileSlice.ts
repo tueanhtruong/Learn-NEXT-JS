@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Profile } from './type';
+import { Callback } from '../type';
 
 export interface IProfileState {
   myProfile?: Profile;
@@ -18,6 +19,7 @@ export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
+    ////////////////////////////// getMyProfile //////////////////////////////
     getMyProfileAction: (state, action: PayloadAction<{ uid: string }>) => {
       state.loading = true;
     },
@@ -29,11 +31,38 @@ export const profileSlice = createSlice({
       state.loading = false;
       state.error = action.payload ?? undefined;
     },
+    ////////////////////////////// updateMyProfile //////////////////////////////
+    updateMyProfileAction: (
+      state,
+      action: PayloadAction<{ payload: Profile; callback?: Callback }>
+    ) => {
+      state.loading = true;
+    },
+    updateMyProfileSuccess: (
+      state,
+      action: PayloadAction<{ payload: Profile; callback?: Callback }>
+    ) => {
+      state.loading = false;
+      state.myProfile = action.payload.payload ?? undefined;
+    },
+    updateMyProfileFailed: (state, action: PayloadAction<Error>) => {
+      state.loading = false;
+      state.error = action.payload ?? undefined;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { getMyProfileAction, getMyProfileSuccess, getMyProfileFailed } = profileSlice.actions;
+export const {
+  ////////////////////////////// getMyProfile //////////////////////////////
+  getMyProfileAction,
+  getMyProfileSuccess,
+  getMyProfileFailed,
+  ////////////////////////////// updateMyProfile //////////////////////////////
+  updateMyProfileAction,
+  updateMyProfileSuccess,
+  updateMyProfileFailed,
+} = profileSlice.actions;
 
 export const profileState = profileSlice.getInitialState();
 

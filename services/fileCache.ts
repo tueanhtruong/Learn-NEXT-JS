@@ -19,7 +19,6 @@ const trimUuidFromUniqueId = (uniqueId: string) => {
 
 const getCachedUrl = (url: string) => {
   const id = getUniqueIdFromUrl(url) as string;
-
   return cache[id];
 };
 

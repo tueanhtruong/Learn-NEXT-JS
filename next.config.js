@@ -7,5 +7,8 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   pageExtensions: ['page.tsx'],
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  },
 };
 module.exports = nextConfig;

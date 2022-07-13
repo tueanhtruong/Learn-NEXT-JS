@@ -18,6 +18,7 @@ export const configurationSlice = createSlice({
   name: 'configuration',
   initialState,
   reducers: {
+    ////////////////////////////// ConfigurationAdmin //////////////////////////////
     getConfigurationAdminAction: (state) => {
       state.loading = true;
     },

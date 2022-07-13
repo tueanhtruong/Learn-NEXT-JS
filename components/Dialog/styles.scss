@@ -1,0 +1,45 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.cmp-dialog {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 8px !important;
+
+  padding: 0 !important;
+  @include mobileScreen {
+    margin: 0px !important;
+  }
+
+  &-title {
+    // border-bottom: 1px solid #ebebeb;
+
+    @include mobileScreen {
+      padding: 16px !important;
+    }
+  }
+
+  //   &-close-icon {
+  //     position: absolute !important;
+  //     right: 5px;
+  //     top: 5px;
+  //   }
+
+  &-content {
+    @include mobileScreen {
+      padding: 8px 16px !important;
+    }
+  }
+
+  &-footer {
+    padding: 8px 24px 16px 24px !important;
+
+    @include mobileScreen {
+      padding: 8px 16px 16px 16px !important;
+    }
+  }
+
+  &-content-visible {
+    overflow: visible !important;
+  }
+}

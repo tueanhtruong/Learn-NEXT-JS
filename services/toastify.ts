@@ -8,7 +8,7 @@ const error = (error?: string, options: ToastOptions = { icon: false }) => {
   );
 };
 
-const success = (message: string, options: ToastOptions = { icon: false }) => {
+const success = (message: string, options: ToastOptions = { icon: false, autoClose: 5000 }) => {
   toast.success(message, options);
 };
 

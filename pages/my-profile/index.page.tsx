@@ -9,11 +9,29 @@ import { FaDoorOpen } from 'react-icons/fa';
 import { getMyProfileAction } from '../../redux/profile/profileSlice';
 import { useComponentDidMount } from '../../hooks';
 import { isEmpty } from '../../validations';
+import { signOutAction } from '../../redux/auth/authSlice';
+import { useRouter } from 'next/router';
+import { PATHS } from '../../app-config/paths';
 
-const Profile: NextPage<Props> = ({ user, loading, myProfile, onGetMyProfile }) => {
+const Profile: NextPage<Props> = ({
+  user,
+  loading,
+  myProfile,
+  isAuthenticated,
+  onGetMyProfile,
+  onSignOut,
+}) => {
+  const router = useRouter();
   useComponentDidMount(() => {
     if (isEmpty(myProfile) && user) onGetMyProfile({ uid: user.uid });
   });
+
+  const handleSignOut = () => {
+    if (isAuthenticated) return onSignOut();
+  };
+  const handleEditProfile = () => {
+    router.push(PATHS.editProfile);
+  };
   return (
     <LayoutFull>
       <View flexGrow={1} className="p-profile">
@@ -46,9 +64,14 @@ const Profile: NextPage<Props> = ({ user, loading, myProfile, onGetMyProfile }) 
           </Grid.Wrap>
           <hr />
           <View isRow justify="space-between">
-            <Button label="Log Out" variant="link-gray" icon={<FaDoorOpen size={24} />} />
+            <Button
+              label="Log Out"
+              variant="link-gray"
+              icon={<FaDoorOpen size={24} />}
+              onClick={handleSignOut}
+            />
 
-            <Button label="Edit" variant="outline" />
+            <Button label="Edit" variant="outline" onClick={handleEditProfile} />
           </View>
         </View>
       </View>
@@ -61,10 +84,12 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.profile.loading,
   user: state.auth.authUser,
   myProfile: state.profile.myProfile,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onGetMyProfile: (payload: { uid: string }) => dispatch(getMyProfileAction(payload)),
+  onSignOut: () => dispatch(signOutAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

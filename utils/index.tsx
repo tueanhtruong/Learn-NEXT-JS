@@ -136,7 +136,7 @@ export const monthFormat = 'MMMM DD, YYYY';
 export const emptyFunction = () => {};
 
 export const compressFile = (file: File) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<File | Blob>((resolve, reject) => {
     const isImage = ['image/jpg', 'image/jpeg', 'image/png'].includes(file?.type);
 
     if (isImage) {

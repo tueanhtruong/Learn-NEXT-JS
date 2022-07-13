@@ -9,7 +9,6 @@ import { IRootState } from '../../redux/rootReducer';
 import { Button, Text, View } from '../commons';
 import { ButtonVariant } from '../commons/Button';
 import BurgerButton from './BurgerButton';
-import { signOut } from 'next-auth/react';
 import { signOutAction } from '../../redux/auth/authSlice';
 import Image from 'next/image';
 
@@ -29,10 +28,10 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSig
     return `${user.name}`;
   };
 
-  const handleSignOut = () => {
-    if (user?.emailPasswordAuthentication) return onSignOut();
-    return signOut();
-  };
+  // const handleSignOut = () => {
+  //   if (user?.emailPasswordAuthentication) return onSignOut();
+  //   // return signOut();
+  // };
 
   // menu
   const navbarAuthItems = [
@@ -59,12 +58,6 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSig
       label: getUserName(),
       type: NAV_TYPES.isText,
     },
-    {
-      id: 'LogIn',
-      label: 'Log out',
-      type: NAV_TYPES.isText,
-      onClick: () => handleSignOut(),
-    },
   ];
   const navbarAdminItems = [
     {
@@ -90,12 +83,12 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSig
       label: getUserName(),
       type: NAV_TYPES.isText,
     },
-    {
-      id: 'LogIn',
-      label: 'Log out',
-      type: NAV_TYPES.isText,
-      onClick: () => handleSignOut(),
-    },
+    // {
+    //   id: 'LogIn',
+    //   label: 'Log out',
+    //   type: NAV_TYPES.isText,
+    //   onClick: () => handleSignOut(),
+    // },
   ];
 
   const navbarUnAuthItems = [
