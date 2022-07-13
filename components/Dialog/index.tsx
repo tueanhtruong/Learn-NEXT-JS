@@ -27,9 +27,13 @@ const ModalContainer: React.FC<Props> = ({
 
   const hideTitle = !title;
 
+  const handleClose = (event: {}, reason: 'backdropClick' | 'escapeKeyDown') => {
+    if (allowCloseByEsc && reason === 'escapeKeyDown') onHideModal();
+  };
+
   return (
     <MuiDialog
-      onClose={onHideModal}
+      onClose={handleClose}
       open={true}
       //   {...dialogProps}
       //   fullScreen={fullScreen}
@@ -42,9 +46,11 @@ const ModalContainer: React.FC<Props> = ({
             <Text size={18} className="fw-bold mr-8">
               {isEmpty(title) ? ` ` : title}
             </Text>
-            <IconButton className="cmp-dialog-close-icon" onClick={onHideModal}>
-              <GrClose size={16} />
-            </IconButton>
+            {!hideCloseButton && (
+              <IconButton className="cmp-dialog-close-icon" onClick={onHideModal}>
+                <GrClose size={16} />
+              </IconButton>
+            )}
           </View>
         </DialogTitle>
       )}

@@ -53,7 +53,7 @@ const Screen: NextPage<Props> = ({
   };
 
   useComponentDidMount(() => {
-    setTimeout(handleCheckAuthUser, 700);
+    setTimeout(handleCheckAuthUser, 800);
   });
 
   useEffect(() => {

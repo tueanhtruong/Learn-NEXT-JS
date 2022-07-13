@@ -1,6 +1,6 @@
 import { call, takeLatest } from 'redux-saga/effects';
 import { Apis } from '../../services/api';
-import { compressFile } from '../../utils';
+import { compressFile, getRandomId } from '../../utils';
 import { callFileApi, callFirebaseApi } from '../commonSagas/callApi';
 import { Callback } from '../type';
 import {
@@ -16,7 +16,13 @@ import { GetPresignedPayload } from './type';
 function* handleUploadFile(api: any, action: { payload: GetPresignedPayload }) {
   const { fileName, contentType, fileData, type, callback } = action.payload;
   const compressedFile: File | Blob = yield call(compressFile as any, fileData);
-  const payload = { fileName, contentType, type, fileData: compressedFile, callback };
+  const payload = {
+    fileName: `${type}/${getRandomId()}-${fileName}`,
+    contentType,
+    type,
+    fileData: compressedFile,
+    callback,
+  };
   yield call(
     callFileApi,
     api,

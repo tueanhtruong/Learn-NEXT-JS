@@ -1,6 +1,12 @@
 @use 'vars' as *;
 @use 'mixin' as *;
 
+.p-profile {
+  &__avatar {
+    border-radius: 50%;
+  }
+}
+
 .cmp-file-upload {
   overflow: hidden;
 

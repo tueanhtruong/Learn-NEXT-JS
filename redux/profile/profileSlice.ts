@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Profile } from './type';
 import { Callback } from '../type';
+import { signOutActionSuccess } from '../auth/authSlice';
 
 export interface IProfileState {
   myProfile?: Profile;
@@ -48,6 +49,11 @@ export const profileSlice = createSlice({
     updateMyProfileFailed: (state, action: PayloadAction<Error>) => {
       state.loading = false;
       state.error = action.payload ?? undefined;
+    },
+  },
+  extraReducers: {
+    [signOutActionSuccess.type]: (state) => {
+      state.myProfile = undefined;
     },
   },
 });

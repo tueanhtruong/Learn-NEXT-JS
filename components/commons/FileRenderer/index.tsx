@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { FiPaperclip } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { connect } from 'react-redux';
+import { IMAGES } from '../../../app-config/images';
 import { useComponentDidMount } from '../../../hooks';
 import { getDecodeUrlAction } from '../../../redux/file/fileSlice';
 import { IRootState } from '../../../redux/rootReducer';
@@ -22,6 +23,9 @@ const FileRenderer: React.FC<Props> = ({
   label,
   labelClassName,
   isUpdateOnChange = false,
+  isAvatar,
+  imgHeight = 240,
+  imgWidth = 240,
   onRemove,
 }) => {
   const [decodeUrl, setDecodeUrl] = useState('');
@@ -52,6 +56,8 @@ const FileRenderer: React.FC<Props> = ({
         const decodeUrl = URL.createObjectURL(url);
         setDecodeUrl(decodeUrl);
       }
+    } else {
+      return decodeUrl ? setDecodeUrl('') : null;
     }
   };
 
@@ -61,13 +67,25 @@ const FileRenderer: React.FC<Props> = ({
 
   const isImage = isURLImage(typeof url === 'string' ? decodeUrl : url?.type);
 
-  if (!decodeUrl) return null;
+  if (!decodeUrl) {
+    if (isAvatar)
+      return (
+        <Image
+          className="p-profile__avatar"
+          src={IMAGES.avatarPlaceholder}
+          width={80}
+          height={80}
+          alt="Unset"
+        />
+      );
+    return null;
+  }
 
   const allowRemove = !!onRemove;
 
   if (isImage)
     return (
-      <View className="cmp-file-upload__image mb-2">
+      <View className={cn('cmp-file-upload__image mb-2')}>
         <Image
           className={cn(
             'cmp-file-upload__image fit-image',
@@ -76,8 +94,8 @@ const FileRenderer: React.FC<Props> = ({
           )}
           src={decodeUrl}
           alt="Unset"
-          width={240}
-          height={240}
+          width={imgWidth}
+          height={imgHeight}
         />
         {allowRemove && (
           <IoClose
@@ -140,6 +158,9 @@ type Props = ReturnType<typeof mapStateToProps> &
     onRemove?: Callback;
     imageClassName?: string;
     isUpdateOnChange?: boolean;
+    isAvatar?: boolean;
+    imgWidth?: number;
+    imgHeight?: number;
   };
 
 const mapStateToProps = (state: IRootState) => ({

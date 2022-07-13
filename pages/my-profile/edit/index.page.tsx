@@ -46,8 +46,8 @@ const Profile: NextPage<Props> = ({
     onShowModal({
       type: MODAL_TYPES.CONTENT_MODAL,
       data: {
-        title: 'Upload Avatar Modal',
-        content: <UploadAvatar onSave={emptyFunction} />,
+        title: 'Upload Avatar',
+        content: <UploadAvatar onSave={emptyFunction} fileUrl={myProfile?.avatar} />,
       },
     });
   };
@@ -84,7 +84,8 @@ const Profile: NextPage<Props> = ({
             {({ errors, values, setFieldValue, getFieldProps, touched, handleSubmit }) => {
               return (
                 <Form onSubmit={handleSubmit} autoComplete="off">
-                  <h3>Avatar</h3>
+                  <h3>Profile Information</h3>
+                  {/* <h3>Avatar</h3>
                   <View isRow className="mt-16" align="center">
                     <Image
                       className="p-profile__avatar"
@@ -100,7 +101,7 @@ const Profile: NextPage<Props> = ({
                       type="button"
                     />
                     <Button label="Remove" variant="outline-danger" type="button" />
-                  </View>
+                  </View> */}
                   <hr />
                   <Grid.Wrap>
                     <Grid.Item>
@@ -143,7 +144,12 @@ const Profile: NextPage<Props> = ({
                   </Grid.Wrap>
                   <hr />
                   <View isRow justify="space-between">
-                    <Button label="Cancel" variant="outline" type="button" />
+                    <Button
+                      label="Cancel"
+                      variant="outline"
+                      type="button"
+                      onClick={() => router.back()}
+                    />
 
                     <Button label="Save" type="submit" isLoading={loading} />
                   </View>
