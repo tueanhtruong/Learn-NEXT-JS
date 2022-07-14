@@ -16,7 +16,8 @@ function* getConfigurationAdmin(api: any, action: { payload: any }) {
     {
       successAction: getConfigurationAdminSuccess,
       responseExtractor: (response) => {
-        return response.accounts;
+        console.log('response: ', response);
+        return response;
       },
     },
     action.payload

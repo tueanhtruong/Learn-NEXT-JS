@@ -5,4 +5,5 @@ export interface Profile {
   displayName: string;
   fullName: string;
   phoneNumber: string;
+  isAdmin?: boolean;
 }

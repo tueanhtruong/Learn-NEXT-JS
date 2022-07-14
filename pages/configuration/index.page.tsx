@@ -15,16 +15,31 @@ import { IRootState } from '../../redux/rootReducer';
 const enum SidebarTab {
   ADMIN = 'ADMIN',
   BANNER = 'BANNER',
+  SHOP = 'SHOP',
+  ORDER = 'ORDER',
+  PAYMENT = 'PAYMENT',
 }
 
 const items: ItemSidebar[] = [
   {
-    label: 'Admin Accounts',
+    label: 'Account Management',
     tab: SidebarTab.ADMIN,
   },
   {
     label: 'Banner',
     tab: SidebarTab.BANNER,
+  },
+  {
+    label: 'Shop',
+    tab: SidebarTab.SHOP,
+  },
+  {
+    label: 'Order',
+    tab: SidebarTab.ORDER,
+  },
+  {
+    label: 'Payment',
+    tab: SidebarTab.PAYMENT,
   },
 ];
 
@@ -58,7 +73,8 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
 
   useEffect(() => {
     if (tab === SidebarTab.ADMIN) handleSetTab(0);
-    if (tab === SidebarTab.BANNER) handleSetTab(1);
+    else if (tab === SidebarTab.BANNER) handleSetTab(1);
+    else handleSetTab(2);
   }, [tab]);
 
   return (
@@ -74,7 +90,7 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
             pauseOnHover={true}
             ref={bannerRef as Ref<SlideshowRef>}
             autoplay={false}
-            transitionDuration={400}
+            transitionDuration={350}
             defaultIndex={2}
             cssClass={'p-configuration__slide'}
           >

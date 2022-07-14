@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { AdminAccount } from './type';
+import { TableParams } from '../type';
 
 export interface IConfigurationState {
   admins: AdminAccount[];
@@ -21,7 +22,7 @@ export const configurationSlice = createSlice({
   initialState,
   reducers: {
     ////////////////////////////// ConfigurationAdmin //////////////////////////////
-    getConfigurationAdminAction: (state) => {
+    getConfigurationAdminAction: (state, action: PayloadAction<TableParams | null>) => {
       state.loading = true;
     },
     getConfigurationAdminSuccess: (state, action: PayloadAction<AdminAccount[] | null>) => {

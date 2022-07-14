@@ -13,6 +13,7 @@ import { isEmpty } from '../validations';
 // import { Location } from 'history';
 // import { StateOption } from '../app-config/options';
 import _ from 'lodash';
+import { TableParams } from '../redux/type';
 
 export function newCancelToken(timeout = appConfig.CONNECTION_TIMEOUT) {
   const source = CancelToken.source();
@@ -22,6 +23,11 @@ export function newCancelToken(timeout = appConfig.CONNECTION_TIMEOUT) {
 
   return { cancelToken: source.token };
 }
+
+// export const buildQueryPrams = (params: TableParams) => {
+//   const querys = []
+//   if(params.order)
+// }
 
 export const getRandomId = (): string => shortid.generate();
 

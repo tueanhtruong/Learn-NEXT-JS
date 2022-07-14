@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Profile } from './type';
-import { Callback } from '../type';
+import { Callback, TableParams } from '../type';
 import { signOutActionSuccess } from '../auth/authSlice';
 
 export interface IProfileState {
   myProfile?: Profile;
+  userProfiles: Profile[];
   loading: boolean;
   error?: Error;
 }
@@ -14,6 +15,7 @@ const initialState: IProfileState = {
   myProfile: undefined,
   loading: false,
   error: undefined,
+  userProfiles: [],
 };
 
 export const profileSlice = createSlice({
@@ -50,6 +52,18 @@ export const profileSlice = createSlice({
       state.loading = false;
       state.error = action.payload ?? undefined;
     },
+    ////////////////////////////// getSystemUsers //////////////////////////////
+    getSystemUsersAction: (state, action: PayloadAction<TableParams>) => {
+      state.loading = true;
+    },
+    getSystemUsersSuccess: (state, action: PayloadAction<Profile[]>) => {
+      state.loading = false;
+      state.userProfiles = action.payload ?? [];
+    },
+    getSystemUsersFailed: (state, action: PayloadAction<Error | null>) => {
+      state.loading = false;
+      state.error = action.payload ?? undefined;
+    },
   },
   extraReducers: {
     [signOutActionSuccess.type]: (state) => {
@@ -68,6 +82,10 @@ export const {
   updateMyProfileAction,
   updateMyProfileSuccess,
   updateMyProfileFailed,
+  ////////////////////////////// getSystemUsers //////////////////////////////
+  getSystemUsersAction,
+  getSystemUsersSuccess,
+  getSystemUsersFailed,
 } = profileSlice.actions;
 
 export const profileState = profileSlice.getInitialState();

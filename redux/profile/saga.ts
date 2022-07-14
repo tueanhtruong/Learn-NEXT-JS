@@ -5,6 +5,9 @@ import {
   getMyProfileAction,
   getMyProfileFailed,
   getMyProfileSuccess,
+  getSystemUsersAction,
+  getSystemUsersFailed,
+  getSystemUsersSuccess,
   updateMyProfileAction,
   updateMyProfileFailed,
   updateMyProfileSuccess,
@@ -18,6 +21,21 @@ function* getMyProfile(api: any, action: { payload: any }) {
       successAction: getMyProfileSuccess,
       responseExtractor: (response) => response,
       failureAction: getMyProfileFailed,
+    },
+    action.payload
+  );
+}
+
+function* getSystemUsers(api: any, action: { payload: any }) {
+  yield call(
+    callFirebaseApi,
+    api,
+    {
+      successAction: getSystemUsersSuccess,
+      responseExtractor: (response) => {
+        return response;
+      },
+      failureAction: getSystemUsersFailed,
     },
     action.payload
   );
@@ -45,6 +63,7 @@ function updateProfileSuccess(action: any) {
 export default function configurationSaga(apiInstance: Apis) {
   return [
     takeLatest<string, any>(getMyProfileAction.type, getMyProfile, apiInstance.getMyProfile),
+    takeLatest<string, any>(getSystemUsersAction.type, getSystemUsers, apiInstance.getSystemUsers),
     takeLatest<string, any>(
       updateMyProfileAction.type,
       updateMyProfile,

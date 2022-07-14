@@ -15,3 +15,6 @@ export { default as ViewItem } from './ViewItem';
 export { default as FileUpload } from './FileUpload';
 export { default as FileRenderer } from './FileRenderer';
 export { default as AttachmentUploadButton } from './AttachmentUploadButton';
+export { default as Table } from './Table';
+export { default as TableBasic } from './TableBasic';
+export { default as Checkbox } from './Checkbox';

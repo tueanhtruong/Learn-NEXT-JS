@@ -25,6 +25,7 @@ import UploadAvatar from '../../components/UploadAvatar';
 import { showModal } from '../../redux/modal/modalSlice';
 import { Profile } from '../../redux/profile/type';
 import { Callback } from '../../redux/type';
+import { formatPhoneNumber } from 'react-phone-number-input';
 
 const Profile: NextPage<Props> = ({
   user,
@@ -99,7 +100,7 @@ const Profile: NextPage<Props> = ({
           </Grid.Wrap>
           <hr />
           <Grid.Wrap>
-            <ViewItem label={'Phone Number'} value={myProfile?.phoneNumber} />
+            <ViewItem label={'Phone Number'} value={formatPhoneNumber(myProfile?.phoneNumber)} />
             <ViewItem label={'Email'} value={myProfile?.email} />
           </Grid.Wrap>
           <hr />

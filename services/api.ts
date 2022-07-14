@@ -14,10 +14,22 @@ import {
   User,
 } from 'firebase/auth';
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  DocumentData,
+  getDoc,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { Profile } from '../redux/profile/type';
 import { GetPresignedPayload } from '../redux/file/type';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { TableParams } from '../redux/type';
 
 const config = {
   apiKey: appConfig.API_KEY,
@@ -100,9 +112,16 @@ const create = (baseURL = appConfig.API_URL || '') => {
 
   // ====================== Configuration ======================
   const getConfigAdmins = async () => {
-    const docRef = doc(db, 'configuration', 'admin');
-    const docSnap = await getDoc(docRef);
-    return docSnap.data();
+    const querySnapshot = await getDocs(collection(db, 'configuration-admin'));
+    const res: DocumentData[] = [];
+    querySnapshot.forEach((doc) => {
+      res.push(doc.data());
+    });
+    return res;
+
+    // const docRef = doc(db, 'configuration', 'admin');
+    // const docSnap = await getDoc(docRef);
+    // return docSnap.data();
   };
   const getAdminProfile = async (body: { uid: string }) => {
     const docRef = doc(db, 'configuration-admin', body.uid);
@@ -117,6 +136,23 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const docRef = doc(db, 'my-users', body.uid);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
+  };
+  const getSystemUsers = async (body: TableParams) => {
+    const colRef = collection(db, 'my-users');
+    const queryParams = [];
+    if (body.sort) queryParams.push(orderBy(body.sort, body.order ?? 'asc'));
+    const q = query(colRef, ...queryParams);
+    const querySnapshot = await getDocs(q);
+    const res: DocumentData[] = [];
+    querySnapshot.forEach((doc) => {
+      res.push(doc.data());
+    });
+    return res;
+
+    // if(body.search) queryParams.push
+    // const docRef = doc(db, 'my-users', body.uid);
+    // const docSnap = await getDoc(docRef);
+    // return docSnap.data();
   };
   const updateMyProfile = async (body: Profile) => {
     const docRef = doc(db, 'my-users', body.uid);
@@ -158,6 +194,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
     // ====================== Profile ======================
     getMyProfile,
     updateMyProfile,
+    getSystemUsers,
     // ====================== File ======================
     uploadFile,
     getDecodeUrl,

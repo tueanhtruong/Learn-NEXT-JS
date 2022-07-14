@@ -2,7 +2,8 @@
 @use 'mixin' as *;
 
 .p-configuration {
-  margin-top: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   .p-configuration {
     &__slide {
       border-radius: 8px;

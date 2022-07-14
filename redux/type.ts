@@ -7,10 +7,11 @@ export type UnsafeReturnType<T> = T extends (...args: any[]) => infer R ? R : an
 export type KeysOfType<T, TProp> = { [P in keyof T]: T[P] extends TProp ? P : never }[keyof T];
 
 export type TableParams = {
-  skip: number;
-  take: number;
-  order?: string;
+  skip?: number;
+  take?: number;
+  order?: 'asc' | 'desc';
   search?: string;
+  sort?: string;
   [key: string]: number | boolean | string | string[] | undefined;
 };
 
