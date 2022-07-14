@@ -1,0 +1,11 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.p-configuration {
+  margin-top: 40px;
+  .p-configuration {
+    &__slide {
+      border-radius: 8px;
+    }
+  }
+}

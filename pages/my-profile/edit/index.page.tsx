@@ -52,10 +52,6 @@ const Profile: NextPage<Props> = ({
     });
   };
 
-  useComponentDidMount(() => {
-    if (isEmpty(myProfile) && user) onGetMyProfile({ uid: user.uid });
-  });
-
   const handleSubmit = (value: FormType) => {
     onUpdateMyProfile({
       payload: value as Profile,

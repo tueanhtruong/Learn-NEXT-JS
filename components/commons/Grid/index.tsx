@@ -6,10 +6,13 @@ const Wrap: React.FC<Props> = ({ children, className }) => {
   return <div className={cn('columns is-multiline', className)}>{children}</div>;
 };
 
-const Item: React.FC<Props> = ({ children, variant = 'is-half', className }) => {
+const Item: React.FC<Props> = ({ children, variant = 'is-half', className, ...props }) => {
   const isEmpty = !children;
   return (
-    <div className={cn('column', { 'cmp-grid__item--empty': isEmpty }, variant, className)}>
+    <div
+      className={cn('column', { 'cmp-grid__item--empty': isEmpty }, variant, className)}
+      {...props}
+    >
       {children}
     </div>
   );

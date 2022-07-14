@@ -8,7 +8,7 @@ import { IRootState } from '../redux/rootReducer';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { PATHS } from '../app-config/paths';
-import { useRef, useState } from 'react';
+import { Ref, useRef, useState } from 'react';
 import cn from 'classnames';
 
 const fadeImages: {
@@ -42,7 +42,7 @@ const fadeImages: {
 const Home: NextPage<Props> = ({ isAuthenticated }) => {
   const router = useRouter();
   const [currentSlide, setSlide] = useState<number>(0);
-  const bannerRef = useRef<SlideshowRef>(null);
+  const bannerRef = useRef<SlideshowRef>();
   const handleBannerClick = () => {
     if (isAuthenticated) return router.push(PATHS.shopping);
     return router.push(PATHS.signIn);
@@ -62,7 +62,7 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
         <Fade
           arrows={false}
           pauseOnHover={true}
-          ref={bannerRef}
+          ref={bannerRef as Ref<SlideshowRef>}
           duration={5000}
           transitionDuration={400}
           onChange={handleChangeSlide}

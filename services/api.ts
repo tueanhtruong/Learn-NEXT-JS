@@ -104,6 +104,13 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };
+  const getAdminProfile = async (body: { uid: string }) => {
+    const docRef = doc(db, 'configuration-admin', body.uid);
+    const docSnap = await getDoc(docRef);
+    const isExists = docSnap.exists();
+    if (isExists) return docSnap.data();
+    return undefined;
+  };
 
   // ====================== Profile ======================
   const getMyProfile = async (body: { uid: string }) => {
@@ -147,6 +154,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
     getUsers,
     // ====================== Configuration ======================
     getConfigAdmins,
+    getAdminProfile,
     // ====================== Profile ======================
     getMyProfile,
     updateMyProfile,

@@ -4,6 +4,7 @@ import { AdminAccount } from './type';
 
 export interface IConfigurationState {
   admins: AdminAccount[];
+  adminProfile?: AdminAccount;
   loading: boolean;
   error?: Error;
 }
@@ -12,6 +13,7 @@ const initialState: IConfigurationState = {
   admins: [],
   loading: false,
   error: undefined,
+  adminProfile: undefined,
 };
 
 export const configurationSlice = createSlice({
@@ -30,14 +32,31 @@ export const configurationSlice = createSlice({
       state.loading = false;
       state.error = action.payload ?? undefined;
     },
+    ////////////////////////////// Admin Profile //////////////////////////////
+    getAdminProfileAction: (state, action: PayloadAction<{ uid: string }>) => {
+      state.loading = true;
+    },
+    getAdminProfileSuccess: (state, action: PayloadAction<AdminAccount | null>) => {
+      state.loading = false;
+      state.adminProfile = action.payload ?? undefined;
+    },
+    getAdminProfileFailed: (state, action: PayloadAction<Error | null>) => {
+      state.loading = false;
+      state.error = action.payload ?? undefined;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
+  ////////////////////////////// ConfigurationAdmin //////////////////////////////
   getConfigurationAdminAction,
   getConfigurationAdminSuccess,
   getConfigurationAdminFailed,
+  ////////////////////////////// Admin Profile //////////////////////////////
+  getAdminProfileAction,
+  getAdminProfileFailed,
+  getAdminProfileSuccess,
 } = configurationSlice.actions;
 
 export const configurationState = configurationSlice.getInitialState();

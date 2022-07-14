@@ -18,14 +18,21 @@ const NAV_TYPES = {
   isText: 'TEXT',
 };
 
-const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSignOut }) => {
+const Navbar: React.FC<Props> = ({
+  user,
+  isAuthenticated = false,
+  isAdmin,
+  profile,
+  onSignOut,
+}) => {
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const router = useRouter();
+  const location = router.pathname;
 
   const getUserName = () => {
-    if (!user?.name) return 'Anonymous';
-    return `${user.name}`;
+    if (!profile?.displayName) return 'Anonymous';
+    return `${profile.displayName}`;
   };
 
   // const handleSignOut = () => {
@@ -117,19 +124,14 @@ const Navbar: React.FC<Props> = ({ user, isAuthenticated = false, isAdmin, onSig
   const renderNavItems = (item: any) => {
     switch (item.type) {
       case NAV_TYPES.isNavlink:
+        const isActive = location.includes(item.href);
         return (
-          <Link
-            href={item.href}
-            key={item.id}
-            // onClick={() => setToggleNavbar(!toggleNavbar)}
-            // className={"cmp-navbar__end--item cmp-navbar__end--item--link"}
-            // to={item.href}
-            // label={item.label}
-            // activeClassName={"cmp-navbar__end--item--active"}
-          >
+          <Link href={item.href} key={item.id}>
             <a
               onClick={() => setToggleNavbar(!toggleNavbar)}
-              className={'cmp-navbar__end--item cmp-navbar__end--item--link'}
+              className={cn('cmp-navbar__end--item cmp-navbar__end--item--link', {
+                'cmp-navbar__end--item--active': isActive,
+              })}
             >
               {item.label}
             </a>
@@ -224,6 +226,7 @@ const mapStateToProps = (state: IRootState) => ({
   user: state.auth.authUser,
   isAuthenticated: state.auth.isAuthenticated,
   isAdmin: state.auth.isAdmin,
+  profile: state.profile.myProfile,
 });
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({

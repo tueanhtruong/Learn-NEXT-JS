@@ -37,10 +37,6 @@ const Profile: NextPage<Props> = ({
   onUpdateMyProfile,
 }) => {
   const router = useRouter();
-  useComponentDidMount(() => {
-    if (isEmpty(myProfile) && user) onGetMyProfile({ uid: user.uid });
-  });
-
   const handleSignOut = () => {
     if (isAuthenticated) return onSignOut();
   };
@@ -77,16 +73,24 @@ const Profile: NextPage<Props> = ({
         <View className="section-container mt-24">
           <h3>Avatar</h3>
           <View isRow className="mt-16" align="center">
-            <FileRenderer
-              url={myProfile?.avatar ?? ''}
-              imgHeight={80}
-              imgWidth={80}
-              imageClassName="p-profile__avatar"
-              isAvatar
-              isUpdateOnChange
-            />
-            <Button label="Upload" className="mx-24" onClick={handleShowUploadModal} />
-            <Button label="Remove" variant="outline-danger" onClick={() => handleSaveAvatar('')} />
+            <View className="mr-24">
+              <FileRenderer
+                url={myProfile?.avatar ?? ''}
+                imgHeight={80}
+                imgWidth={80}
+                imageClassName="p-profile__avatar"
+                isAvatar
+                isUpdateOnChange
+              />
+            </View>
+            <View isRow>
+              <Button label="Upload" className="mr-24" onClick={handleShowUploadModal} />
+              <Button
+                label="Remove"
+                variant="outline-danger"
+                onClick={() => handleSaveAvatar('')}
+              />
+            </View>
           </View>
           <hr />
           <Grid.Wrap>

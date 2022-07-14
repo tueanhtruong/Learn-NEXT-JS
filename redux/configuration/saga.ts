@@ -1,7 +1,13 @@
 import { call, takeLatest } from 'redux-saga/effects';
 import { Apis } from '../../services/api';
 import { callFirebaseApi } from '../commonSagas/callApi';
-import { getConfigurationAdminAction, getConfigurationAdminSuccess } from './configurationSlice';
+import {
+  getAdminProfileAction,
+  getAdminProfileFailed,
+  getAdminProfileSuccess,
+  getConfigurationAdminAction,
+  getConfigurationAdminSuccess,
+} from './configurationSlice';
 
 function* getConfigurationAdmin(api: any, action: { payload: any }) {
   yield call(
@@ -16,6 +22,18 @@ function* getConfigurationAdmin(api: any, action: { payload: any }) {
     action.payload
   );
 }
+function* getAdminProfile(api: any, action: { payload: any }) {
+  yield call(
+    callFirebaseApi,
+    api,
+    {
+      successAction: getAdminProfileSuccess,
+      responseExtractor: (response) => response,
+      failureAction: getAdminProfileFailed,
+    },
+    action.payload
+  );
+}
 
 export default function configurationSaga(apiInstance: Apis) {
   return [
@@ -23,6 +41,11 @@ export default function configurationSaga(apiInstance: Apis) {
       getConfigurationAdminAction.type,
       getConfigurationAdmin,
       apiInstance.getConfigAdmins
+    ),
+    takeLatest<string, any>(
+      getAdminProfileAction.type,
+      getAdminProfile,
+      apiInstance.getAdminProfile
     ),
   ];
 }
