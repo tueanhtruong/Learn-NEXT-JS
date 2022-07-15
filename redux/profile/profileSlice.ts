@@ -3,10 +3,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { Profile } from './type';
 import { Callback, TableParams } from '../type';
 import { signOutActionSuccess } from '../auth/authSlice';
+import { IRootState } from '../rootReducer';
 
 export interface IProfileState {
   myProfile?: Profile;
   userProfiles: Profile[];
+  selectedProfile?: Profile;
+  previousParams?: TableParams;
   loading: boolean;
   error?: Error;
 }
@@ -14,14 +17,21 @@ export interface IProfileState {
 const initialState: IProfileState = {
   myProfile: undefined,
   loading: false,
+  selectedProfile: undefined,
   error: undefined,
+  previousParams: undefined,
   userProfiles: [],
 };
+
+export const getProfilePreviousParams = (state: IRootState) => state.profile.previousParams;
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
+    setSelectedProfile: (state, action: PayloadAction<Profile>) => {
+      state.selectedProfile = action.payload;
+    },
     ////////////////////////////// getMyProfile //////////////////////////////
     getMyProfileAction: (state, action: PayloadAction<{ uid: string }>) => {
       state.loading = true;
@@ -37,16 +47,19 @@ export const profileSlice = createSlice({
     ////////////////////////////// updateMyProfile //////////////////////////////
     updateMyProfileAction: (
       state,
-      action: PayloadAction<{ payload: Profile; callback?: Callback }>
+      action: PayloadAction<{ payload: Profile; callback?: Callback; isAdminAction?: boolean }>
     ) => {
       state.loading = true;
     },
     updateMyProfileSuccess: (
       state,
-      action: PayloadAction<{ payload: Profile; callback?: Callback }>
+      action: PayloadAction<{ payload: Profile; callback?: Callback; isAdminAction?: boolean }>
     ) => {
+      const { payload, isAdminAction } = action.payload;
       state.loading = false;
-      state.myProfile = action.payload.payload ?? undefined;
+      if (!isAdminAction) {
+        state.myProfile = payload ?? undefined;
+      }
     },
     updateMyProfileFailed: (state, action: PayloadAction<Error>) => {
       state.loading = false;
@@ -55,6 +68,7 @@ export const profileSlice = createSlice({
     ////////////////////////////// getSystemUsers //////////////////////////////
     getSystemUsersAction: (state, action: PayloadAction<TableParams>) => {
       state.loading = true;
+      state.previousParams = action.payload;
     },
     getSystemUsersSuccess: (state, action: PayloadAction<Profile[]>) => {
       state.loading = false;
@@ -74,6 +88,7 @@ export const profileSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setSelectedProfile,
   ////////////////////////////// getMyProfile //////////////////////////////
   getMyProfileAction,
   getMyProfileSuccess,

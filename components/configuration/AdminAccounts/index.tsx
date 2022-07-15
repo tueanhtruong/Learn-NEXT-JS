@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { getConfigurationAdminAction } from '../../../redux/configuration/configurationSlice';
 import { showModal } from '../../../redux/modal/modalSlice';
 import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
-import { getSystemUsersAction } from '../../../redux/profile/profileSlice';
+import { getSystemUsersAction, setSelectedProfile } from '../../../redux/profile/profileSlice';
+import { Profile } from '../../../redux/profile/type';
 import { IRootState } from '../../../redux/rootReducer';
 import { TableParams } from '../../../redux/type';
 import { Table, View } from '../../commons';
@@ -18,12 +19,10 @@ const Configuration: NextPage<Props> = ({
   adminAccounts,
   userProfiles,
   onGetSystemUsers,
+  onSetSelectedProfile,
   onGetConfigurationAdmins,
   onShowModal,
 }) => {
-  // useComponentDidMount(() => {
-  //   if (isEmpty(userProfiles)) onGetSystemUsers({});
-  // });
   const handleGetUsers = (params: TableParams) => {
     onGetSystemUsers(params);
   };
@@ -31,11 +30,12 @@ const Configuration: NextPage<Props> = ({
     const index = meta.rowIndex;
     // eslint-disable-next-line security/detect-object-injection
     const selectedRecord = userProfiles[index];
+    onSetSelectedProfile(selectedRecord);
     onShowModal({
       type: MODAL_TYPES.CONTENT_MODAL,
       data: {
         title: 'Account Detail',
-        content: <AccountDetail data={selectedRecord} />,
+        content: <AccountDetail />,
       },
     });
   };
@@ -85,6 +85,7 @@ const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => 
   onGetConfigurationAdmins: (payload: TableParams | null) =>
     dispatch(getConfigurationAdminAction(payload)),
   onGetSystemUsers: (payload: TableParams) => dispatch(getSystemUsersAction(payload)),
+  onSetSelectedProfile: (payload: Profile) => dispatch(setSelectedProfile(payload)),
   onShowModal: (payload: { data: ModalData; type: string }) => dispatch(showModal(payload)),
 });
 

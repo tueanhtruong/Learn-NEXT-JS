@@ -38,6 +38,9 @@
     &.is-loading {
       opacity: 0.7;
     }
+    &.is-banner {
+      object-fit: contain;
+    }
   }
 
   &__image-close {

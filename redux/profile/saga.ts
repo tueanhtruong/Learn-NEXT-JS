@@ -1,10 +1,12 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { Apis } from '../../services/api';
 import { callFirebaseApi } from '../commonSagas/callApi';
+import { TableParams } from '../type';
 import {
   getMyProfileAction,
   getMyProfileFailed,
   getMyProfileSuccess,
+  getProfilePreviousParams,
   getSystemUsersAction,
   getSystemUsersFailed,
   getSystemUsersSuccess,
@@ -42,22 +44,30 @@ function* getSystemUsers(api: any, action: { payload: any }) {
 }
 
 function* updateMyProfile(api: any, action: { payload: any }) {
-  const { payload } = action.payload;
+  const { payload, callback, isAdminAction } = action.payload;
   yield call(
     callFirebaseApi,
     api,
     {
       successAction: updateMyProfileSuccess,
-      responseExtractor: (response) => action.payload,
+      responseExtractor: (response) => ({
+        callback,
+        payload,
+        isAdminAction,
+      }),
       failureAction: updateMyProfileFailed,
     },
     payload
   );
 }
 
-function updateProfileSuccess(action: any) {
-  const { callback } = action.payload;
+function* updateProfileSuccess(action: any) {
+  const { callback, isAdminAction } = action.payload;
   if (callback) callback();
+  if (isAdminAction) {
+    const params: TableParams = yield select(getProfilePreviousParams);
+    yield put(getSystemUsersAction(params));
+  }
 }
 
 export default function configurationSaga(apiInstance: Apis) {

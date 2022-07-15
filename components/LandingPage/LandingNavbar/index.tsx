@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../app-config/images';
-import { HIDE_NAV_PATHS, PATHS } from '../../app-config/paths';
-import { IRootState } from '../../redux/rootReducer';
-import { Button, Text, View } from '../commons';
-import { ButtonVariant } from '../commons/Button';
-import BurgerButton from './BurgerButton';
-import { signOutAction } from '../../redux/auth/authSlice';
+import { IMAGES } from '../../../app-config/images';
+import { PATHS } from '../../../app-config/paths';
+import { IRootState } from '../../../redux/rootReducer';
+import { Button, Text, View } from '../../commons';
+import { ButtonVariant } from '../../commons/Button';
+import { signOutAction } from '../../../redux/auth/authSlice';
 import Image from 'next/image';
+import BurgerButton from '../../Navbar/BurgerButton';
 
 const NAV_TYPES = {
   isNavlink: 'NAV_LINK',
@@ -30,75 +30,10 @@ const Navbar: React.FC<Props> = ({
   const router = useRouter();
   const location = router.pathname;
 
-  if (HIDE_NAV_PATHS.includes(location)) return null;
-
   const getUserName = () => {
     if (!profile?.displayName) return 'Anonymous';
     return `${profile.displayName}`;
   };
-
-  // const handleSignOut = () => {
-  //   if (user?.emailPasswordAuthentication) return onSignOut();
-  //   // return signOut();
-  // };
-
-  // menu
-  const navbarAuthItems = [
-    {
-      id: 'Dev',
-      label: 'Dev Center',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.dev,
-    },
-    {
-      id: 'shop',
-      label: 'Shop',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.shopping,
-    },
-    {
-      id: 'profile',
-      label: 'My Profile',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.myProfile,
-    },
-    {
-      id: 'UserName',
-      label: getUserName(),
-      type: NAV_TYPES.isText,
-    },
-  ];
-  const navbarAdminItems = [
-    {
-      id: 'Dev',
-      label: 'Dev Center',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.dev,
-    },
-    {
-      id: 'config',
-      label: 'Configuration',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.configuration,
-    },
-    {
-      id: 'profile',
-      label: 'My Profile',
-      type: NAV_TYPES.isNavlink,
-      href: PATHS.myProfile,
-    },
-    {
-      id: 'UserName',
-      label: getUserName(),
-      type: NAV_TYPES.isText,
-    },
-    // {
-    //   id: 'LogIn',
-    //   label: 'Log out',
-    //   type: NAV_TYPES.isText,
-    //   onClick: () => handleSignOut(),
-    // },
-  ];
 
   const navbarUnAuthItems = [
     {
@@ -123,6 +58,26 @@ const Navbar: React.FC<Props> = ({
     },
   ];
 
+  const navbarAuthItems = [
+    {
+      id: 'Dev',
+      label: 'Dev Center',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.dev,
+    },
+    {
+      id: 'profile',
+      label: 'My Profile',
+      type: NAV_TYPES.isNavlink,
+      href: PATHS.myProfile,
+    },
+    {
+      id: 'UserName',
+      label: getUserName(),
+      type: NAV_TYPES.isText,
+    },
+  ];
+
   const renderNavItems = (item: any) => {
     switch (item.type) {
       case NAV_TYPES.isNavlink:
@@ -131,8 +86,8 @@ const Navbar: React.FC<Props> = ({
           <Link href={item.href} key={item.id}>
             <a
               onClick={() => setToggleNavbar(!toggleNavbar)}
-              className={cn('cmp-navbar__end--item cmp-navbar__end--item--link', {
-                'cmp-navbar__end--item--active': isActive,
+              className={cn('cmp-landing-nav__end--item cmp-landing-nav__end--item--link', {
+                'cmp-landing-nav__end--item--active': isActive,
               })}
             >
               {item.label}
@@ -145,7 +100,7 @@ const Navbar: React.FC<Props> = ({
             key={item.id}
             variant={item.buttonVar as ButtonVariant}
             label={item.label}
-            className={cn('cmp-navbar__end--button')}
+            className={cn('cmp-landing-nav__end--button')}
             onClick={item?.onClick}
             iconPosition="left"
             icon={item?.icon}
@@ -157,8 +112,8 @@ const Navbar: React.FC<Props> = ({
             size={14}
             key={item.id}
             onClick={item.onClick}
-            className={cn('cmp-navbar__end--item', {
-              ['cmp-navbar__end--item--link']: !!item.onClick,
+            className={cn('cmp-landing-nav__end--item', {
+              ['cmp-landing-nav__end--item--link']: !!item.onClick,
             })}
           >
             {item.label}
@@ -171,25 +126,21 @@ const Navbar: React.FC<Props> = ({
 
   const renderNavListItems = (items: Array<any>) => items.map((item) => renderNavItems(item));
 
-  const listItems = isAuthenticated
-    ? isAdmin
-      ? navbarAdminItems
-      : navbarAuthItems
-    : navbarUnAuthItems;
+  const listItems = isAuthenticated ? navbarAuthItems : navbarUnAuthItems;
   return (
     <nav
-      className={cn('cmp-navbar', 'navbar', 'jump-down')}
+      className={cn('cmp-landing-nav', 'navbar', 'jump-down')}
       ref={navbarRef}
       role="navigation"
       aria-label="main navigation"
     >
-      <View className={cn('cmp-navbar__container', 'c-container')}>
-        <View isRow flexGrow={1} className={cn('cmp-navbar__branch', 'navbar-brand')}>
+      <View className={cn('cmp-landing-nav__container', 'c-container')}>
+        <View isRow flexGrow={1} className={cn('cmp-landing-nav__branch', 'navbar-brand')}>
           <Link href={PATHS.root} passHref>
             <a>
               <Image
-                className={'justify-center cmp-navbar__logo'}
-                src={IMAGES.logoCode}
+                className={'justify-center cmp-landing-nav__logo'}
+                src={IMAGES.logoEarth}
                 alt="Unset"
                 width={54}
                 height={54}
@@ -198,7 +149,7 @@ const Navbar: React.FC<Props> = ({
           </Link>
 
           <BurgerButton
-            className={'cmp-navbar__burger'}
+            className={'cmp-landing-nav__burger'}
             target="navigation-menu"
             isActive={toggleNavbar}
             onClick={() => setToggleNavbar(!toggleNavbar)}
@@ -210,11 +161,11 @@ const Navbar: React.FC<Props> = ({
           id="navigation-menu"
           className={cn('navbar-menu', {
             ['is-active']: toggleNavbar === true,
-            ['cmp-navbar__items--hide']: toggleNavbar === true,
+            ['cmp-landing-nav__items--hide']: toggleNavbar === true,
           })}
           flexGrow={1}
         >
-          <View isRow className={cn('navbar-end', 'cmp-navbar__end')}>
+          <View isRow className={cn('navbar-end', 'cmp-landing-nav__end')}>
             {renderNavListItems(listItems)}
           </View>
         </View>
@@ -236,5 +187,3 @@ const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
-
-// export default Navbar;

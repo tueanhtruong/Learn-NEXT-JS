@@ -1,11 +1,13 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Ref, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Fade, SlideshowRef } from 'react-slideshow-image';
 import { IMAGES } from '../../app-config/images';
-import { Grid, LoadingCommon, View } from '../../components/commons';
+import { PATHS } from '../../app-config/paths';
+import { Grid, LoadingCommon, Text, View } from '../../components/commons';
 import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '../../components/configuration';
 import { ItemSidebar } from '../../components/configuration/Sidebar';
 import LayoutFull from '../../layout/LayoutFull';
@@ -18,6 +20,7 @@ const enum SidebarTab {
   SHOP = 'SHOP',
   ORDER = 'ORDER',
   PAYMENT = 'PAYMENT',
+  ANIMATION = 'ANIMATION',
 }
 
 const items: ItemSidebar[] = [
@@ -26,7 +29,7 @@ const items: ItemSidebar[] = [
     tab: SidebarTab.ADMIN,
   },
   {
-    label: 'Banner',
+    label: 'Banner Configuration',
     tab: SidebarTab.BANNER,
   },
   {
@@ -34,12 +37,8 @@ const items: ItemSidebar[] = [
     tab: SidebarTab.SHOP,
   },
   {
-    label: 'Order',
-    tab: SidebarTab.ORDER,
-  },
-  {
-    label: 'Payment',
-    tab: SidebarTab.PAYMENT,
+    label: 'Animation',
+    tab: SidebarTab.ANIMATION,
   },
 ];
 
@@ -56,6 +55,20 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
       align="center"
     >
       <LoadingCommon />
+    </View>,
+    <View
+      key={`sidebar-item-${SidebarTab.ANIMATION}-placeholder`}
+      className="py-32"
+      justify="center"
+      align="center"
+    >
+      <Link href={PATHS.starFall}>
+        <a>
+          <Text size={20} className="fw-bold">
+            Star Fall
+          </Text>
+        </a>
+      </Link>
     </View>,
   ];
 
@@ -74,6 +87,7 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
   useEffect(() => {
     if (tab === SidebarTab.ADMIN) handleSetTab(0);
     else if (tab === SidebarTab.BANNER) handleSetTab(1);
+    else if (tab === SidebarTab.ANIMATION) handleSetTab(3);
     else handleSetTab(2);
   }, [tab]);
 

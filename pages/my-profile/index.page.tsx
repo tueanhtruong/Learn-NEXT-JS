@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import { connect } from 'react-redux';
 import { IMAGES } from '../../app-config/images';
 import {
@@ -100,7 +99,10 @@ const Profile: NextPage<Props> = ({
           </Grid.Wrap>
           <hr />
           <Grid.Wrap>
-            <ViewItem label={'Phone Number'} value={formatPhoneNumber(myProfile?.phoneNumber)} />
+            <ViewItem
+              label={'Phone Number'}
+              value={formatPhoneNumber(myProfile?.phoneNumber ?? '')}
+            />
             <ViewItem label={'Email'} value={myProfile?.email} />
           </Grid.Wrap>
           <hr />

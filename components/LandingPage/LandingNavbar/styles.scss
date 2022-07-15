@@ -1,7 +1,7 @@
 @use 'vars' as *;
 @use 'mixin' as *;
 
-.cmp-navbar {
+.cmp-landing-nav {
   // box-shadow: $default-shadow;
 
   &.navbar {
@@ -11,19 +11,20 @@
     right: 0;
     width: 100%;
     z-index: 102;
+    background: rgba(20, 20, 20);
   }
 
   &.jump-down {
-    animation: jumpDown 0.6s;
+    // animation: jumpDown 0.6s;
 
-    @keyframes jumpDown {
-      0% {
-        transform: translateY(-100%);
-      }
-      100% {
-        transform: translateY(0);
-      }
-    }
+    // @keyframes jumpDown {
+    //   0% {
+    //     transform: translateY(-100%);
+    //   }
+    //   100% {
+    //     transform: translateY(0);
+    //   }
+    // }
   }
 
   &__container {
@@ -64,7 +65,7 @@
 
   &__logo {
     height: 3rem;
-    padding-top: 6px !important;
+    padding-top: 4px !important;
     object-fit: contain;
     padding: 0;
     border-radius: 50%;
@@ -79,6 +80,9 @@
     &--button {
       margin: 0 20px;
       align-self: center;
+      background: linear-gradient(268.65deg, #e435f2 -12.73%, #4543dd 116.45%);
+      padding: 0 40px;
+      border-radius: 40px;
     }
 
     &--dropdown {
@@ -94,7 +98,7 @@
       font-size: 14px;
 
       &--link {
-        color: $color-text-gray;
+        color: $color-white;
         position: relative;
         font-weight: $font-weight-medium;
 
@@ -106,21 +110,23 @@
           transform: translateX(-50%);
           width: 0%;
           height: 4px;
-          background-color: $color-primary;
+          background-color: $color-white;
           margin: auto;
           transition: $default-transition;
         }
 
         @include hover {
-          color: $color-primary;
-          text-decoration: none;
+          color: $color-white;
+          // color: $color-text;
+          // color: linear-gradient(268.65deg, #e435f2 -12.73%, #4543dd 116.45%);
+          // text-decoration: none;
           &::before {
             width: 100%;
           }
         }
 
         @include focus {
-          color: $color-primary;
+          color: $color-white;
           text-decoration: none;
           &::before {
             width: 100%;
@@ -130,6 +136,7 @@
 
       &:last-child {
         margin-right: 0;
+        color: $color-white;
       }
 
       &--disabled {
@@ -137,11 +144,8 @@
       }
 
       &--active {
-        color: $color-primary;
         text-decoration: none;
-        &::before {
-          width: 100%;
-        }
+        color: $color-white;
       }
     }
   }
@@ -151,7 +155,7 @@
     }
   }
   @include desktopScreen {
-    .cmp-navbar {
+    .cmp-landing-nav {
       &__items--hide {
         display: none;
       }
@@ -197,7 +201,7 @@
   }
 
   @include mobileScreen {
-    .cmp-navbar__end {
+    .cmp-landing-nav__end {
       &--item--link {
         font-size: 16px;
         padding: 8px;

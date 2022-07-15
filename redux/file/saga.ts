@@ -14,8 +14,10 @@ import {
 import { GetPresignedPayload } from './type';
 
 function* handleUploadFile(api: any, action: { payload: GetPresignedPayload }) {
-  const { fileName, contentType, fileData, type, callback } = action.payload;
-  const compressedFile: File | Blob = yield call(compressFile as any, fileData);
+  const { fileName, contentType, fileData, type, callback, keepOriginalQuality } = action.payload;
+  const compressedFile: File | Blob = keepOriginalQuality
+    ? fileData
+    : yield call(compressFile as any, fileData);
   const payload = {
     fileName: `${type}/${getRandomId()}-${fileName}`,
     contentType,

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { Fragment, ReactElement, useRef } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import { IMAGES } from '../../../app-config/images';
@@ -9,6 +9,7 @@ import { IRootState } from '../../../redux/rootReducer';
 import { Callback } from '../../../redux/type';
 import FileUpload from '../FileUpload';
 import View from '../View';
+import cn from 'classnames';
 
 const AttachmentUploadButton: React.FC<Props> = ({
   filetype = 'avatars',
@@ -16,6 +17,7 @@ const AttachmentUploadButton: React.FC<Props> = ({
   content = 'upload',
   onAddAttachment,
   isAvatar = true,
+  isBannerImage = false,
   onError,
 }) => {
   const inputRef = useRef<HTMLInputElement>();
@@ -30,10 +32,10 @@ const AttachmentUploadButton: React.FC<Props> = ({
   };
 
   return (
-    <View className="cmp-upload-button">
+    <View className={cn('cmp-upload-button')}>
       <Image
-        className="cmp-upload-button__image"
-        src={IMAGES.avatarPlaceholder}
+        className={cn('cmp-upload-button__image')}
+        src={isBannerImage ? IMAGES.imgPlaceholder : IMAGES.avatarPlaceholder}
         width={184}
         height={184}
         alt="Unset"
@@ -62,6 +64,7 @@ type Props = ReturnType<typeof mapStateToProps> &
     content?: string;
     onAddAttachment: Callback;
     isAvatar?: boolean;
+    isBannerImage?: boolean;
     onError: (value: any) => void;
   };
 

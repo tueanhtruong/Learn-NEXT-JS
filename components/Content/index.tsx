@@ -9,6 +9,7 @@ import { isEmpty } from '../../validations';
 import { useEffect } from 'react';
 import { setIsAdminRole } from '../../redux/auth/authSlice';
 import { getMyProfileAction } from '../../redux/profile/profileSlice';
+import { TableParams } from '../../redux/type';
 
 const Screen: NextPage<Props> = ({
   authUser,
@@ -65,7 +66,8 @@ const mapStateToProps = (state: IRootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
-  onGetAdminConfiguration: () => dispatch(getConfigurationAdminAction()),
+  onGetAdminConfiguration: (payload: TableParams | null) =>
+    dispatch(getConfigurationAdminAction(payload)),
   onGetMyAdminProfile: (payload: { uid: string }) => dispatch(getAdminProfileAction(payload)),
   onSetIsAdminRole: (payload: boolean) => dispatch(setIsAdminRole(payload)),
   onGetMyProfile: (payload: { uid: string }) => dispatch(getMyProfileAction(payload)),

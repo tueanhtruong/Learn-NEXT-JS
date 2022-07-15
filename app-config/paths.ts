@@ -11,6 +11,8 @@ export const PATHS = {
   editProfile: '/my-profile/edit',
   shopping: '/shopping',
   configuration: '/configuration',
+  ////////////////////////////////////////////
+  starFall: '/star-fall',
 };
 
 export const PRIVATE_PATHS = [
@@ -19,3 +21,4 @@ export const PRIVATE_PATHS = [
   PATHS.editProfile,
   PATHS.shopping,
 ];
+export const HIDE_NAV_PATHS = [PATHS.starFall];
