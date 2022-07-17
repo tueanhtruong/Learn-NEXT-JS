@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { IMAGES } from '../../app-config/images';
 import { HIDE_NAV_PATHS, PATHS } from '../../app-config/paths';
@@ -11,6 +11,8 @@ import { ButtonVariant } from '../commons/Button';
 import BurgerButton from './BurgerButton';
 import { signOutAction } from '../../redux/auth/authSlice';
 import Image from 'next/image';
+import useMeasure from '../../hooks/useMeasure';
+import { setScreenWidth } from '../../redux/content/contentSlice';
 
 const NAV_TYPES = {
   isNavlink: 'NAV_LINK',
@@ -24,9 +26,17 @@ const Navbar: React.FC<Props> = ({
   isAdmin,
   profile,
   onSignOut,
+  onSetScreenWith,
 }) => {
   const [toggleNavbar, setToggleNavbar] = useState(false);
-  const navbarRef = useRef<HTMLElement>(null);
+  const {
+    bind,
+    bounds: { width },
+  } = useMeasure();
+  useEffect(() => {
+    onSetScreenWith(width);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
   const router = useRouter();
   const location = router.pathname;
 
@@ -179,7 +189,8 @@ const Navbar: React.FC<Props> = ({
   return (
     <nav
       className={cn('cmp-navbar', 'navbar', 'jump-down')}
-      ref={navbarRef}
+      // ref={navbarRef}
+      {...bind}
       role="navigation"
       aria-label="main navigation"
     >
@@ -233,6 +244,7 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onSignOut: () => dispatch(signOutAction()),
+  onSetScreenWith: (payload: number) => dispatch(setScreenWidth(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

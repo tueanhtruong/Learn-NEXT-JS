@@ -1,23 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Todo } from './type';
+import { number } from 'yup';
 
 export interface IContentState {
   value: number;
   todoList: Todo[];
   loading: boolean;
+  screenWidth: number;
 }
 
 const initialState: IContentState = {
   value: 0,
   todoList: [],
   loading: false,
+  screenWidth: 0,
 };
 
 export const contentSlice = createSlice({
   name: 'content',
   initialState,
   reducers: {
+    setScreenWidth: (state, action: PayloadAction<number>) => {
+      state.screenWidth = action.payload;
+    },
     incrementValue: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
@@ -43,6 +49,7 @@ export const contentSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setScreenWidth,
   incrementValue,
   decrementValue,
   incrementByAmount,

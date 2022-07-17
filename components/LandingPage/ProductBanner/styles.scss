@@ -46,6 +46,7 @@
         border-radius: 0;
         position: relative;
         object-fit: cover;
+        object-position: center;
       }
       &__label {
         position: absolute;
@@ -58,7 +59,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        transform: translateY(180px);
+        transform: translateY(220px);
         transition: 0.4s ease-out;
         transition-delay: 0.1s;
       }
@@ -72,7 +73,7 @@
         max-width: 90%;
         overflow: hidden;
         text-overflow: ellipsis;
-        transform: translateY(180px);
+        transform: translateY(220px);
         transition: 0.4s ease-out;
       }
     }

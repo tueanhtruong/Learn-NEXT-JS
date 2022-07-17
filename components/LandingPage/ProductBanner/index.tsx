@@ -7,7 +7,22 @@ import { TableParams } from '../../../redux/type';
 import { isEmpty } from '../../../validations';
 import { FileRenderer, LoadingCommon, Text, View } from '../../commons';
 
-const ProductBanner: NextPage<Props> = ({ user, loading, banners, onGetConfigurationBanners }) => {
+const getBannerWidth = (width: number): number => {
+  if (!width) return 324;
+  const isMobile = width < 768;
+  const isDesktop = width < 1215;
+  if (isMobile) return (width * 0.9) / 1.2;
+  if (isDesktop) return (width * 0.9) / 2.4;
+  return (width * 0.9) / 4.8;
+};
+
+const ProductBanner: NextPage<Props> = ({
+  user,
+  screenWidth,
+  loading,
+  banners,
+  onGetConfigurationBanners,
+}) => {
   useComponentDidMount(() => {
     if (isEmpty(banners)) onGetConfigurationBanners({ order: 'asc', sort: 'order' });
   });
@@ -21,16 +36,17 @@ const ProductBanner: NextPage<Props> = ({ user, loading, banners, onGetConfigura
   }
 
   const showBanners = banners.slice(0, 4);
+  const width = getBannerWidth(screenWidth);
 
   return (
-    <View className="cmp-pro-banner" isRow justify="space-between" align="center">
+    <View className="cmp-pro-banner" isRow justify="center" align="center">
       {showBanners.map((banner, idx) => {
         return (
           <View className="cmp-pro-banner__item" key={`product-banner-${idx}`}>
             <FileRenderer
               url={banner.image}
-              imgHeight={324}
-              imgWidth={324}
+              imgHeight={width}
+              imgWidth={width}
               imageClassName="cmp-pro-banner__item__image"
             />
             <Text size={32} className="cmp-pro-banner__item__label">
@@ -49,6 +65,7 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.configuration.loading,
   user: state.auth.authUser,
   banners: state.configuration.banners,
+  screenWidth: state.content.screenWidth,
 });
 
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
