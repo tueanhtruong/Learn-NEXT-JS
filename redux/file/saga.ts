@@ -1,4 +1,4 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Apis } from '../../services/api';
 import { compressFile, getRandomId } from '../../utils';
 import { callFileApi, callFirebaseApi } from '../commonSagas/callApi';
@@ -72,7 +72,7 @@ export default function contentSaga(apiInstance: Apis) {
   return [
     takeLatest<string, any>(uploadFileAction.type, handleUploadFile, apiInstance.uploadFile),
     takeLatest<string, any>(uploadFileSuccess.type, handleUploadFileSuccess),
-    takeLatest<string, any>(getDecodeUrlAction.type, handleGetDecodeUrl, apiInstance.getDecodeUrl),
-    takeLatest<string, any>(getDecodeUrlSuccess.type, handleGetDecodeUrlSuccess),
+    takeEvery<string, any>(getDecodeUrlAction.type, handleGetDecodeUrl, apiInstance.getDecodeUrl),
+    takeEvery<string, any>(getDecodeUrlSuccess.type, handleGetDecodeUrlSuccess),
   ];
 }

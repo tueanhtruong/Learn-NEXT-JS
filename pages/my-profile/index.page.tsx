@@ -27,7 +27,6 @@ import { Callback } from '../../redux/type';
 import { formatPhoneNumber } from 'react-phone-number-input';
 
 const Profile: NextPage<Props> = ({
-  user,
   loading,
   myProfile,
   isAuthenticated,

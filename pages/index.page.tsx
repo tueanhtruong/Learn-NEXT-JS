@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { PATHS } from '../app-config/paths';
 import { Ref, useRef, useState } from 'react';
 import cn from 'classnames';
+import ProductBanner from '../components/LandingPage/ProductBanner';
 
 const fadeImages: {
   urlKey: keyof typeof IMAGES;
@@ -105,6 +106,13 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
             />
           ))}
         </View>
+      </View>
+      <View className="p-landing__product-banner py-64" align="center">
+        <h1>Lorem Ipsum</h1>
+        <Text size={18}>
+          Vestibulum semper tortor suscipit velit molestie, in convallis justo porta.
+        </Text>
+        <ProductBanner />
       </View>
     </View>
   );

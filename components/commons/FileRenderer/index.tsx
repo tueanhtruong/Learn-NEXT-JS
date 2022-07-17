@@ -2,6 +2,7 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader';
 import { FiPaperclip } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { connect } from 'react-redux';
@@ -13,6 +14,25 @@ import { Callback } from '../../../redux/type';
 import { FileCache } from '../../../services';
 import { isURLImage } from '../../../utils';
 import View from '../View';
+
+type PlaceholderProps = {
+  imgWidth: string;
+  imgHeight: string;
+};
+
+const Placeholder = ({ imgHeight, imgWidth }: PlaceholderProps) => {
+  return (
+    <View style={{ minHeight: imgHeight, minWidth: imgWidth }}>
+      <ContentLoader
+        viewBox={`0 0 ${imgWidth} ${imgHeight}`}
+        backgroundColor="rgba(97, 97, 97, 0.2)"
+        speed={2}
+      >
+        <rect x="0" y="0" rx="0" ry="0" width={imgWidth} height={imgHeight} />
+      </ContentLoader>
+    </View>
+  );
+};
 
 const FileRenderer: React.FC<Props> = ({
   url,
@@ -78,14 +98,15 @@ const FileRenderer: React.FC<Props> = ({
           alt="Unset"
         />
       );
-    return null;
+    return <Placeholder imgHeight={`${imgHeight}`} imgWidth={`${imgWidth}`} />;
   }
 
   const allowRemove = !!onRemove;
 
   if (isImage)
     return (
-      <View className={cn('cmp-file-upload__image mb-2')}>
+      <View className={cn('cmp-file-upload__image')}>
+        {/* <Placeholder imgHeight={`${imgHeight}`} imgWidth={`${imgWidth}`} /> */}
         <Image
           className={cn(
             'cmp-file-upload__image fit-image',
@@ -146,7 +167,7 @@ const FileRenderer: React.FC<Props> = ({
       </View>
     );
   }
-  return null;
+  return <Placeholder imgHeight={`${imgHeight}`} imgWidth={`${imgWidth}`} />;
 };
 
 type Props = ReturnType<typeof mapStateToProps> &
