@@ -21,4 +21,4 @@ export const PRIVATE_PATHS = [
   PATHS.editProfile,
   PATHS.shopping,
 ];
-export const HIDE_NAV_PATHS = [PATHS.starFall];
+export const HIDE_NAV_PATHS = [PATHS.starFall, PATHS.root];

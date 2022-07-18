@@ -11,9 +11,9 @@ const getBannerWidth = (width: number): number => {
   if (!width) return 324;
   const isMobile = width < 768;
   const isDesktop = width < 1215;
-  if (isMobile) return (width * 0.9) / 1.2;
-  if (isDesktop) return (width * 0.9) / 2.4;
-  return (width * 0.9) / 4.8;
+  if (isMobile) return (width * 0.95) / 1.2;
+  if (isDesktop) return (width * 0.95) / 2.4;
+  return (width * 0.95) / 4.4;
 };
 
 const ProductBanner: NextPage<Props> = ({

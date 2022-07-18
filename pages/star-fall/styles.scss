@@ -187,7 +187,7 @@
     &__banner {
       background: radial-gradient(284.62% 906.04% at 190.3% 333.85%, #191038 0%, #320b7f 100%);
       position: relative;
-      height: calc(100vh - $navbar-height);
+      height: calc(100vh);
       overflow: hidden;
     }
     &__wave {

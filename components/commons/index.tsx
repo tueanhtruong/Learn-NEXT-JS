@@ -20,3 +20,4 @@ export { default as Table } from './Table';
 export { default as TableBasic } from './TableBasic';
 export { default as Checkbox } from './Checkbox';
 export { default as InputMask } from './InputMask';
+export { default as MuiPopUp } from './MuiPopUp';

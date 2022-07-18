@@ -1,4 +1,4 @@
-import logoCodeImage from '../assets/images/logo-code.webp';
+import logoCodeImage from '../assets/images/logo.svg';
 import logoEarth from '../assets/images/logo-earth.png';
 import backgroundUam from '../assets/images/bg-uam.jpg';
 import banner1 from '../assets/images/banner-1.jpg';
