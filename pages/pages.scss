@@ -69,6 +69,7 @@
             margin-top: 16px;
             width: fit-content;
             font-weight: 600;
+            letter-spacing: 0.05em;
             &:hover {
               background-color: $color-primary;
               border-color: $color-primary;
@@ -84,6 +85,32 @@
         text-align: right;
         text-orientation: use-glyph-orientation;
         transform: rotateZ(180deg);
+        @include mobileScreen {
+          text-align: left;
+          writing-mode: horizontal-tb;
+          transform: rotateZ(0);
+        }
+      }
+    }
+    // &__selling {
+    //   @include mobileScreen {
+    //     align-items: center;
+    //   }
+    //   &__index {
+    //     font-weight: 900;
+    //     line-height: 1em;
+    //     color: #bdbdbd;
+    //   }
+    //   &__price {
+    //     color: #f3a270;
+    //     line-height: 2em;
+    //     font-weight: 500;
+    //   }
+    // }
+    &__footer {
+      background-color: #bdbdbd90;
+      &__avatar {
+        border-radius: 50%;
       }
     }
   }

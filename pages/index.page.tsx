@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import { PATHS } from '../app-config/paths';
 import ProductBanner from '../components/LandingPage/ProductBanner';
 import LandingNavbar from '../components/LandingPage/LandingNavbar';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import BestSellingProduct from '../components/LandingPage/BestSellingProduct';
 
 const fadeImages: {
   urlKey: keyof typeof IMAGES;
@@ -16,26 +18,43 @@ const fadeImages: {
   description: string;
 }[] = [
   {
-    urlKey: 'banner1',
-    caption: 'Lorem Ipsum',
-    description: 'Vestibulum semper tortor suscipit velit molestie, in convallis justo porta.',
-  },
-  {
-    urlKey: 'banner2',
-    caption: 'Nam auctor',
-    description:
-      'Nunc quis volutpat dui. Sed pellentesque magna a nunc vulputate, ut condimentum turpis lobortis.',
-  },
-  {
-    urlKey: 'banner3',
-    caption: 'Aliquam eget',
-    description: 'Curabitur odio libero, rutrum quis volutpat vel, tristique sit amet lacus.',
-  },
-  {
     urlKey: 'banner4',
     caption: 'Duis sed',
     description: 'Nunc malesuada aliquam quam, eu auctor mi fringilla non.',
   },
+];
+
+const bestSelling: {
+  image: keyof typeof IMAGES;
+  caption: string;
+  price: string;
+}[] = [
+  {
+    caption: 'Suscipit Velit',
+    price: '20.000',
+    image: 'bestSelling1',
+  },
+  {
+    caption: 'Vestibulum',
+    price: '15.000',
+    image: 'bestSelling2',
+  },
+  {
+    caption: 'Convallis',
+    price: '30.000',
+    image: 'bestSelling3',
+  },
+];
+
+const footerFollowUs: {
+  image: keyof typeof IMAGES;
+  name: string;
+}[] = [
+  {
+    image: 'logoUs',
+    name: 'Tue Truong',
+  },
+  { image: 'avatarPlaceholder', name: 'Thi Ton' },
 ];
 
 const Home: NextPage<Props> = ({ isAuthenticated }) => {
@@ -50,7 +69,7 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
   // const handleGoSlide = (to: number) => () => {
   //   if (to !== currentSlide) return bannerRef.current?.goTo(to);
   // };
-  const fadeImage = fadeImages[3];
+  const fadeImage = fadeImages[0];
   return (
     <View className="p-landing">
       <LandingNavbar />
@@ -71,10 +90,10 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
         </View>
         <View className="p-landing__banner__content">
           <View className="p-landing__banner__content__window">
-            <Text size={48} className="fw-bold">
+            <Text size={64} className="fw-bold">
               {fadeImage.caption}
             </Text>
-            <Text size={18}>{fadeImage.description}</Text>
+            <Text size={24}>{fadeImage.description}</Text>
             <Button
               variant="secondary-outline"
               onClick={handleBannerClick}
@@ -130,20 +149,98 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
         </View> */}
       </View>
       <View className="p-landing__product-banner py-64" align="center">
-        <h1>Lorem Ipsum</h1>
-        <Text size={18}>
+        <Text size={64} className="fw-bold">
+          Lorem Ipsum
+        </Text>
+        <Text size={24}>
           Vestibulum semper tortor suscipit velit molestie, in convallis justo porta.
         </Text>
         <ProductBanner />
       </View>
-      <View className="secondary-container pb-64">
+      <View className="secondary-container pb-64 ">
         <Grid.Wrap>
           <Grid.Item variant="is-one-quarter">
-            <h1 className="p-landing__store__title">
-              Best
-              <br />
-              Selling
-            </h1>
+            <View className="p-landing__selling">
+              <Text size={64} className="p-landing__store__title fw-bold">
+                Best
+                <br />
+                Selling
+              </Text>
+            </View>
+          </Grid.Item>
+          {bestSelling.map((item, idx) => {
+            return (
+              <Grid.Item variant="is-one-quarter" key={`best-selling-${idx}`}>
+                <BestSellingProduct product={item} idx={idx} />
+              </Grid.Item>
+            );
+          })}
+        </Grid.Wrap>
+      </View>
+      <View className="p-landing__footer mt-64 py-32" align="center">
+        <Grid.Wrap className="secondary-container">
+          <Grid.Item variant="is-one-third">
+            <Image src={IMAGES.logoCode} width={48} height={48} alt="Unset" />
+            <Text size={14} className="fw-bold">
+              224 Ton Duc Thang
+            </Text>
+            <Text size={14} className="fw-bold">
+              Tan An, Hoi An, Quang Nam
+            </Text>
+            <Text size={14} className="fw-bold">
+              Viet Nam
+            </Text>
+            <Text size={14} className="fw-bold mt-24">
+              Contact: 0335062007
+            </Text>
+            <Text size={14} className="fw-bold">
+              Email: tueleesin@gmail.com
+            </Text>
+          </Grid.Item>
+          <Grid.Item variant="is-one-third">
+            <Text size={28} className="fw-bold">
+              OUR CUSTOMERS
+            </Text>
+            <Text size={14} className="fw-bold mt-8">
+              Neque porro
+            </Text>
+            <Text size={14} className="fw-bold mt-8">
+              Quisquam Est Qui
+            </Text>
+            <Text size={14} className="fw-bold mt-8">
+              Consectetur
+            </Text>
+          </Grid.Item>
+          <Grid.Item variant="is-one-third">
+            <Text size={28} className="fw-bold">
+              ABOUT US
+            </Text>
+            {footerFollowUs.map((item, idx) => {
+              return (
+                <View
+                  isRowWrap
+                  flexGrow={1}
+                  key={`follow-us-${idx}`}
+                  align="center"
+                  className="mt-16"
+                >
+                  <Image
+                    className="p-landing__footer__avatar"
+                    alt="Unset"
+                    src={IMAGES[item.image]}
+                    width={52}
+                    height={52}
+                  />
+                  <Text className="fw-bold ml-16">{item.name}</Text>
+                </View>
+              );
+            })}
+            <View isRow className="mt-16" align="center">
+              <Text className="fw-bold mr-16">Follow Us: </Text>
+              <FaFacebook size={32} className="mr-16" />
+              <FaTwitter size={32} className="mr-16" />
+              <FaInstagram size={32} />
+            </View>
           </Grid.Item>
         </Grid.Wrap>
       </View>

@@ -27,11 +27,11 @@ button.cmp-popover__button {
     white-space: nowrap;
     background-color: $color-white;
     transition: $default-transition;
+    min-width: 204px;
 
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    min-width: 204px;
     @include hover {
       background-color: #d7e2ff;
     }

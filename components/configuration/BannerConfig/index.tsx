@@ -12,6 +12,7 @@ import { showModal } from '../../../redux/modal/modalSlice';
 import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
 import { IRootState } from '../../../redux/rootReducer';
 import { TableParams } from '../../../redux/type';
+import { isEmpty } from '../../../validations';
 import { Button, Table, View } from '../../commons';
 import { allColumns } from './allColumns';
 import BannerForm from './BannerForm';
@@ -69,11 +70,17 @@ const Configuration: NextPage<Props> = ({
     // eslint-disable-next-line
     []
   );
+  const isDisabledCreate = isEmpty(banners) || banners.length === 4;
   return (
     <View className="section-container">
       <View isRow justify="space-between">
         <h3>Banner Configuration</h3>
-        <Button icon={<FaPlus />} label="Create A new Banner" onClick={handleCreateNewBanner} />
+        <Button
+          disabled={isDisabledCreate}
+          icon={<FaPlus />}
+          label="Create A new Banner"
+          onClick={handleCreateNewBanner}
+        />
       </View>
       <Table
         title={''}
