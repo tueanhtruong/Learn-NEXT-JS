@@ -14,7 +14,7 @@ import Dialog from '../components/Dialog';
 
 type MyAppProps = AppProps;
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: MyAppProps) {
+function MyApp({ Component, pageProps: { _session, ...pageProps } }: MyAppProps) {
   return (
     <Screen showNavbar>
       <Navbar />

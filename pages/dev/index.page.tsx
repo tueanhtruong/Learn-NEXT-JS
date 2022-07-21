@@ -150,6 +150,7 @@ const mapStateToProps = (state: IRootState) => ({
   fileLoading: state.file.loading,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onUploadFile: (payload: GetPresignedPayload) => dispatch(uploadFileAction(payload)),
   onGetDecodeUrl: (payload: { filePath: string | File; callback?: Callback | undefined }) =>

@@ -1,7 +1,5 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../../app-config/images';
 import {
   Button,
   Form,
@@ -14,8 +12,6 @@ import {
 import LayoutFull from '../../../layout/LayoutFull';
 import { IRootState } from '../../../redux/rootReducer';
 import { getMyProfileAction, updateMyProfileAction } from '../../../redux/profile/profileSlice';
-import { useComponentDidMount } from '../../../hooks';
-import { isEmpty } from '../../../validations';
 import { signOutAction } from '../../../redux/auth/authSlice';
 import { useRef } from 'react';
 import { Formik, FormikProps } from 'formik';
@@ -26,31 +22,21 @@ import { useRouter } from 'next/router';
 import { PATHS } from '../../../app-config/paths';
 import { Toastify } from '../../../services';
 import { showModal } from '../../../redux/modal/modalSlice';
-import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
-import UploadAvatar from '../../../components/UploadAvatar';
-import { emptyFunction } from '../../../utils';
+import { ModalData } from '../../../redux/modal/type';
 
-const Profile: NextPage<Props> = ({
-  user,
-  loading,
-  myProfile,
-  isAuthenticated,
-  onShowModal,
-  onGetMyProfile,
-  onUpdateMyProfile,
-}) => {
+const EditProfile: NextPage<Props> = ({ loading, myProfile, onUpdateMyProfile }) => {
   const router = useRouter();
   const formRef = useRef<FormikProps<FormType>>(null);
 
-  const handleShowUploadModal = () => {
-    onShowModal({
-      type: MODAL_TYPES.CONTENT_MODAL,
-      data: {
-        title: 'Upload Avatar',
-        content: <UploadAvatar onSave={emptyFunction} fileUrl={myProfile?.avatar} />,
-      },
-    });
-  };
+  // const handleShowUploadModal = () => {
+  //   onShowModal({
+  //     type: MODAL_TYPES.CONTENT_MODAL,
+  //     data: {
+  //       title: 'Upload Avatar',
+  //       content: <UploadAvatar onSave={emptyFunction} fileUrl={myProfile?.avatar} />,
+  //     },
+  //   });
+  // };
 
   const handleSubmit = (value: FormType) => {
     onUpdateMyProfile({
@@ -77,7 +63,7 @@ const Profile: NextPage<Props> = ({
             validationSchema={FormSchema}
             enableReinitialize
           >
-            {({ errors, values, setFieldValue, getFieldProps, touched, handleSubmit }) => {
+            {({ errors, setFieldValue, getFieldProps, touched, handleSubmit }) => {
               return (
                 <Form onSubmit={handleSubmit} autoComplete="off">
                   <h3>Profile Information</h3>
@@ -167,6 +153,7 @@ const mapStateToProps = (state: IRootState) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onGetMyProfile: (payload: { uid: string }) => dispatch(getMyProfileAction(payload)),
   onSignOut: () => dispatch(signOutAction()),
@@ -175,4 +162,4 @@ const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => 
   onShowModal: (payload: { data: ModalData; type: string }) => dispatch(showModal(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

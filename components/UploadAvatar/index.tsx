@@ -56,15 +56,7 @@ const UploadModal: NextPage<Props> = ({ loading, onSave, fileUrl, onHideModal, o
         validationSchema={FormSchema}
         enableReinitialize
       >
-        {({
-          errors,
-          touched,
-          values,
-          setFieldValue,
-          setFieldError,
-          handleSubmit,
-          setFieldTouched,
-        }) => {
+        {({ errors, values, setFieldValue, setFieldError, handleSubmit }) => {
           const handleError = (errorMessage: string | undefined) => {
             setFieldValue('file', '');
             setFieldError('file', errorMessage);
@@ -118,6 +110,7 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.file.loading,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onUploadFile: (payload: GetPresignedPayload) => dispatch(uploadFileAction(payload)),
   onHideModal: () => dispatch(hideModal()),

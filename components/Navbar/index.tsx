@@ -136,6 +136,7 @@ const Navbar: React.FC<Props> = ({
   const renderNavItems = (item: any) => {
     switch (item.type) {
       case NAV_TYPES.isNavlink:
+        // eslint-disable-next-line no-case-declarations
         const isActive = location.includes(item.href);
         return (
           <Link href={item.href} key={item.id}>
@@ -242,6 +243,7 @@ const mapStateToProps = (state: IRootState) => ({
   profile: state.profile.myProfile,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onSignOut: () => dispatch(signOutAction()),
   onSetScreenWith: (payload: number) => dispatch(setScreenWidth(payload)),

@@ -14,13 +14,8 @@ import { GrClose } from 'react-icons/gr';
 import { MODAL_TYPES } from '../../redux/modal/type';
 import OkModal from './OkModal';
 import YesNoModal from './YesNoModal';
-const ModalContainer: React.FC<Props> = ({
-  startClosing,
-  data,
-  isVisible,
-  modalType,
-  onHideModal,
-}) => {
+import React from 'react';
+const ModalContainer: React.FC<Props> = ({ data, isVisible, modalType, onHideModal }) => {
   const { hideCloseButton, allowCloseByEsc, overflowVisible, title, content, footer } = data;
 
   if (!isVisible) return null;
@@ -90,6 +85,7 @@ const mapStateToProps = (state: IRootState) => ({
   data: state.modal.data,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onHideModal: () => dispatch(hideModal()),
 });

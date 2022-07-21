@@ -9,7 +9,7 @@ export const allColumns = () => {
         filter: false,
         sort: true,
         customBodyRender: (value: string) => {
-          return !!value ? value : '--';
+          return value ? value : '--';
         },
       },
     },
@@ -20,7 +20,7 @@ export const allColumns = () => {
         filter: false,
         sort: true,
         customBodyRender: (value: string) => {
-          return !!value ? value : '--';
+          return value ? value : '--';
         },
       },
     },

@@ -1,5 +1,5 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:security/recommended"],
+  "extends": ["next/core-web-vitals", "plugin:security/recommended", "eslint:recommended"],
   "plugins": ["security"],
   "rules": {
     "react/self-closing-comp": [
@@ -7,6 +7,14 @@
       {
         "component": true,
         "html": true
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
       }
     ],
     "import/no-anonymous-default-export": ["off"]

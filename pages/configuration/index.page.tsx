@@ -11,39 +11,39 @@ import { ItemSidebar } from '../../components/configuration/Sidebar';
 import { IRootState } from '../../redux/rootReducer';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const enum SidebarTab {
-  ADMIN = 'ADMIN',
-  BANNER = 'BANNER',
-  SHOP = 'SHOP',
-  ORDER = 'ORDER',
-  PAYMENT = 'PAYMENT',
-  ANIMATION = 'ANIMATION',
+const enum _SidebarTab {
+  _ADMIN = 'ADMIN',
+  _BANNER = 'BANNER',
+  _SHOP = 'SHOP',
+  _ORDER = 'ORDER',
+  _PAYMENT = 'PAYMENT',
+  _ANIMATION = 'ANIMATION',
 }
 
 const items: ItemSidebar[] = [
   {
     label: 'Account Management',
-    tab: SidebarTab.ADMIN,
+    tab: _SidebarTab._ADMIN,
   },
   {
     label: 'Banner Configuration',
-    tab: SidebarTab.BANNER,
+    tab: _SidebarTab._BANNER,
   },
   {
     label: 'Shop',
-    tab: SidebarTab.SHOP,
+    tab: _SidebarTab._SHOP,
   },
   {
     label: 'Animation',
-    tab: SidebarTab.ANIMATION,
+    tab: _SidebarTab._ANIMATION,
   },
 ];
 
 const SidebarItems = [
-  <AdminAccounts key={`sidebar-item-${SidebarTab.ADMIN}`} />,
-  <BannerConfig key={`sidebar-item-${SidebarTab.BANNER}`} />,
+  <AdminAccounts key={`sidebar-item-${_SidebarTab._ADMIN}`} />,
+  <BannerConfig key={`sidebar-item-${_SidebarTab._BANNER}`} />,
   <View
-    key={`sidebar-item-${SidebarTab.BANNER}-placeholder`}
+    key={`sidebar-item-${_SidebarTab._BANNER}-placeholder`}
     className="py-32"
     justify="center"
     align="center"
@@ -52,7 +52,7 @@ const SidebarItems = [
     <LoadingCommon />
   </View>,
   <View
-    key={`sidebar-item-${SidebarTab.ANIMATION}-placeholder`}
+    key={`sidebar-item-${_SidebarTab._ANIMATION}-placeholder`}
     className="py-32"
     justify="center"
     align="center"
@@ -67,12 +67,12 @@ const SidebarItems = [
   </View>,
 ];
 
-const Configuration: NextPage<Props> = ({ user, loading }) => {
+const Configuration: NextPage<Props> = () => {
   const router = useRouter();
   // const bannerRef = useRef<SlideshowRef>();
 
   const {
-    query: { tab = SidebarTab.ADMIN },
+    query: { tab = _SidebarTab._ADMIN },
   } = router;
   const setTab = (tab: string) => {
     router.push({
@@ -80,13 +80,13 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
     });
   };
 
-  // const defaultIndex = tab === SidebarTab.ADMIN ? 0 : 1;
+  // const defaultIndex = tab === _SidebarTab._ADMIN ? 0 : 1;
   // const handleSetTab = (idx: number) => setTimeout(() => bannerRef.current?.goTo(idx), 200);
 
   // useEffect(() => {
-  //   if (tab === SidebarTab.ADMIN) handleSetTab(0);
-  //   else if (tab === SidebarTab.BANNER) handleSetTab(1);
-  //   else if (tab === SidebarTab.ANIMATION) handleSetTab(3);
+  //   if (tab === _SidebarTab._ADMIN) handleSetTab(0);
+  //   else if (tab === _SidebarTab._BANNER) handleSetTab(1);
+  //   else if (tab === _SidebarTab.ANIMATION) handleSetTab(3);
   //   else handleSetTab(2);
   // }, [tab]);
 
@@ -106,11 +106,11 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
               exit={{ x: 10, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {tab === SidebarTab.ADMIN
+              {tab === _SidebarTab._ADMIN
                 ? SidebarItems[0]
-                : tab === SidebarTab.BANNER
+                : tab === _SidebarTab._BANNER
                 ? SidebarItems[1]
-                : tab === SidebarTab.ANIMATION
+                : tab === _SidebarTab._ANIMATION
                 ? SidebarItems[3]
                 : SidebarItems[2]}
             </motion.div>
@@ -142,6 +142,7 @@ const mapStateToProps = (state: IRootState) => ({
   user: state.auth.authUser,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Configuration);

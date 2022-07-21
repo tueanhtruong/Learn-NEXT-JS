@@ -40,7 +40,7 @@ const SignUp: NextPage<Props> = ({ loading, onSignUp }) => {
           validationSchema={SigninSchema}
           innerRef={formRef}
         >
-          {({ values, errors, touched, getFieldProps, handleSubmit }) => (
+          {({ errors, touched, getFieldProps, handleSubmit }) => (
             <Form onSubmit={handleSubmit} autoComplete="off" className="ctn-uam__form">
               <Input
                 label="Email Address"
@@ -88,6 +88,7 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.auth.loading,
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
   onSignUp: (payload: SignUpPayload | null) => dispatch(signUpAction(payload)),
 });

@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../app-config/images';
 import {
   Button,
   FileRenderer,
   Grid,
   LoadingCommon,
-  Text,
   View,
   ViewItem,
 } from '../../components/commons';
@@ -14,8 +12,6 @@ import LayoutFull from '../../layout/LayoutFull';
 import { IRootState } from '../../redux/rootReducer';
 import { FaDoorOpen } from 'react-icons/fa';
 import { getMyProfileAction, updateMyProfileAction } from '../../redux/profile/profileSlice';
-import { useComponentDidMount } from '../../hooks';
-import { isEmpty } from '../../validations';
 import { signOutAction } from '../../redux/auth/authSlice';
 import { useRouter } from 'next/router';
 import { PATHS } from '../../app-config/paths';
@@ -26,11 +22,10 @@ import { Profile } from '../../redux/profile/type';
 import { Callback } from '../../redux/type';
 import { formatPhoneNumber } from 'react-phone-number-input';
 
-const Profile: NextPage<Props> = ({
+const ProfileDetail: NextPage<Props> = ({
   loading,
   myProfile,
   isAuthenticated,
-  onGetMyProfile,
   onSignOut,
   onShowModal,
   onUpdateMyProfile,
@@ -133,4 +128,4 @@ const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => 
     dispatch(updateMyProfileAction(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetail);

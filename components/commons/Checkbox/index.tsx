@@ -108,6 +108,7 @@ const Group: React.FC<CheckboxGroupProps> = ({
           setData([key]);
           return;
         } else {
+          // eslint-disable-next-line no-unsafe-optional-chaining
           setData([...value?.filter((x) => x !== noneOfAboveItem.value), key]);
           return;
         }
