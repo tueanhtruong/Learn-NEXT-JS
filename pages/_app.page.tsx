@@ -9,7 +9,6 @@ import { wrapper } from '../redux/store';
 import Auth from '../components/Auth';
 import Toastify from '../components/Toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'react-slideshow-image/dist/styles.css';
 import Content from '../components/Content';
 import Dialog from '../components/Dialog';
 

@@ -84,11 +84,7 @@ const Profile: NextPage<Props> = ({
             </View>
             <View isRow>
               <Button label="Upload" className="mr-24" onClick={handleShowUploadModal} />
-              <Button
-                label="Remove"
-                variant="outline-danger"
-                onClick={() => handleSaveAvatar('')}
-              />
+              <Button label="Remove" variant="link-gray" onClick={() => handleSaveAvatar('')} />
             </View>
           </View>
           <hr />

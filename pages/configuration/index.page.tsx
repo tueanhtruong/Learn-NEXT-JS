@@ -1,18 +1,15 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Ref, useEffect, useRef } from 'react';
+// import { Ref, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Fade, SlideshowRef } from 'react-slideshow-image';
-import { IMAGES } from '../../app-config/images';
+// import { Fade, SlideshowRef } from 'react-slideshow-image';
 import { PATHS } from '../../app-config/paths';
 import { Grid, LoadingCommon, Text, View } from '../../components/commons';
 import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '../../components/configuration';
 import { ItemSidebar } from '../../components/configuration/Sidebar';
-import LayoutFull from '../../layout/LayoutFull';
-import LayoutWithSidebar from '../../layout/LayoutWithSidebar';
 import { IRootState } from '../../redux/rootReducer';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const enum SidebarTab {
   ADMIN = 'ADMIN',
@@ -42,35 +39,37 @@ const items: ItemSidebar[] = [
   },
 ];
 
+const SidebarItems = [
+  <AdminAccounts key={`sidebar-item-${SidebarTab.ADMIN}`} />,
+  <BannerConfig key={`sidebar-item-${SidebarTab.BANNER}`} />,
+  <View
+    key={`sidebar-item-${SidebarTab.BANNER}-placeholder`}
+    className="py-32"
+    justify="center"
+    align="center"
+    flexGrow={1}
+  >
+    <LoadingCommon />
+  </View>,
+  <View
+    key={`sidebar-item-${SidebarTab.ANIMATION}-placeholder`}
+    className="py-32"
+    justify="center"
+    align="center"
+  >
+    <Link href={PATHS.starFall}>
+      <a>
+        <Text size={20} className="fw-bold">
+          Star Fall
+        </Text>
+      </a>
+    </Link>
+  </View>,
+];
+
 const Configuration: NextPage<Props> = ({ user, loading }) => {
   const router = useRouter();
-  const bannerRef = useRef<SlideshowRef>();
-  const SidebarItems = [
-    <AdminAccounts key={`sidebar-item-${SidebarTab.ADMIN}`} />,
-    <BannerConfig key={`sidebar-item-${SidebarTab.BANNER}`} />,
-    <View
-      key={`sidebar-item-${SidebarTab.BANNER}-placeholder`}
-      className="py-32"
-      justify="center"
-      align="center"
-    >
-      <LoadingCommon />
-    </View>,
-    <View
-      key={`sidebar-item-${SidebarTab.ANIMATION}-placeholder`}
-      className="py-32"
-      justify="center"
-      align="center"
-    >
-      <Link href={PATHS.starFall}>
-        <a>
-          <Text size={20} className="fw-bold">
-            Star Fall
-          </Text>
-        </a>
-      </Link>
-    </View>,
-  ];
+  // const bannerRef = useRef<SlideshowRef>();
 
   const {
     query: { tab = SidebarTab.ADMIN },
@@ -82,24 +81,41 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
   };
 
   // const defaultIndex = tab === SidebarTab.ADMIN ? 0 : 1;
-  const handleSetTab = (idx: number) => setTimeout(() => bannerRef.current?.goTo(idx), 200);
+  // const handleSetTab = (idx: number) => setTimeout(() => bannerRef.current?.goTo(idx), 200);
 
-  useEffect(() => {
-    if (tab === SidebarTab.ADMIN) handleSetTab(0);
-    else if (tab === SidebarTab.BANNER) handleSetTab(1);
-    else if (tab === SidebarTab.ANIMATION) handleSetTab(3);
-    else handleSetTab(2);
-  }, [tab]);
+  // useEffect(() => {
+  //   if (tab === SidebarTab.ADMIN) handleSetTab(0);
+  //   else if (tab === SidebarTab.BANNER) handleSetTab(1);
+  //   else if (tab === SidebarTab.ANIMATION) handleSetTab(3);
+  //   else handleSetTab(2);
+  // }, [tab]);
 
   return (
-    <View className="p-configuration container">
+    <View className="p-configuration container" style={{ width: '100%' }}>
       <h1 className="mb-24">Configuration</h1>
       <Grid.Wrap>
         <Grid.Item variant="is-one-quarter">
           <ConfigurationSidebar items={items} tab={tab.toString()} setTab={setTab} />
         </Grid.Item>
         <Grid.Item variant="is-three-quarters" style={{ maxWidth: '98vw' }}>
-          <Fade
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={tab.toString()}
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 10, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {tab === SidebarTab.ADMIN
+                ? SidebarItems[0]
+                : tab === SidebarTab.BANNER
+                ? SidebarItems[1]
+                : tab === SidebarTab.ANIMATION
+                ? SidebarItems[3]
+                : SidebarItems[2]}
+            </motion.div>
+          </AnimatePresence>
+          {/* <Fade
             arrows={false}
             pauseOnHover={true}
             ref={bannerRef as Ref<SlideshowRef>}
@@ -113,7 +129,7 @@ const Configuration: NextPage<Props> = ({ user, loading }) => {
                 {item}
               </View>
             ))}
-          </Fade>
+          </Fade> */}
         </Grid.Item>
       </Grid.Wrap>
     </View>
