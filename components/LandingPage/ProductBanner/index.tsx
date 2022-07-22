@@ -17,7 +17,6 @@ const getBannerWidth = (width: number): number => {
 };
 
 const ProductBanner: NextPage<Props> = ({
-  user,
   screenWidth,
   loading,
   banners,
@@ -68,7 +67,7 @@ const mapStateToProps = (state: IRootState) => ({
   screenWidth: state.content.screenWidth,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetConfigurationBanners: (payload: TableParams) =>
     dispatch(getConfigurationBannersAction(payload)),
 });

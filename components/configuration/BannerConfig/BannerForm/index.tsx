@@ -29,7 +29,6 @@ const Configuration: NextPage<Props> = ({
   loading,
   fileLoading,
   data,
-  user,
   onCloseModal,
   onUpdateBanner,
   onUploadFile,
@@ -157,7 +156,7 @@ const mapStateToProps = (state: IRootState) => ({
   data: state.configuration.selectedBanner,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onUpdateBanner: (payload: Banner) => dispatch(updateConfigurationBannerAction(payload)),
   onCloseModal: () => dispatch(hideModal()),
   onUploadFile: (payload: GetPresignedPayload) => dispatch(uploadFileAction(payload)),

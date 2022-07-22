@@ -7,7 +7,6 @@ import { getRandomId } from '../../../utils';
 import { isEmpty } from '../../../validations';
 
 const Input: React.FC<InputProps> = ({
-  children,
   errorMessage,
   label,
   className,

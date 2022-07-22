@@ -80,13 +80,13 @@ type Props = ReturnType<typeof mapStateToProps> &
     className?: string;
     innerRef?: any;
     numberAllow?: number;
-    onChange: (...args: any[]) => void;
+    onChange: (..._args: any[]) => void;
     isAvatar?: boolean;
-    onError?: (value: any) => void;
+    onError?: (_value: any) => void;
   };
 
-const mapStateToProps = (state: IRootState) => ({});
+const mapStateToProps = (_state: IRootState) => ({});
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
+const mapDispatchToProps = (_dispatch: (_arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);

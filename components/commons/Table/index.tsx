@@ -105,13 +105,13 @@ type Props = ReturnType<typeof mapStateToProps> &
     tableOptions: MUIDataTableOptions;
     columns: MUIDataTableColumn[];
     refresh?: boolean | number | string;
-    onAction: (...args: any[]) => void;
+    onAction: (..._args: any[]) => void;
     defaultSortOrder?: MUISortOptions;
     isLoading?: boolean;
   };
 
-const mapStateToProps = (state: IRootState) => ({});
+const mapStateToProps = (_state: IRootState) => ({});
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
+const mapDispatchToProps = (_dispatch: (_arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Table));

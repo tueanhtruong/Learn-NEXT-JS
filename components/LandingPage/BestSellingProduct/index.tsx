@@ -1,5 +1,4 @@
 import React, { HTMLProps } from 'react';
-import cn from 'classnames';
 import { Button, Text, View } from '../../commons';
 import { IMAGES } from '../../../app-config/images';
 import Image from 'next/image';
@@ -11,7 +10,7 @@ export type Product = {
   price: string;
 };
 
-const BestSellingProduct: React.FC<Props> = ({ product, idx, isAuthenticated }) => {
+const BestSellingProduct: React.FC<Props> = ({ product, idx }) => {
   return (
     <View className="cmp-best-product">
       <Text size={100} className="cmp-best-product__index">

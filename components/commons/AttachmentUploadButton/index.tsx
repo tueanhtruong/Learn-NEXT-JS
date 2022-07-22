@@ -12,9 +12,6 @@ import View from '../View';
 import cn from 'classnames';
 
 const AttachmentUploadButton: React.FC<Props> = ({
-  filetype = 'avatars',
-  icon,
-  content = 'upload',
   onAddAttachment,
   isAvatar = true,
   isBannerImage = false,
@@ -65,12 +62,12 @@ type Props = ReturnType<typeof mapStateToProps> &
     onAddAttachment: Callback;
     isAvatar?: boolean;
     isBannerImage?: boolean;
-    onError: (value: any) => void;
+    onError: (_value: any) => void;
   };
 
-const mapStateToProps = (state: IRootState) => ({});
+const mapStateToProps = (_state: IRootState) => ({});
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetDecodeUrl: (payload: { filePath: string | File; callback?: Callback | undefined }) =>
     dispatch(getDecodeUrlAction(payload)),
 });

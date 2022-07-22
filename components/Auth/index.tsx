@@ -12,7 +12,6 @@ import { LoadingCommon, View } from '../commons';
 import { useComponentDidMount } from '../../hooks';
 
 const Screen: NextPage<Props> = ({
-  loading,
   authUser,
   isAuthenticated,
   onSetAuthenticated,
@@ -98,7 +97,7 @@ const mapStateToProps = (state: IRootState) => ({
   isCorrectRoute: state.auth.isCorrectRoute,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onSetAuthenticated: (payload: AuthUser | null) => dispatch(setAuthenticated(payload)),
   onSetIsCorrectRoute: (payload: boolean) => dispatch(setIsCorrectRoute(payload)),
 });

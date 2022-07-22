@@ -1,4 +1,3 @@
-import { StarRateTwoTone } from '@material-ui/icons';
 import type { NextPage } from 'next';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { connect } from 'react-redux';
@@ -74,7 +73,7 @@ const mapStateToProps = (state: IRootState) => ({
   data: state.profile.selectedProfile,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onUpdateMyProfile: (payload: {
     payload: Profile;
     callback?: Callback | undefined;

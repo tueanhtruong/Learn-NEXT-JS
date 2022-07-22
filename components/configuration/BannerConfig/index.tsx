@@ -18,7 +18,6 @@ import { allColumns } from './allColumns';
 import BannerForm from './BannerForm';
 
 const Configuration: NextPage<Props> = ({
-  user,
   loading,
   banners,
   onGetConfigurationBanners,
@@ -102,7 +101,7 @@ const mapStateToProps = (state: IRootState) => ({
   banners: state.configuration.banners,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetConfigurationBanners: (payload: TableParams) =>
     dispatch(getConfigurationBannersAction(payload)),
   onSetSelectedBanner: (payload: Banner | undefined) => dispatch(setSelectedBanner(payload)),

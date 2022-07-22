@@ -161,7 +161,7 @@ type CheckboxGroupProps = {
   options?: { value: any; label: string | React.ReactElement; key?: string; disabled?: boolean }[];
   value?: any[];
   name?: string;
-  onChange?: (...arg: any[]) => void;
+  onChange?: (..._arg: any[]) => void;
   errorMessage?: string;
   containerClassName?: string;
   optionClassName?: string;

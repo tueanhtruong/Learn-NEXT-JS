@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
+import React, { HTMLProps, MouseEventHandler, useRef } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import Element from '../Element';
@@ -9,10 +9,8 @@ import InputMask from 'react-input-mask';
 import Icon from '../Icon';
 import { getRandomId } from '../../../utils';
 import { isEmpty } from '../../../validations';
-import { IRootState } from '../../../redux/rootReducer';
 
 const Input: React.FC<InputProps> = ({
-  children,
   errorMessage,
   label,
   className,
@@ -77,7 +75,7 @@ export type InputProps = ReturnType<typeof mapStateToProps> &
     hasDifferentValue?: boolean;
   };
 
-const mapStateToProps = (state: IRootState) => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {};
 

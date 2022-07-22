@@ -10,15 +10,12 @@ import cn from 'classnames';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
 import View from '../View';
-import { IRootState } from '../../../redux/rootReducer';
 
 const TableBasic: React.FC<Props> = ({
   isLoading,
   containerClassName,
   onTableChange,
-  currentPage,
   options,
-  total,
   ...props
 }) => {
   const tableOptions: MUIDataTableOptions = {
@@ -89,12 +86,12 @@ type Props = ReturnType<typeof mapStateToProps> &
     containerClassName?: string;
     currentPage?: number;
     total?: number;
-    onTableChange: (action: string, tableState: MUIDataTableState) => void;
+    onTableChange: (_action: string, _tableState: MUIDataTableState) => void;
     isLoading?: boolean;
   };
 
-const mapStateToProps = (state: IRootState) => ({});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
+const mapDispatchToProps = (_dispatch: (_arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(TableBasic));

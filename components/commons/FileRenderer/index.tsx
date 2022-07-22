@@ -36,7 +36,6 @@ const Placeholder = ({ imgHeight, imgWidth }: PlaceholderProps) => {
 
 const FileRenderer: React.FC<Props> = ({
   url,
-  loading,
   onGetDecodeUrl,
   imageClassName,
   downloadFileName,
@@ -188,7 +187,7 @@ const mapStateToProps = (state: IRootState) => ({
   loading: state.file.loading,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetDecodeUrl: (payload: { filePath: string | File; callback?: Callback | undefined }) =>
     dispatch(getDecodeUrlAction(payload)),
 });

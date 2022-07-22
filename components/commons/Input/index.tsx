@@ -8,7 +8,6 @@ import { Icon } from '..';
 import { isEmpty } from '../../../validations';
 
 const Input: React.FC<InputProps> = ({
-  children,
   errorMessage,
   label,
   className,

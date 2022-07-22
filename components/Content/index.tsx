@@ -13,11 +13,8 @@ import { TableParams } from '../../redux/type';
 
 const Screen: NextPage<Props> = ({
   authUser,
-  isAuthenticated,
-  adminAccounts,
   myProfile,
   adminProfile,
-  onGetAdminConfiguration,
   onSetIsAdminRole,
   onGetMyProfile,
   onGetMyAdminProfile,
@@ -65,7 +62,7 @@ const mapStateToProps = (state: IRootState) => ({
   adminProfile: state.configuration.adminProfile,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetAdminConfiguration: (payload: TableParams | null) =>
     dispatch(getConfigurationAdminAction(payload)),
   onGetMyAdminProfile: (payload: { uid: string }) => dispatch(getAdminProfileAction(payload)),

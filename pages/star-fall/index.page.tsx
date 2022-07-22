@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 // import LandingNavbar from '../../components/LandingPage/LandingNavbar';
 
-const Home: NextPage<Props> = ({ isAuthenticated }) => {
+const Home: NextPage<Props> = () => {
   return (
     <View className="p-star-fall">
       <Head>
@@ -37,6 +37,6 @@ const mapStateToProps = (state: IRootState) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
+const mapDispatchToProps = (_dispatch: (_arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

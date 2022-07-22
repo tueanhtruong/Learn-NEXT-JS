@@ -14,13 +14,10 @@ import AccountDetail from './AccountDetail';
 import { allColumns } from './allColumns';
 
 const Configuration: NextPage<Props> = ({
-  user,
   loading,
-  adminAccounts,
   userProfiles,
   onGetSystemUsers,
   onSetSelectedProfile,
-  onGetConfigurationAdmins,
   onShowModal,
 }) => {
   const handleGetUsers = (params: TableParams) => {
@@ -81,7 +78,7 @@ const mapStateToProps = (state: IRootState) => ({
   userProfiles: state.profile.userProfiles,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onGetConfigurationAdmins: (payload: TableParams | null) =>
     dispatch(getConfigurationAdminAction(payload)),
   onGetSystemUsers: (payload: TableParams) => dispatch(getSystemUsersAction(payload)),

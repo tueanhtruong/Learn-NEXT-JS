@@ -6,7 +6,6 @@ const Button: React.FC<ButtonProps> = ({
   label,
   children,
   className,
-  isOutline,
   disabled,
   icon,
   iconPosition = 'left',
@@ -14,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   type,
   variant = 'secondary',
-  onClick = (event) => {},
+  onClick = (_event) => {},
   ...props
 }) => {
   const btnRef = useRef<HTMLButtonElement>(null);

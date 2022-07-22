@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { IMAGES } from '../../app-config/images';
 import { HIDE_NAV_PATHS, PATHS } from '../../app-config/paths';
@@ -21,11 +21,9 @@ const NAV_TYPES = {
 };
 
 const Navbar: React.FC<Props> = ({
-  user,
   isAuthenticated = false,
   isAdmin,
   profile,
-  onSignOut,
   onSetScreenWith,
 }) => {
   const [toggleNavbar, setToggleNavbar] = useState(false);

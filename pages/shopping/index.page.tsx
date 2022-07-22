@@ -28,6 +28,6 @@ const mapStateToProps = (state: IRootState) => ({
   user: state.auth.authUser,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({});
+const mapDispatchToProps = (_dispatch: (_arg0: { payload: any; type: string }) => any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shopping);

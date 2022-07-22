@@ -11,7 +11,6 @@ const Screen: React.FC<Props> = ({
   collapseSidebar,
   showMiniSidebar,
   children,
-  location,
 }) => {
   const router = useRouter();
   const { pathname } = router;

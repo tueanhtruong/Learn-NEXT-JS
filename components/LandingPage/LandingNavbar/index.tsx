@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { IMAGES } from '../../../app-config/images';
@@ -10,24 +9,18 @@ import { MuiPopUp, Text, View } from '../../commons';
 import { signOutAction } from '../../../redux/auth/authSlice';
 import Image from 'next/image';
 
-const NAV_TYPES = {
-  isNavlink: 'NAV_LINK',
-  isButton: 'BUTTON',
-  isText: 'TEXT',
-};
+// const _NAV_TYPES = {
+//   isNavlink: 'NAV_LINK',
+//   isButton: 'BUTTON',
+//   isText: 'TEXT',
+// };
 
-const Navbar: React.FC<Props> = ({
-  user,
-  isAuthenticated = false,
-  isAdmin,
-  profile,
-  onSignOut,
-}) => {
-  const [toggleNavbar, setToggleNavbar] = useState(false);
+const Navbar: React.FC<Props> = ({ isAuthenticated = false, profile }) => {
+  // const [toggleNavbar, setToggleNavbar] = useState(false);
   const [fixedNavbar, setFixedNavbar] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
-  const router = useRouter();
-  const location = router.pathname;
+  // const router = useRouter();
+  // const location = router.pathname;
 
   // const getUserName = () => {
   //   if (!profile?.displayName) return 'Anonymous';
@@ -144,7 +137,7 @@ const mapStateToProps = (state: IRootState) => ({
   profile: state.profile.myProfile,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { payload: any; type: string }) => any) => ({
+const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) => any) => ({
   onSignOut: () => dispatch(signOutAction()),
 });
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 
-type Callback = (...args: any[]) => void;
+type Callback = (..._args: any[]) => void;
 
 const Navbar: React.FC<Props> = ({ className, isActive, onClick, target }) => {
   const [active, setIsActive] = useState<boolean>(isActive);
