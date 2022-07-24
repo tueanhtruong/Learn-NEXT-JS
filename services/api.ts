@@ -33,6 +33,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { TableParams } from '../redux/type';
 import { AdminAccount, Banner } from '../redux/configuration/type';
 import { COLLECTIONS } from '../app-config/constants';
+import { Item } from '../redux/shop/type';
 
 const config = {
   apiKey: appConfig.API_KEY,
@@ -80,7 +81,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
     return sendEmailVerification(body);
   };
   const saveUserEmail = async (body: User) => {
-    const colRef = doc(db, COLLECTIONS.myUsers, body.uid);
+    const colRef = doc(db, COLLECTIONS._myUsers, body.uid);
     const initialUser = {
       email: body.email,
       uid: body.uid,
@@ -115,7 +116,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
 
   // ====================== Configuration ======================
   const getConfigAdmins = async () => {
-    const querySnapshot = await getDocs(collection(db, COLLECTIONS.configurationAdmin));
+    const querySnapshot = await getDocs(collection(db, COLLECTIONS._configurationAdmin));
     const res: DocumentData[] = [];
     querySnapshot.forEach((doc) => {
       res.push(doc.data());
@@ -123,20 +124,20 @@ const create = (baseURL = appConfig.API_URL || '') => {
     return res;
   };
   const getAdminProfile = async (body: { uid: string }) => {
-    const docRef = doc(db, COLLECTIONS.configurationAdmin, body.uid);
+    const docRef = doc(db, COLLECTIONS._configurationAdmin, body.uid);
     const docSnap = await getDoc(docRef);
     const isExists = docSnap.exists();
     if (isExists) return docSnap.data();
     return undefined;
   };
   const setAdminProfile = async (body: AdminAccount) => {
-    const docRef = doc(db, COLLECTIONS.configurationAdmin, body.uid);
+    const docRef = doc(db, COLLECTIONS._configurationAdmin, body.uid);
     if (body.isAdmin) return setDoc(docRef, body);
     return deleteDoc(docRef);
   };
 
   const getConfigurationBanners = async (body: TableParams) => {
-    const colRef = collection(db, COLLECTIONS.configurationBanners);
+    const colRef = collection(db, COLLECTIONS._configurationBanners);
     const queryParams = [];
     if (body.sort) queryParams.push(orderBy(body.sort, body.order ?? 'asc'));
     const q = query(colRef, ...queryParams);
@@ -152,21 +153,45 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const isNewBanner = !body.id;
     if (isNewBanner) {
       const id = getRandomId();
-      const docRef = doc(db, COLLECTIONS.configurationBanners, id);
+      const docRef = doc(db, COLLECTIONS._configurationBanners, id);
       return setDoc(docRef, { ...body, id });
     }
-    const docRef = doc(db, COLLECTIONS.configurationBanners, body.id ?? '');
+    const docRef = doc(db, COLLECTIONS._configurationBanners, body.id ?? '');
     return updateDoc(docRef, { ...body });
   };
 
+  // ====================== Shop ======================
+  const getShopItems = async (body: TableParams) => {
+    const colRef = collection(db, COLLECTIONS._shopItems);
+    const queryParams = [];
+    if (body.sort) queryParams.push(orderBy(body.sort, body.order ?? 'asc'));
+    const q = query(colRef, ...queryParams);
+    const querySnapshot = await getDocs(q);
+    const res: DocumentData[] = [];
+    querySnapshot.forEach((doc) => {
+      res.push(doc.data());
+    });
+    return res;
+  };
+
+  const updateShopItem = async (body: Item) => {
+    const isNewItem = !body.id;
+    if (isNewItem) {
+      const id = getRandomId();
+      const docRef = doc(db, COLLECTIONS._shopItems, id);
+      return setDoc(docRef, { ...body, id });
+    }
+    const docRef = doc(db, COLLECTIONS._shopItems, body.id ?? '');
+    return updateDoc(docRef, { ...body });
+  };
   // ====================== Profile ======================
   const getMyProfile = async (body: { uid: string }) => {
-    const docRef = doc(db, COLLECTIONS.myUsers, body.uid);
+    const docRef = doc(db, COLLECTIONS._myUsers, body.uid);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };
   const getSystemUsers = async (body: TableParams) => {
-    const colRef = collection(db, COLLECTIONS.myUsers);
+    const colRef = collection(db, COLLECTIONS._myUsers);
     const queryParams = [];
     if (body.sort) queryParams.push(orderBy(body.sort, body.order ?? 'asc'));
     const q = query(colRef, ...queryParams);
@@ -178,7 +203,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
     return res;
   };
   const updateMyProfile = async (body: Profile) => {
-    const docRef = doc(db, COLLECTIONS.myUsers, body.uid);
+    const docRef = doc(db, COLLECTIONS._myUsers, body.uid);
     return updateDoc(docRef, { ...body });
   };
   // ====================== File ======================
@@ -217,6 +242,9 @@ const create = (baseURL = appConfig.API_URL || '') => {
     setAdminProfile,
     getConfigurationBanners,
     updateConfigurationBanner,
+    // ====================== Shop ======================
+    getShopItems,
+    updateShopItem,
     // ====================== Profile ======================
     getMyProfile,
     updateMyProfile,

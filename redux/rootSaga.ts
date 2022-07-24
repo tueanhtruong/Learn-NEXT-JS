@@ -7,6 +7,7 @@ import authSaga from './auth/authSaga';
 import configurationSaga from './configuration/saga';
 import profileSaga from './profile/saga';
 import fileSaga from './file/saga';
+import shopSaga from './shop/saga';
 
 /* ------------- API ------------- */
 export const api = API.create();
@@ -22,5 +23,6 @@ export default function* root() {
     ...configurationSaga(api),
     ...profileSaga(api),
     ...fileSaga(api),
+    ...shopSaga(api),
   ]);
 }

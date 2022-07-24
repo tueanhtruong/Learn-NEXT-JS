@@ -1,4 +1,6 @@
-import { call, takeEvery, takeLatest } from 'redux-saga/effects';
+import { UploadResult } from 'firebase/storage';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { Toastify } from '../../services';
 import { Apis } from '../../services/api';
 import { compressFile, getRandomId } from '../../utils';
 import { callFileApi, callFirebaseApi } from '../commonSagas/callApi';
@@ -9,15 +11,19 @@ import {
   getDecodeUrlSuccess,
   uploadFileAction,
   uploadFileFailed,
+  uploadFilesAction,
+  uploadFilesSuccess,
   uploadFileSuccess,
 } from './fileSlice';
-import { GetPresignedPayload } from './type';
+import { GetMultiPresignedPayload, GetPresignedPayload } from './type';
 
 function* handleUploadFile(api: any, action: { payload: GetPresignedPayload }) {
   const { fileName, contentType, fileData, type, callback, keepOriginalQuality } = action.payload;
-  const compressedFile: File | Blob = keepOriginalQuality
-    ? fileData
-    : yield call(compressFile as any, fileData);
+  const compressedFile: File | Blob = yield call(
+    compressFile as any,
+    fileData,
+    keepOriginalQuality
+  );
   const payload = {
     fileName: `${type}/${getRandomId()}-${fileName}`,
     contentType,
@@ -35,6 +41,55 @@ function* handleUploadFile(api: any, action: { payload: GetPresignedPayload }) {
     },
     payload
   );
+}
+
+function* handleUploadMultiFiles(api: any, action: { payload: GetMultiPresignedPayload }) {
+  const files = action.payload.files;
+  const responses: string[] = yield all(
+    files.map((file) => {
+      const payload = file;
+      if (typeof payload.url === 'string') return payload.url;
+      return call(uploadSingleFile, api, payload);
+    })
+  );
+
+  const callback = action.payload.callback;
+  if (callback) {
+    const formatResponse = responses.reduce((state, item, idx) => {
+      // eslint-disable-next-line security/detect-object-injection
+      const newItemImage = { [files[idx].keyId || '']: item };
+      return { ...state, ...newItemImage };
+    }, {});
+    callback(formatResponse);
+  }
+  yield put(uploadFilesSuccess({}));
+}
+
+function* uploadSingleFile(api: any, payload: GetPresignedPayload) {
+  try {
+    const { fileName, contentType, fileData, type, callback, keepOriginalQuality } = payload;
+    const compressedFile: File | Blob = yield call(
+      compressFile as any,
+      fileData,
+      keepOriginalQuality
+    );
+    const filePayload = {
+      fileName: `${type}/${getRandomId()}-${fileName}`,
+      contentType,
+      type,
+      fileData: compressedFile,
+      callback,
+    };
+
+    const {
+      metadata: { fullPath },
+    }: UploadResult = yield call(api, filePayload);
+
+    return fullPath;
+  } catch (error) {
+    Toastify.error(`Error while uploading file. Please try again.`);
+    return '';
+  }
 }
 
 function* handleGetDecodeUrl(
@@ -71,6 +126,7 @@ function handleGetDecodeUrlSuccess(action: { payload: GetPresignedPayload }) {
 export default function contentSaga(apiInstance: Apis) {
   return [
     takeLatest<string, any>(uploadFileAction.type, handleUploadFile, apiInstance.uploadFile),
+    takeLatest<string, any>(uploadFilesAction.type, handleUploadMultiFiles, apiInstance.uploadFile),
     takeLatest<string, any>(uploadFileSuccess.type, handleUploadFileSuccess),
     takeEvery<string, any>(getDecodeUrlAction.type, handleGetDecodeUrl, apiInstance.getDecodeUrl),
     takeEvery<string, any>(getDecodeUrlSuccess.type, handleGetDecodeUrlSuccess),

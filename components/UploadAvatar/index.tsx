@@ -32,6 +32,7 @@ const UploadModal: NextPage<Props> = ({ loading, onSave, fileUrl, onHideModal, o
   };
 
   const handleSubmit = (value: FormType) => {
+    if (typeof value.file === 'string') return onHideModal();
     const file = value.file as File;
     const payload: GetPresignedPayload = {
       contentType: file?.type ?? '',

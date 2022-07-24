@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import { CancelToken } from 'apisauce';
 import shortid from 'shortid';
 import cn from 'classnames';
@@ -13,7 +14,6 @@ import { isEmpty } from '../validations';
 // import { Location } from 'history';
 // import { StateOption } from '../app-config/options';
 import _ from 'lodash';
-import { TableParams } from '../redux/type';
 
 export function newCancelToken(timeout = appConfig.CONNECTION_TIMEOUT) {
   const source = CancelToken.source();
@@ -110,16 +110,16 @@ export const getClassNameByStatus = (status: string) => {
 export const getYesNoText = (value: boolean) => (value ? 'Yes' : 'No');
 
 export const formatMoney = (value: number | string) =>
-  (+value)?.toLocaleString('en-US', {
+  (+value)?.toLocaleString('vi', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'VND',
     maximumFractionDigits: 2,
   });
 // ?.replace(/\./g, ',');
 
 export const moneyReg = /[\d,]+\.{0,1}\d{0,2}/;
 
-export const MoneyInputDetect = (value: string) => `${value}`.match(moneyReg)?.[0] || '';
+export const MoneyInputDetect = (value: number) => `${value}`.match(moneyReg)?.[0] || '';
 export const formatMoneyInput = (value: number) => {
   if (!value) return '';
   return value.toLocaleString('en-US', {
@@ -141,13 +141,13 @@ export const monthFormat = 'MMMM DD, YYYY';
 
 export const emptyFunction = () => {};
 
-export const compressFile = (file: File) => {
+export const compressFile = (file: File, highQuality: boolean = false) => {
   return new Promise<File | Blob>((resolve, reject) => {
     const isImage = ['image/jpg', 'image/jpeg', 'image/png'].includes(file?.type);
 
     if (isImage) {
       new Compressor(file, {
-        quality: 0.7,
+        quality: highQuality ? 0.92 : 0.7,
         maxWidth: 900,
         maxHeight: 900,
         convertSize: 0,
@@ -180,14 +180,14 @@ export const capitalizeWords = (string: string) => {
 };
 
 export const getFileType = (file: File) => {
-  if (!!file.type) return file.type;
+  if (file.type) return file.type;
   if (file.name.includes('.rar')) return 'application/x-rar-compressed';
   if (file.name.includes('.7z')) return 'application/x-7z-compressed';
   return 'image/png';
 };
 
 export const getNavigateUrl = (url: string) => (url.includes('http') ? url : `https://${url}`);
-export const getDate = (date: string) => (!!date ? dayjs(date).toDate() : null);
+export const getDate = (date: string) => (date ? dayjs(date).toDate() : null);
 export const getDateRange = (dates: string) => {
   if (isEmpty(dates)) return [];
   const splitDates = dates?.split(' - ');
@@ -214,7 +214,7 @@ export const deepKeys = (t: Object, path: string[] = []) => {
 export const scrollToTopError = (error: string[]) => {
   if (!isEmpty(error)) {
     const input = document?.querySelector(`[name='${error[0]}']`);
-    if (!!input?.parentElement?.scrollIntoView)
+    if (input?.parentElement?.scrollIntoView)
       input?.parentElement?.scrollIntoView({
         behavior: 'smooth',
         block: 'center',

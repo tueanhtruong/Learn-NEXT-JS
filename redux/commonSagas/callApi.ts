@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { ApiResponse } from 'apisauce';
 import { UploadResult } from 'firebase/storage';
@@ -50,9 +51,9 @@ export function* callFileApi<TResponse extends unknown = any, TError extends Err
   api: any,
   action: {
     successAction: ActionCreatorWithoutPayload | ActionCreatorWithPayload<any>;
-    responseExtractor?: (res: any) => TResponse;
+    responseExtractor?: (_res: any) => TResponse;
     failureAction?: ActionCreatorWithoutPayload | ActionCreatorWithPayload<any>;
-    errorBuilder?: (err: any) => any;
+    errorBuilder?: (_err: any) => any;
     onFailure?: Saga;
   },
   ...args: any[]

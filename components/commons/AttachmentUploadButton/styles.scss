@@ -4,6 +4,10 @@
   width: 180px;
   height: 180px;
   position: relative;
+  &.is-custom {
+    width: unset;
+    height: unset;
+  }
   .cmp-upload-button {
     &__image {
       border-radius: 50%;

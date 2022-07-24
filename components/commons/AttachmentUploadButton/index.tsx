@@ -16,6 +16,7 @@ const AttachmentUploadButton: React.FC<Props> = ({
   isAvatar = true,
   isBannerImage = false,
   onError,
+  buttonLabel,
 }) => {
   const inputRef = useRef<HTMLInputElement>();
 
@@ -28,21 +29,29 @@ const AttachmentUploadButton: React.FC<Props> = ({
     onAddAttachment(files);
   };
 
+  const isCustomLabel = !!buttonLabel;
+
   return (
-    <View className={cn('cmp-upload-button')}>
-      <Image
-        className={cn('cmp-upload-button__image')}
-        src={isBannerImage ? IMAGES.imgPlaceholder : IMAGES.avatarPlaceholder}
-        width={184}
-        height={184}
-        alt="Unset"
-        onClick={handleOpenSelectFileModal}
-      />
-      <View className="cmp-upload-button__icon" onClick={handleOpenSelectFileModal}>
+    <View className={cn('cmp-upload-button', { 'is-custom': isCustomLabel })}>
+      {isCustomLabel ? (
+        buttonLabel(handleOpenSelectFileModal)
+      ) : (
         <View>
-          <FiCamera size={26} className="cmp-upload-button__icon--cam" />
+          <Image
+            className={cn('cmp-upload-button__image')}
+            src={isBannerImage ? IMAGES.imgPlaceholder : IMAGES.avatarPlaceholder}
+            width={184}
+            height={184}
+            alt="Unset"
+            onClick={handleOpenSelectFileModal}
+          />
+          <View className="cmp-upload-button__icon" onClick={handleOpenSelectFileModal}>
+            <View>
+              <FiCamera size={26} className="cmp-upload-button__icon--cam" />
+            </View>
+          </View>
         </View>
-      </View>
+      )}
       <FileUpload
         className="is-hidden"
         onChange={handleSelectFile}
@@ -63,6 +72,7 @@ type Props = ReturnType<typeof mapStateToProps> &
     isAvatar?: boolean;
     isBannerImage?: boolean;
     onError: (_value: any) => void;
+    buttonLabel?: (..._args: any) => ReactElement;
   };
 
 const mapStateToProps = (_state: IRootState) => ({});

@@ -10,6 +10,7 @@ import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '../../compone
 import { ItemSidebar } from '../../components/configuration/Sidebar';
 import { IRootState } from '../../redux/rootReducer';
 import { motion, AnimatePresence } from 'framer-motion';
+import Shop from '../../components/configuration/Shop';
 
 const enum _SidebarTab {
   _ADMIN = 'ADMIN',
@@ -42,15 +43,16 @@ const items: ItemSidebar[] = [
 const SidebarItems = [
   <AdminAccounts key={`sidebar-item-${_SidebarTab._ADMIN}`} />,
   <BannerConfig key={`sidebar-item-${_SidebarTab._BANNER}`} />,
-  <View
-    key={`sidebar-item-${_SidebarTab._BANNER}-placeholder`}
-    className="py-32"
-    justify="center"
-    align="center"
-    flexGrow={1}
-  >
-    <LoadingCommon />
-  </View>,
+  <Shop key={`sidebar-item-${_SidebarTab._SHOP}`} />,
+  // <View
+  //   key={`sidebar-item-${_SidebarTab._BANNER}-placeholder`}
+  //   className="py-32"
+  //   justify="center"
+  //   align="center"
+  //   flexGrow={1}
+  // >
+  //   <LoadingCommon />
+  // </View>
   <View
     key={`sidebar-item-${_SidebarTab._ANIMATION}-placeholder`}
     className="py-32"

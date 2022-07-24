@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { FileUploadType, GetPresignedPayload } from './type';
+import { FileUploadType, GetMultiPresignedPayload, GetPresignedPayload } from './type';
 import { Callback } from '../type';
 
 export interface IFileState {
@@ -26,36 +26,46 @@ export const fileSlice = createSlice({
       state.documentType = action.payload.type ?? undefined;
       state.loading = true;
     },
-    uploadFileSuccess: (state, action: PayloadAction<{ callback?: Callback }>) => {
+    uploadFileSuccess: (state, _action: PayloadAction<{ callback?: Callback }>) => {
       state.loading = false;
     },
-    uploadFileFailed: (state, action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
+    uploadFileFailed: (state, _action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
+      state.loading = false;
+    },
+    /* ------------- uploadFilesAction ------------- */
+    uploadFilesAction: (state, _action: PayloadAction<GetMultiPresignedPayload>) => {
+      state.loading = true;
+    },
+    uploadFilesSuccess: (state, _action: PayloadAction<{ callback?: Callback }>) => {
+      state.loading = false;
+    },
+    uploadFilesFailed: (state, _action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
       state.loading = false;
     },
     /* ------------- getDecodeUrlAction ------------- */
     getDecodeUrlAction: (
       state,
-      action: PayloadAction<{ filePath: string | File; callback?: Callback }>
+      _action: PayloadAction<{ filePath: string | File; callback?: Callback }>
     ) => {
       state.loading = true;
     },
-    getDecodeUrlSuccess: (state, action: PayloadAction<{ callback?: Callback }>) => {
+    getDecodeUrlSuccess: (state, _action: PayloadAction<{ callback?: Callback }>) => {
       state.loading = false;
     },
-    getDecodeUrlFailed: (state, action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
+    getDecodeUrlFailed: (state, _action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
       state.loading = false;
     },
     /* ------------- deleteFileAction ------------- */
     deleteFileAction: (
       state,
-      action: PayloadAction<{ filePath: string | File; callback?: Callback }>
+      _action: PayloadAction<{ filePath: string | File; callback?: Callback }>
     ) => {
       state.loading = true;
     },
-    deleteFileSuccess: (state, action: PayloadAction<{ callback?: Callback }>) => {
+    deleteFileSuccess: (state, _action: PayloadAction<{ callback?: Callback }>) => {
       state.loading = false;
     },
-    deleteFileFailed: (state, action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
+    deleteFileFailed: (state, _action: PayloadAction<{ error?: Error; callback?: Callback }>) => {
       state.loading = false;
     },
   },
@@ -67,6 +77,10 @@ export const {
   uploadFileAction,
   uploadFileFailed,
   uploadFileSuccess,
+  /* ------------- uploadFilesAction ------------- */
+  uploadFilesAction,
+  uploadFilesFailed,
+  uploadFilesSuccess,
   /* ------------- getDecodeUrlAction ------------- */
   getDecodeUrlAction,
   getDecodeUrlFailed,
