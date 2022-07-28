@@ -12,6 +12,9 @@ import {
   updateShopItemAction,
   updateShopItemFailed,
   updateShopItemSuccess,
+  deleteShopItemSuccess,
+  deleteShopItemFailed,
+  deleteShopItemAction,
 } from './shopSlice';
 import { Item } from './type';
 
@@ -43,6 +46,20 @@ function* updateShopItem(api: any, action: { payload: Item }) {
     action.payload
   );
 }
+function* deleteShopItem(api: any, action: { payload: Item }) {
+  yield call(
+    callFirebaseApi,
+    api,
+    {
+      successAction: deleteShopItemSuccess,
+      responseExtractor: (_response) => {
+        return action.payload;
+      },
+      failureAction: deleteShopItemFailed,
+    },
+    action.payload
+  );
+}
 function* handleUpdateItemSuccess(action: { payload: Item }) {
   const { id } = action.payload;
   const params: TableParams = yield select(getProfilePreviousItemsParams);
@@ -51,11 +68,19 @@ function* handleUpdateItemSuccess(action: { payload: Item }) {
   Toastify.success(`${isNew ? 'Create' : 'Update'} Item successfully`);
   yield put(hideModal());
 }
+function* handleDeleteItemSuccess(_action: { payload: Item }) {
+  const params: TableParams = yield select(getProfilePreviousItemsParams);
+  yield put(getShopItemsAction(params));
+  Toastify.success(`Delete Item successfully`);
+  yield put(hideModal());
+}
 
 export default function configurationSaga(apiInstance: Apis) {
   return [
     takeLatest<string, any>(getShopItemsAction.type, getShopItems, apiInstance.getShopItems),
     takeLatest<string, any>(updateShopItemAction.type, updateShopItem, apiInstance.updateShopItem),
+    takeLatest<string, any>(deleteShopItemAction.type, deleteShopItem, apiInstance.deleteShopItem),
     takeLatest<string, any>(updateShopItemSuccess.type, handleUpdateItemSuccess),
+    takeLatest<string, any>(deleteShopItemSuccess.type, handleDeleteItemSuccess),
   ];
 }

@@ -1,11 +1,9 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-// import { Ref, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-// import { Fade, SlideshowRef } from 'react-slideshow-image';
 import { PATHS } from '../../app-config/paths';
-import { Grid, LoadingCommon, Text, View } from '../../components/commons';
+import { Grid, Text, View } from '../../components/commons';
 import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '../../components/configuration';
 import { ItemSidebar } from '../../components/configuration/Sidebar';
 import { IRootState } from '../../redux/rootReducer';
@@ -44,15 +42,6 @@ const SidebarItems = [
   <AdminAccounts key={`sidebar-item-${_SidebarTab._ADMIN}`} />,
   <BannerConfig key={`sidebar-item-${_SidebarTab._BANNER}`} />,
   <Shop key={`sidebar-item-${_SidebarTab._SHOP}`} />,
-  // <View
-  //   key={`sidebar-item-${_SidebarTab._BANNER}-placeholder`}
-  //   className="py-32"
-  //   justify="center"
-  //   align="center"
-  //   flexGrow={1}
-  // >
-  //   <LoadingCommon />
-  // </View>
   <View
     key={`sidebar-item-${_SidebarTab._ANIMATION}-placeholder`}
     className="py-32"
@@ -82,16 +71,6 @@ const Configuration: NextPage<Props> = () => {
     });
   };
 
-  // const defaultIndex = tab === _SidebarTab._ADMIN ? 0 : 1;
-  // const handleSetTab = (idx: number) => setTimeout(() => bannerRef.current?.goTo(idx), 200);
-
-  // useEffect(() => {
-  //   if (tab === _SidebarTab._ADMIN) handleSetTab(0);
-  //   else if (tab === _SidebarTab._BANNER) handleSetTab(1);
-  //   else if (tab === _SidebarTab.ANIMATION) handleSetTab(3);
-  //   else handleSetTab(2);
-  // }, [tab]);
-
   return (
     <View className="p-configuration container" style={{ width: '100%' }}>
       <h1 className="mb-24">Configuration</h1>
@@ -117,21 +96,6 @@ const Configuration: NextPage<Props> = () => {
                 : SidebarItems[2]}
             </motion.div>
           </AnimatePresence>
-          {/* <Fade
-            arrows={false}
-            pauseOnHover={true}
-            ref={bannerRef as Ref<SlideshowRef>}
-            autoplay={false}
-            transitionDuration={350}
-            defaultIndex={2}
-            cssClass={'p-configuration__slide'}
-          >
-            {SidebarItems.map((item, index) => (
-              <View className="each-fade" key={index}>
-                {item}
-              </View>
-            ))}
-          </Fade> */}
         </Grid.Item>
       </Grid.Wrap>
     </View>

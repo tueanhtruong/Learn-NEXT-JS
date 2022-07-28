@@ -53,6 +53,17 @@ export const shopSlice = createSlice({
       state.loading = false;
       state.error = action.payload ?? undefined;
     },
+    ////////////////////////////// Delete Item //////////////////////////////
+    deleteShopItemAction: (state, _action: PayloadAction<{ id: string }>) => {
+      state.loading = true;
+    },
+    deleteShopItemSuccess: (state, _action: PayloadAction<any>) => {
+      state.loading = false;
+    },
+    deleteShopItemFailed: (state, action: PayloadAction<Error | null>) => {
+      state.loading = false;
+      state.error = action.payload ?? undefined;
+    },
   },
 });
 
@@ -67,6 +78,10 @@ export const {
   getShopItemsAction,
   getShopItemsFailed,
   getShopItemsSuccess,
+  ////////////////////////////// Delete Item //////////////////////////////
+  deleteShopItemAction,
+  deleteShopItemFailed,
+  deleteShopItemSuccess,
 } = shopSlice.actions;
 
 export const shopState = shopSlice.getInitialState();

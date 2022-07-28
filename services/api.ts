@@ -184,6 +184,10 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const docRef = doc(db, COLLECTIONS._shopItems, body.id ?? '');
     return updateDoc(docRef, { ...body });
   };
+  const deleteShopItem = async (body: { id: string }) => {
+    const docRef = doc(db, COLLECTIONS._shopItems, body.id);
+    return deleteDoc(docRef);
+  };
   // ====================== Profile ======================
   const getMyProfile = async (body: { uid: string }) => {
     const docRef = doc(db, COLLECTIONS._myUsers, body.uid);
@@ -245,6 +249,7 @@ const create = (baseURL = appConfig.API_URL || '') => {
     // ====================== Shop ======================
     getShopItems,
     updateShopItem,
+    deleteShopItem,
     // ====================== Profile ======================
     getMyProfile,
     updateMyProfile,

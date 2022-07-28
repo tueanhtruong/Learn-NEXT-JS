@@ -17,11 +17,11 @@ const YesNoModal: React.FC<Props> = ({ modalData }) => {
   return (
     <View className={`ctn-modal__content normal-form-container`}>
       <View>
-        {title && (
+        {/* {title && (
           <Text size={20} className="mb-4 ctn-modal__content__title">
             {title}
           </Text>
-        )}
+        )} */}
         {message && <Text className="mb-5 ctn-modal__content__message">{message}</Text>}
       </View>
       <View isRow justify="flex-end" className="ctn-modal__content__footer">

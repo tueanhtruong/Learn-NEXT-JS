@@ -4,10 +4,14 @@ import { useMemo } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 
-import { showModal } from '../../../redux/modal/modalSlice';
+import { hideModal, showModal } from '../../../redux/modal/modalSlice';
 import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
 import { IRootState } from '../../../redux/rootReducer';
-import { getShopItemsAction, setSelectedItem } from '../../../redux/shop/shopSlice';
+import {
+  deleteShopItemAction,
+  getShopItemsAction,
+  setSelectedItem,
+} from '../../../redux/shop/shopSlice';
 import { Item } from '../../../redux/shop/type';
 import { TableParams } from '../../../redux/type';
 import { Button, Table, View } from '../../commons';
@@ -20,6 +24,8 @@ const Shop: NextPage<Props> = ({
   onGetShopProducts,
   onSetSelectedProduct,
   onShowModal,
+  onHideModal,
+  onDeleteShopItem,
 }) => {
   const handleGetProducts = (params: TableParams) => {
     onGetShopProducts(params);
@@ -47,6 +53,18 @@ const Shop: NextPage<Props> = ({
       },
     });
   };
+
+  const handleDeleteItem = (id: string) => {
+    onShowModal({
+      type: MODAL_TYPES.YES_NO_MODAL,
+      data: {
+        title: 'Confirm Delete',
+        message: 'Are you sure want to delete this item?',
+        onCancel: onHideModal,
+        onOk: () => onDeleteShopItem({ id }),
+      },
+    });
+  };
   const tableOptions: MUIDataTableOptions = useMemo(
     () => ({
       count: items.length,
@@ -62,7 +80,7 @@ const Shop: NextPage<Props> = ({
     [items]
   );
   const columns = useMemo(
-    () => allColumns(),
+    () => allColumns(handleDeleteItem),
     // eslint-disable-next-line
     []
   );
@@ -96,6 +114,8 @@ const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) =>
   onGetShopProducts: (payload: TableParams) => dispatch(getShopItemsAction(payload)),
   onSetSelectedProduct: (payload: Item | undefined) => dispatch(setSelectedItem(payload)),
   onShowModal: (payload: { data: ModalData; type: string }) => dispatch(showModal(payload)),
+  onDeleteShopItem: (payload: { id: string }) => dispatch(deleteShopItemAction(payload)),
+  onHideModal: () => dispatch(hideModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

@@ -8,6 +8,7 @@ import bestSelling1 from '../assets/images/best-selling-1.jpg';
 import bestSelling2 from '../assets/images/best-selling-2.jpg';
 import bestSelling3 from '../assets/images/best-selling-3.jpg';
 import logoUs from '../assets/images/logo-us.jpg';
+import shopBanner from '../assets/images/shop-banner.jpg';
 
 export const IMAGES = {
   logoCode: logoCodeImage,
@@ -19,4 +20,5 @@ export const IMAGES = {
   bestSelling2,
   bestSelling3,
   logoUs,
+  shopBanner,
 };

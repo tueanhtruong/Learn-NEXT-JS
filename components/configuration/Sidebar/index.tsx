@@ -6,6 +6,7 @@ import { Callback } from '../../../redux/type';
 export type ItemSidebar = {
   label: string;
   tab: string;
+  icon?: React.ReactElement;
 };
 
 const Sidebar: React.FC<Props> = ({ items, setTab, tab }) => {
@@ -18,8 +19,12 @@ const Sidebar: React.FC<Props> = ({ items, setTab, tab }) => {
             key={`config-sidebar-item-${index}`}
             className={cn('cmp-config-sidebar__item', { 'is-active': isActive })}
             onClick={() => setTab(item.tab)}
+            isRow
+            align="center"
+            justify="flex-start"
           >
-            {item.label}
+            <View>{item.icon ?? null}</View>
+            <View>{item.label}</View>
           </View>
         );
       })}
