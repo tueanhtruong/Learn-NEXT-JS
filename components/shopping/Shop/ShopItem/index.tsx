@@ -2,16 +2,16 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import _ from 'lodash';
 import type { NextPage } from 'next';
-import { useState } from 'react';
-import { FaCartPlus } from 'react-icons/fa';
+import { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { IRootState } from '../../../../redux/rootReducer';
 import { Item } from '../../../../redux/shop/type';
 import { FileRenderer, Text, View } from '../../../commons';
+import OrderField from './OrderField';
 
 const ShopItem: NextPage<Props> = ({ user, item }) => {
   const { images } = item;
-  // let interval: any;
+  const [intervalSlide, setIntervalSlide] = useState<any>();
   const [imgIndex, setImgIndex] = useState<number>(0);
   const imageKeys = Object.keys(images);
   const imageRenders = imageKeys.map((key) => (
@@ -25,33 +25,56 @@ const ShopItem: NextPage<Props> = ({ user, item }) => {
   const handleSetIndexImg = () => {
     setImgIndex((idx) => (idx < imageKeys.length - 1 ? idx + 1 : 0));
   };
-  // useComponentDidMount(() => {
-  //   interval = setInterval(handleSetIndexImg, 4500);
-  // });
 
-  // useComponentWillUnmount(() => {
-  //   clearInterval(interval);
-  // });
+  const handleSetIntervalSlide = () => {
+    if (!intervalSlide) setIntervalSlide(setInterval(handleSetIndexImg, 2400));
+  };
+
+  const handleClearInterval = () => {
+    if (intervalSlide) {
+      clearInterval(intervalSlide);
+      setIntervalSlide(null);
+    }
+  };
+
+  const orderSectionKey = useMemo(() => `add-to-cart-section-${item.id}`, []);
 
   const selectedKey = imageKeys[imgIndex];
-  // const selectedImage = _.get(images, selectedKey);
   return (
-    <View>
-      <AnimatePresence exitBeforeEnter>
-        <motion.div
-          key={selectedKey}
-          initial={{ y: -10, opacity: 0, cursor: 'pointer' }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 10, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          whileHover={{ boxShadow: '5px 3px 18px -1px rgba(0,0,0,0.75)' }}
-          onClick={handleSetIndexImg}
-        >
-          {imageRenders[imgIndex]}
-        </motion.div>
-      </AnimatePresence>
-      {/* <FileRenderer url={selectedImage} imgWidth={300} imgHeight={440} /> */}
-      <View className="cmp-best-product mt-16" isRow align="flex-start" justify="space-between">
+    <View className="cmp-shop-item">
+      <View
+        className="cmp-shop-item__img"
+        onMouseEnter={handleSetIntervalSlide}
+        onMouseLeave={handleClearInterval}
+      >
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key={selectedKey}
+            initial={{ x: -10, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 10, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            // whileHover={{  }}
+          >
+            {imageRenders[imgIndex]}
+          </motion.div>
+        </AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
+          {intervalSlide && (
+            <motion.div
+              key={orderSectionKey}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 10, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="cmp-shop-item__img__order"
+            >
+              <OrderField />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </View>
+      <View className="cmp-best-product mt-32" isRow align="flex-start" justify="space-between">
         <View>
           <Text size={24} className="cmp-best-product__name fw-bold">
             {item.label}
@@ -59,9 +82,6 @@ const ShopItem: NextPage<Props> = ({ user, item }) => {
           <Text size={18} className="cmp-best-product__price">
             {item.price} đ
           </Text>
-        </View>
-        <View>
-          <FaCartPlus size={32} title="Add to Cart" className="pointer" />
         </View>
       </View>
     </View>

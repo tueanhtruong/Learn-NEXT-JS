@@ -19,6 +19,9 @@ import ShopItem from './ShopItem';
 const Shop: NextPage<Props> = ({ loading, items, onGetShopProducts }) => {
   useComponentDidMount(() => {
     if (isEmpty(items)) onGetShopProducts({});
+    //   React.useEffect(() => {
+    //
+    //   });
   });
   return (
     <View>

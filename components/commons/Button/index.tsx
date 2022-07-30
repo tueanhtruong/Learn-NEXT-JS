@@ -48,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {isRenderIcon ? icon : null}
       <Loading size="small" loadingStyle={5} className={'cmp-button__loading'} />
-      <span className={'cmp-button__label'}>{label || children}</span>
+      {(label || children) && <span className={'cmp-button__label'}>{label || children}</span>}
     </button>
   );
 };

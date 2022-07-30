@@ -152,6 +152,7 @@
     transition: $default-linear-trans;
     transition-duration: 0.1s;
     left: 0;
+    display: none;
   }
 
   &__label {
@@ -167,6 +168,7 @@
       &__loading {
         left: -8px;
         opacity: 1;
+        display: block;
       }
       &__label {
         left: 20px;

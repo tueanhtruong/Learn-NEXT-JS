@@ -11,10 +11,14 @@ import Toastify from '../components/Toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Content from '../components/Content';
 import Dialog from '../components/Dialog';
+import { useComponentDidMount } from '../hooks';
 
 type MyAppProps = AppProps;
 
 function MyApp({ Component, pageProps: { _session, ...pageProps } }: MyAppProps) {
+  useComponentDidMount(() => {
+    import('@lottiefiles/lottie-player');
+  });
   return (
     <Screen showNavbar>
       <Navbar />
