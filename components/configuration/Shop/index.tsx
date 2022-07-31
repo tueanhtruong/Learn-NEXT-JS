@@ -10,10 +10,12 @@ import { IRootState } from '../../../redux/rootReducer';
 import {
   deleteShopItemAction,
   getShopItemsAction,
+  updateShopItemAction,
   setSelectedItem,
 } from '../../../redux/shop/shopSlice';
-import { Item } from '../../../redux/shop/type';
+import { Item, ItemStatus } from '../../../redux/shop/type';
 import { TableParams } from '../../../redux/type';
+import { getStartCase } from '../../../utils';
 import { Button, Table, View } from '../../commons';
 import { allColumns } from './allColumns';
 import ProductForm from './ShopItem';
@@ -25,7 +27,8 @@ const Shop: NextPage<Props> = ({
   onSetSelectedProduct,
   onShowModal,
   onHideModal,
-  onDeleteShopItem,
+  // onDeleteShopItem,
+  onUpdateShopItem,
 }) => {
   const handleGetProducts = (params: TableParams) => {
     onGetShopProducts(params);
@@ -54,16 +57,33 @@ const Shop: NextPage<Props> = ({
     });
   };
 
-  const handleDeleteItem = (id: string) => {
-    onShowModal({
-      type: MODAL_TYPES.YES_NO_MODAL,
-      data: {
-        title: 'Confirm Delete',
-        message: 'Are you sure want to delete this item?',
-        onCancel: onHideModal,
-        onOk: () => onDeleteShopItem({ id }),
-      },
-    });
+  // const handleDeleteItem = (id: string) => {
+  //   onShowModal({
+  //     type: MODAL_TYPES.YES_NO_MODAL,
+  //     data: {
+  //       title: 'Confirm Delete',
+  //       message: 'Are you sure want to delete this item?',
+  //       onCancel: onHideModal,
+  //       onOk: () => onDeleteShopItem({ id }),
+  //     },
+  //   });
+  // };
+  const handleUpdateItemStatus = (id: string, status: ItemStatus) => {
+    const selectedItem = items.find((item) => item.id === id);
+    if (selectedItem) {
+      return onShowModal({
+        type: MODAL_TYPES.YES_NO_MODAL,
+        data: {
+          title: 'Confirm Change Status',
+          message: `Are you sure want to change this item status to ${getStartCase(status)}?`,
+          onCancel: onHideModal,
+          onOk: () => {
+            onUpdateShopItem({ ...selectedItem, status });
+            onHideModal();
+          },
+        },
+      });
+    }
   };
   const tableOptions: MUIDataTableOptions = useMemo(
     () => ({
@@ -80,7 +100,7 @@ const Shop: NextPage<Props> = ({
     [items]
   );
   const columns = useMemo(
-    () => allColumns(handleDeleteItem),
+    () => allColumns(handleUpdateItemStatus),
     // eslint-disable-next-line
     []
   );
@@ -115,6 +135,7 @@ const mapDispatchToProps = (dispatch: (_arg0: { payload: any; type: string }) =>
   onSetSelectedProduct: (payload: Item | undefined) => dispatch(setSelectedItem(payload)),
   onShowModal: (payload: { data: ModalData; type: string }) => dispatch(showModal(payload)),
   onDeleteShopItem: (payload: { id: string }) => dispatch(deleteShopItemAction(payload)),
+  onUpdateShopItem: (payload: Item) => dispatch(updateShopItemAction(payload)),
   onHideModal: () => dispatch(hideModal()),
 });
 

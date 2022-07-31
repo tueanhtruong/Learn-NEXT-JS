@@ -8,4 +8,5 @@ export enum COLLECTIONS {
   _shopItems = 'configuration-shop',
   _configurationAdmin = 'configuration-admin',
   _myUsers = 'my-users',
+  _userOrders = 'user-orders',
 }

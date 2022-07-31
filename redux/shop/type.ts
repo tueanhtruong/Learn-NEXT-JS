@@ -1,3 +1,7 @@
+export enum ItemStatus {
+  _Available = '_AVAILABLE',
+  _Not_Available = '_NOT_AVAILABLE',
+}
 export interface Item {
   id?: string;
   price: number | null;
@@ -7,4 +11,5 @@ export interface Item {
     [key: string]: string | File;
   };
   productId: string;
+  status?: ItemStatus;
 }

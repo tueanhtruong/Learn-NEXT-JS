@@ -9,6 +9,7 @@ import profileReducer, { IProfileState, profileState } from './profile/profileSl
 import modalReducer, { IModalState, modalState } from './modal/modalSlice';
 import fileReducer, { IFileState, fileState } from './file/fileSlice';
 import shopReducer, { IShopState, shopState } from './shop/shopSlice';
+import orderReducer, { IOrderState, orderState } from './order/orderSlice';
 
 export interface IRootState {
   content: IContentState;
@@ -18,6 +19,7 @@ export interface IRootState {
   modal: IModalState;
   file: IFileState;
   shop: IShopState;
+  order: IOrderState;
 }
 
 export const rootState: IRootState = {
@@ -28,6 +30,7 @@ export const rootState: IRootState = {
   modal: modalState,
   file: fileState,
   shop: shopState,
+  order: orderState,
 };
 
 /* ------------- Assemble The Reducers ------------- */
@@ -40,6 +43,7 @@ const createRootReducer = () => {
     modal: modalReducer,
     file: fileReducer,
     shop: shopReducer,
+    order: orderReducer,
   });
 };
 

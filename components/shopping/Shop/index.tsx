@@ -13,32 +13,37 @@ import {
 import { Item } from '../../../redux/shop/type';
 import { TableParams } from '../../../redux/type';
 import { isEmpty } from '../../../validations';
-import { LoadingCommon, View } from '../../commons';
+import { Grid, LoadingCommon, View } from '../../commons';
 import ShopItem from './ShopItem';
 
 const Shop: NextPage<Props> = ({ loading, items, onGetShopProducts }) => {
   useComponentDidMount(() => {
-    if (isEmpty(items)) onGetShopProducts({});
+    if (isEmpty(items)) onGetShopProducts({ order: 'asc', sort: 'price' });
     //   React.useEffect(() => {
     //
     //   });
   });
+
   return (
-    <View>
-      <View isRow align="center">
-        <h4>Showing:</h4>
-        {loading ? (
-          <LoadingCommon className="ml-32" />
-        ) : (
-          <h4 className="ml-8">{items.length} results</h4>
-        )}
-      </View>
-      <View isRow align="center" justify="space-between" className="mt-32">
-        {items.map((item, idx) => (
+    <Grid.Wrap>
+      <Grid.Item variant="is-full">
+        <View isRow align="center">
+          <h4>Showing:</h4>
+          {loading ? (
+            <LoadingCommon className="ml-32" />
+          ) : (
+            <h4 className="ml-8">{items.length} results</h4>
+          )}
+        </View>
+      </Grid.Item>
+      {/* <View isRow align="center" justify="space-between" className="mt-32"> */}
+      {items.map((item, idx) => (
+        <Grid.Item key={`shop-item-${idx}`} variant="is-one-third" className="mt-32">
           <ShopItem item={item} key={`shop-item-${idx}`} />
-        ))}
-      </View>
-    </View>
+        </Grid.Item>
+      ))}
+      {/* </View> */}
+    </Grid.Wrap>
   );
 };
 

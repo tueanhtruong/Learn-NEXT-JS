@@ -1,12 +1,13 @@
 import { MUIDataTableData, MUIDataTableMeta } from 'mui-datatables';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { Item } from '../../../redux/shop/type';
+import { FaClipboardCheck } from 'react-icons/fa';
+import { MdDomainDisabled } from 'react-icons/md';
+import { Item, ItemStatus } from '../../../redux/shop/type';
 import { Callback } from '../../../redux/type';
 import { formatMoney } from '../../../utils';
 
 type MetaData = Omit<MUIDataTableMeta, 'tableData'> & { tableData: Array<MUIDataTableData | Item> };
 
-export const allColumns = (onDelete: Callback) => {
+export const allColumns = (onUpdateStatus: Callback) => {
   return [
     {
       name: 'price',
@@ -49,14 +50,25 @@ export const allColumns = (onDelete: Callback) => {
         sort: false,
         customBodyRender: (value: string, metaData: MetaData) => {
           const rowIndex = metaData.rowIndex;
+          // eslint-disable-next-line security/detect-object-injection
           const rowData = metaData.tableData[rowIndex] as Item;
-          return (
-            <FaRegTrashAlt
+          const isNotActive = rowData.status === ItemStatus._Not_Available;
+          return isNotActive ? (
+            <FaClipboardCheck
               size={20}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                onDelete(rowData.id);
+                onUpdateStatus(rowData.id, ItemStatus._Available);
+              }}
+            />
+          ) : (
+            <MdDomainDisabled
+              size={20}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onUpdateStatus(rowData.id, ItemStatus._Not_Available);
               }}
             />
           );

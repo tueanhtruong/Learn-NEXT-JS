@@ -9,16 +9,11 @@ export enum Cart_State {
 export default function Player(props: { loading: boolean; onAdd: Callback }) {
   const { loading, onAdd } = props;
   const ref = useRef<any>(null);
-  //   const secondRef = useRef<any>(null);
   useEffect(() => {
     if (loading) {
       ref.current?.play();
     }
   }, [loading]);
-
-  //   const handleChangeToLoading = () => {
-  //     setSrc(Cart_State._loading);
-  //   };
 
   return (
     <div onClick={onAdd}>
@@ -30,15 +25,6 @@ export default function Player(props: { loading: boolean; onAdd: Callback }) {
         src={Cart_State._loading}
         style={{ width: '60px', height: '60px', cursor: 'pointer' }}
       ></lottie-player>
-      {/* <lottie-player
-        id="secondLottie"
-        // ref={secondRef}
-        autoplay
-        loop
-        mode="normal"
-        src={Cart_State._success}
-        style={{ width: '60px', height: '60px' }}
-      ></lottie-player> */}
     </div>
   );
 }

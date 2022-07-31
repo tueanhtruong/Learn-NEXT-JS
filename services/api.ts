@@ -34,6 +34,7 @@ import { TableParams } from '../redux/type';
 import { AdminAccount, Banner } from '../redux/configuration/type';
 import { COLLECTIONS } from '../app-config/constants';
 import { Item } from '../redux/shop/type';
+import { OrderItem } from '../redux/order/type';
 
 const config = {
   apiKey: appConfig.API_KEY,
@@ -188,6 +189,25 @@ const create = (baseURL = appConfig.API_URL || '') => {
     const docRef = doc(db, COLLECTIONS._shopItems, body.id);
     return deleteDoc(docRef);
   };
+
+  // ====================== Order ======================
+
+  const getMyOrderItems = async (body: { id: string }) => {
+    const docRef = doc(db, COLLECTIONS._userOrders, body.id);
+    const docSnap = await getDoc(docRef);
+    const isExists = docSnap.exists();
+    if (isExists) return docSnap.data();
+    return undefined;
+  };
+
+  const addToMyOrderItems = async (body: { id: string; items: OrderItem[] }) => {
+    const docRef = doc(db, COLLECTIONS._userOrders, body.id);
+    const docSnap = await getDoc(docRef);
+    const isExists = docSnap.exists();
+    if (!isExists) return setDoc(docRef, { items: body.items });
+    return updateDoc(docRef, { items: body.items });
+  };
+
   // ====================== Profile ======================
   const getMyProfile = async (body: { uid: string }) => {
     const docRef = doc(db, COLLECTIONS._myUsers, body.uid);
@@ -250,6 +270,9 @@ const create = (baseURL = appConfig.API_URL || '') => {
     getShopItems,
     updateShopItem,
     deleteShopItem,
+    // ====================== Order ======================
+    getMyOrderItems,
+    addToMyOrderItems,
     // ====================== Profile ======================
     getMyProfile,
     updateMyProfile,

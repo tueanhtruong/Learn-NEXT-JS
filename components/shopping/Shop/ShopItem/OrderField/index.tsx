@@ -10,17 +10,17 @@ import Player from './player';
 import SuccessPlayer from './successPlayer';
 // import { FaCartPlus } from 'react-icons/fa';
 
-const OrderField: NextPage<Props> = ({ onAdd }) => {
+const OrderField: NextPage<Props> = ({ onAdd, loading, isSuccess, onSetSuccess }) => {
   const [itemNumber, setItemNumber] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!loading) {
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 2000);
+    if (isSuccess) {
+      setTimeout(() => onSetSuccess(null), 2000);
     }
-  }, [loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
+  const handleAddToCart = () => onAdd(itemNumber);
 
   return (
     <View flexGrow={1} isRow className="px-32 " justify="space-between" align="center">
@@ -31,7 +31,7 @@ const OrderField: NextPage<Props> = ({ onAdd }) => {
           disabled={itemNumber === 1}
           onClick={() => setItemNumber((sum) => sum - 1)}
         />
-        <Text size={18} className="fw-bold mx-8 has-text-danger">
+        <Text size={20} className="fw-bold mx-8 has-text-danger">
           {itemNumber}
         </Text>
         <Button
@@ -41,18 +41,17 @@ const OrderField: NextPage<Props> = ({ onAdd }) => {
         />
       </View>
       <View>
-        {showSuccess ? (
-          <SuccessPlayer />
-        ) : (
-          <Player loading={loading} onAdd={() => setLoading(!loading)} />
-        )}
+        {isSuccess ? <SuccessPlayer /> : <Player loading={loading} onAdd={handleAddToCart} />}
       </View>
     </View>
   );
 };
 
 type Props = {
-  onAdd?: Callback;
+  onAdd: Callback;
+  loading: boolean;
+  isSuccess: boolean;
+  onSetSuccess: Callback;
 };
 
 export default OrderField;
