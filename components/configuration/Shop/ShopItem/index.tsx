@@ -4,19 +4,15 @@ import { useRef } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 
-import { uploadFilesAction } from '../../../../redux/file/fileSlice';
-import {
-  FileUploadType,
-  GetMultiPresignedPayload,
-  GetPresignedPayload,
-} from '../../../../redux/file/type';
-import { hideModal } from '../../../../redux/modal/modalSlice';
-import { IRootState } from '../../../../redux/rootReducer';
-import { updateShopItemAction } from '../../../../redux/shop/shopSlice';
-import { Item } from '../../../../redux/shop/type';
-import { Callback } from '../../../../redux/type';
-import { Toastify } from '../../../../services';
-import { getRandomId } from '../../../../utils';
+import { uploadFilesAction } from '@/redux/file/fileSlice';
+import { FileUploadType, GetMultiPresignedPayload, GetPresignedPayload } from '@/redux/file/type';
+import { hideModal } from '@/redux/modal/modalSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { updateShopItemAction } from '@/redux/shop/shopSlice';
+import { Item } from '@/redux/shop/type';
+import { Callback } from '@/redux/type';
+import { Toastify } from '@/services';
+import { getRandomId } from '@/utils';
 import {
   AttachmentUploadButton,
   Button,
@@ -28,7 +24,7 @@ import {
   Text,
   TextArea,
   View,
-} from '../../../commons';
+} from '@/components/commons';
 import { FormSchema, getInitialFormValue } from './helpers';
 
 type FormType = Item;

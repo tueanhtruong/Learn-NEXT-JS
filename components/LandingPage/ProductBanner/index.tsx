@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import { connect } from 'react-redux';
-import { useComponentDidMount } from '../../../hooks';
-import { getConfigurationBannersAction } from '../../../redux/configuration/configurationSlice';
-import { IRootState } from '../../../redux/rootReducer';
-import { TableParams } from '../../../redux/type';
-import { isEmpty } from '../../../validations';
+import { useComponentDidMount } from '@/hooks';
+import { getConfigurationBannersAction } from '@/redux/configuration/configurationSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { TableParams } from '@/redux/type';
+import { isEmpty } from '@/validations';
 import { FileRenderer, LoadingCommon, Text, View } from '../../commons';
 
 const getBannerWidth = (width: number): number => {

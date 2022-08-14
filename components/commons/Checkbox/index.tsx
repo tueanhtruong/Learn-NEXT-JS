@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import Element from '../Element';
 import { View } from '..';
 import Text from '../Text';
-import { isNumeric } from '../../../validations';
+import { isNumeric } from '@/validations';
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,

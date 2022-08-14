@@ -1,5 +1,5 @@
-import { Profile } from '../../../redux/profile/type';
-import { Yup } from '../../../services';
+import { Profile } from '@/redux/profile/type';
+import { Yup } from '@/services';
 export type FormType = {
   email: string;
   displayName: string;

@@ -1,6 +1,6 @@
 import React, { HTMLProps } from 'react';
 import { Button, Text, View } from '../../commons';
-import { IMAGES } from '../../../app-config/images';
+import { IMAGES } from '@/app-config/images';
 import Image from 'next/image';
 // import Footer from 'src/components/Footer';
 

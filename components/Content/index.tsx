@@ -1,15 +1,15 @@
-import { IRootState } from '../../redux/rootReducer';
+import { IRootState } from '@/redux/rootReducer';
 import { connect } from 'react-redux';
 import { NextPage } from 'next';
 import {
   getAdminProfileAction,
   getConfigurationAdminAction,
-} from '../../redux/configuration/configurationSlice';
-import { isEmpty } from '../../validations';
+} from '@/redux/configuration/configurationSlice';
+import { isEmpty } from '@/validations';
 import { useEffect } from 'react';
-import { setIsAdminRole } from '../../redux/auth/authSlice';
-import { getMyProfileAction } from '../../redux/profile/profileSlice';
-import { TableParams } from '../../redux/type';
+import { setIsAdminRole } from '@/redux/auth/authSlice';
+import { getMyProfileAction } from '@/redux/profile/profileSlice';
+import { TableParams } from '@/redux/type';
 
 const Screen: NextPage<Props> = ({
   authUser,

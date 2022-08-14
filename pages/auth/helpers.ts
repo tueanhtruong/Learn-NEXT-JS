@@ -1,4 +1,4 @@
-import { Yup } from '../../services';
+import { Yup } from '@/services';
 
 export const SigninSchema = Yup.object().shape({
   email: Yup.string().required().email(),

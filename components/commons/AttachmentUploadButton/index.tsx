@@ -2,14 +2,14 @@ import Image from 'next/image';
 import React, { ReactElement, useRef } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../../app-config/images';
-import { getDecodeUrlAction } from '../../../redux/file/fileSlice';
-import { FileUploadType } from '../../../redux/file/type';
-import { IRootState } from '../../../redux/rootReducer';
-import { Callback } from '../../../redux/type';
+import { getDecodeUrlAction } from '@/redux/file/fileSlice';
+import { FileUploadType } from '@/redux/file/type';
+import { IRootState } from '@/redux/rootReducer';
+import { Callback } from '@/redux/type';
 import FileUpload from '../FileUpload';
 import View from '../View';
 import cn from 'classnames';
+import { IMAGES } from '@/app-config/images';
 
 const AttachmentUploadButton: React.FC<Props> = ({
   onAddAttachment,

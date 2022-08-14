@@ -1,5 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { Apis } from '../../services/api';
+import { Apis } from '@/services/api';
 import { callFirebaseApi } from '../commonSagas/callApi';
 import { TableParams } from '../type';
 import {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Popover, Tooltip } from '@material-ui/core';
 import cn from 'classnames';
 import View from '../View';
-import { Callback } from '../../../redux/type';
+import { Callback } from '@/redux/type';
 
 const ContactFilter: React.FC<Props> = ({
   label,

@@ -2,13 +2,13 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { PATHS } from '../../app-config/paths';
-import { Grid, Text, View } from '../../components/commons';
-import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '../../components/configuration';
-import { ItemSidebar } from '../../components/configuration/Sidebar';
-import { IRootState } from '../../redux/rootReducer';
+import { PATHS } from '@/app-config/paths';
+import { Grid, Text, View } from '@/components/commons';
+import { AdminAccounts, BannerConfig, ConfigurationSidebar } from '@/components/configuration';
+import { ItemSidebar } from '@/components/configuration/Sidebar';
+import { IRootState } from '@/redux/rootReducer';
 import { motion, AnimatePresence } from 'framer-motion';
-import Shop from '../../components/configuration/Shop';
+import Shop from '@/components/configuration/Shop';
 
 const enum _SidebarTab {
   _ADMIN = 'ADMIN',
@@ -66,9 +66,15 @@ const Configuration: NextPage<Props> = () => {
     query: { tab = _SidebarTab._ADMIN },
   } = router;
   const setTab = (tab: string) => {
-    router.push({
-      query: { tab },
-    });
+    router.push(
+      {
+        query: { tab },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
 
   return (

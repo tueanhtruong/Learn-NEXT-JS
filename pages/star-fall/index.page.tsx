@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { View } from '../../components/commons';
-import { IRootState } from '../../redux/rootReducer';
+import { View } from '@/components/commons';
+import { IRootState } from '@/redux/rootReducer';
 import { connect } from 'react-redux';
 
-// import LandingNavbar from '../../components/LandingPage/LandingNavbar';
+// import LandingNavbar from '@/components/LandingPage/LandingNavbar';
 
 const Home: NextPage<Props> = () => {
   return (

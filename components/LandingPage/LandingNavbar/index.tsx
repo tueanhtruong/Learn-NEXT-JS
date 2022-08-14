@@ -2,30 +2,16 @@ import cn from 'classnames';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../../app-config/images';
-import { PATHS } from '../../../app-config/paths';
-import { IRootState } from '../../../redux/rootReducer';
+import { IMAGES } from '@/app-config/images';
+import { PATHS } from '@/app-config/paths';
+import { IRootState } from '@/redux/rootReducer';
 import { MuiPopUp, Text, View } from '../../commons';
-import { signOutAction } from '../../../redux/auth/authSlice';
+import { signOutAction } from '@/redux/auth/authSlice';
 import Image from 'next/image';
 
-// const _NAV_TYPES = {
-//   isNavlink: 'NAV_LINK',
-//   isButton: 'BUTTON',
-//   isText: 'TEXT',
-// };
-
 const Navbar: React.FC<Props> = ({ isAuthenticated = false, profile }) => {
-  // const [toggleNavbar, setToggleNavbar] = useState(false);
   const [fixedNavbar, setFixedNavbar] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
-  // const router = useRouter();
-  // const location = router.pathname;
-
-  // const getUserName = () => {
-  //   if (!profile?.displayName) return 'Anonymous';
-  //   return `${profile.displayName}`;
-  // };
 
   useEffect(() => {
     const onScroll = () => setFixedNavbar(!!window.pageYOffset);

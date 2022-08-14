@@ -1,28 +1,20 @@
 import type { NextPage } from 'next';
 import { connect } from 'react-redux';
-import {
-  Button,
-  Form,
-  Grid,
-  Input,
-  InputPhone,
-  LoadingCommon,
-  View,
-} from '../../../components/commons';
-import LayoutFull from '../../../layout/LayoutFull';
-import { IRootState } from '../../../redux/rootReducer';
-import { getMyProfileAction, updateMyProfileAction } from '../../../redux/profile/profileSlice';
-import { signOutAction } from '../../../redux/auth/authSlice';
+import { Button, Form, Grid, Input, InputPhone, LoadingCommon, View } from '@/components/commons';
+import LayoutFull from '@/layout/LayoutFull';
+import { IRootState } from '@/redux/rootReducer';
+import { getMyProfileAction, updateMyProfileAction } from '@/redux/profile/profileSlice';
+import { signOutAction } from '@/redux/auth/authSlice';
 import { useRef } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { FormSchema, FormType, getInitialFormValue } from './helpers';
-import { Profile } from '../../../redux/profile/type';
-import { Callback } from '../../../redux/type';
+import { Profile } from '@/redux/profile/type';
+import { Callback } from '@/redux/type';
 import { useRouter } from 'next/router';
-import { PATHS } from '../../../app-config/paths';
-import { Toastify } from '../../../services';
-import { showModal } from '../../../redux/modal/modalSlice';
-import { ModalData } from '../../../redux/modal/type';
+import { PATHS } from '@/app-config/paths';
+import { Toastify } from '@/services';
+import { showModal } from '@/redux/modal/modalSlice';
+import { ModalData } from '@/redux/modal/type';
 
 const EditProfile: NextPage<Props> = ({ loading, myProfile, onUpdateMyProfile }) => {
   const router = useRouter();

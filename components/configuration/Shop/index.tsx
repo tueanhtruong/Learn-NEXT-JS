@@ -4,18 +4,18 @@ import { useMemo } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 
-import { hideModal, showModal } from '../../../redux/modal/modalSlice';
-import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
-import { IRootState } from '../../../redux/rootReducer';
+import { hideModal, showModal } from '@/redux/modal/modalSlice';
+import { ModalData, MODAL_TYPES } from '@/redux/modal/type';
+import { IRootState } from '@/redux/rootReducer';
 import {
   deleteShopItemAction,
   getShopItemsAction,
   updateShopItemAction,
   setSelectedItem,
-} from '../../../redux/shop/shopSlice';
-import { Item, ItemStatus } from '../../../redux/shop/type';
-import { TableParams } from '../../../redux/type';
-import { getStartCase } from '../../../utils';
+} from '@/redux/shop/shopSlice';
+import { Item, ItemStatus } from '@/redux/shop/type';
+import { TableParams } from '@/redux/type';
+import { getStartCase } from '@/utils';
 import { Button, Table, View } from '../../commons';
 import { allColumns } from './allColumns';
 import ProductForm from './ShopItem';

@@ -1,7 +1,7 @@
 import React, { HTMLProps } from 'react';
 import cn from 'classnames';
 import { View } from '../../commons';
-import { Callback } from '../../../redux/type';
+import { Callback } from '@/redux/type';
 
 export type ItemSidebar = {
   label: string;

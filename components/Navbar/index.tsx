@@ -3,16 +3,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../app-config/images';
-import { HIDE_NAV_PATHS, PATHS } from '../../app-config/paths';
-import { IRootState } from '../../redux/rootReducer';
+import { IMAGES } from '@/app-config/images';
+import { HIDE_NAV_PATHS, PATHS } from '@/app-config/paths';
+import { IRootState } from '@/redux/rootReducer';
 import { Button, Text, View } from '../commons';
 import { ButtonVariant } from '../commons/Button';
 import BurgerButton from './BurgerButton';
-import { signOutAction } from '../../redux/auth/authSlice';
+import { signOutAction } from '@/redux/auth/authSlice';
 import Image from 'next/image';
-import useMeasure from '../../hooks/useMeasure';
-import { setScreenWidth } from '../../redux/content/contentSlice';
+import { setScreenWidth } from '@/redux/content/contentSlice';
+import useMeasure from 'hooks/useMeasure';
 
 const NAV_TYPES = {
   isNavlink: 'NAV_LINK',

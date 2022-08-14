@@ -1,5 +1,5 @@
-import { Item } from '../../../../redux/shop/type';
-import { Yup } from '../../../../services';
+import { Item } from '@/redux/shop/type';
+import { Yup } from '@/services';
 
 export const FormSchema = Yup.object().shape({
   description: Yup.string().max(150).required(),

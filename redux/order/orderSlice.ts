@@ -32,9 +32,9 @@ export const orderSlice = createSlice({
     getOrderItemsAction: (state, _action: PayloadAction<{ id: string }>) => {
       state.loading = true;
     },
-    getOrderItemsSuccess: (state, action: PayloadAction<OrderItem[] | null>) => {
+    getOrderItemsSuccess: (state, action: PayloadAction<{ items: OrderItem[] } | null>) => {
       state.loading = false;
-      state.orders = action.payload ?? [];
+      state.orders = action.payload?.items ?? [];
     },
     getOrderItemsFailed: (state, action: PayloadAction<Error | null>) => {
       state.loading = false;

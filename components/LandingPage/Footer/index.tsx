@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import { IMAGES } from '../../../app-config/images';
+import { IMAGES } from '@/app-config/images';
 import { Grid, Text, View } from '../../commons';
 
 const footerFollowUs: {

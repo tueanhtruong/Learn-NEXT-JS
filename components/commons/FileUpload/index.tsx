@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import appConfig from '../../../app-config';
-import { Toastify } from '../../../services';
+import { Toastify } from '@/services';
 import View from '../View';
 import Icon from '../Icon';
 import Text from '../Text';
-import { IRootState } from '../../../redux/rootReducer';
-import { AVATAR_TYPE, COMMON_TYPE } from '../../../app-config/constants';
+import { IRootState } from '@/redux/rootReducer';
+import { AVATAR_TYPE, COMMON_TYPE } from '@/app-config/constants';
+import appConfig from '@/app-config/index';
 
 const FileUpload: React.FC<Props> = ({
   className,

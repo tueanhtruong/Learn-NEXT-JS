@@ -5,7 +5,7 @@ import { UploadResult } from 'firebase/storage';
 import _ from 'lodash';
 import { Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
-import { Toastify } from '../../services';
+import { Toastify } from '@/services';
 
 const sanitizeActionType = (actionType: string) =>
   actionType.split('/').pop()?.replace('_REQUEST', '').replaceAll('_', ' ');
@@ -102,6 +102,7 @@ export function* callFirebaseApi<TResponse extends unknown = any, TError extends
     const response: ApiResponse<{ data: any }> = yield call(api, ...args);
     yield put(successAction(responseExtractor?.(response)));
   } catch (err: any) {
+    console.log('err: ', err);
     if (failureAction) yield put(failureAction(errorBuilder(err)));
     if (err.message) {
       Toastify.error(err.message);

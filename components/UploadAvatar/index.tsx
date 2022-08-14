@@ -9,13 +9,13 @@ import {
   Form,
   Text,
   View,
-} from '../../components/commons';
-import { uploadFileAction } from '../../redux/file/fileSlice';
-import { FileUploadType, GetPresignedPayload } from '../../redux/file/type';
-import { hideModal } from '../../redux/modal/modalSlice';
-import { IRootState } from '../../redux/rootReducer';
-import { Callback } from '../../redux/type';
-import { Toastify, Yup } from '../../services';
+} from '@/components/commons';
+import { uploadFileAction } from '@/redux/file/fileSlice';
+import { FileUploadType, GetPresignedPayload } from '@/redux/file/type';
+import { hideModal } from '@/redux/modal/modalSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { Callback } from '@/redux/type';
+import { Toastify, Yup } from '@/services';
 
 type FormType = {
   file: string | File;

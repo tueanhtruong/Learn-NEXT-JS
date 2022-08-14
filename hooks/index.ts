@@ -1,4 +1,4 @@
-export { default as useMesure } from './useMeasure';
+export { default as useMeasure } from './useMeasure';
 export { default as useTimeout } from './useTimeout';
 export { default as useInterval } from './useInterval';
 export { default as usePrevious } from './usePrevious';

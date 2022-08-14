@@ -1,6 +1,5 @@
 import { call, select, takeLatest } from 'redux-saga/effects';
-import { Apis } from '../../services/api';
-import toastify from '../../services/toastify';
+import { Apis } from '@/services/api';
 import { callFirebaseApi } from '../commonSagas/callApi';
 import {
   addOrderItemAction,
@@ -48,7 +47,7 @@ function* addOrderItem(api: any, action: { payload: { item: OrderItem; id: strin
 function handleAddOrderItemSuccess(_action: { payload: { item: OrderItem; id: string } }) {
   // const { id } = action.payload;
   // yield put(getOrderItemsAction({ id }));
-  toastify.success(`Add to Cart successfully`);
+  // toastify.success(`Add to Cart successfully`);
 }
 
 export default function configurationSaga(apiInstance: Apis) {

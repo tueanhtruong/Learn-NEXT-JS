@@ -1,5 +1,5 @@
-import { Banner } from '../../../../redux/configuration/type';
-import { Yup } from '../../../../services';
+import { Banner } from '@/redux/configuration/type';
+import { Yup } from '@/services';
 
 export const FormSchema = Yup.object().shape({
   description: Yup.string().max(150).required(),

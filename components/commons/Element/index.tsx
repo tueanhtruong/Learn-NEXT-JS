@@ -2,8 +2,8 @@ import React from 'react';
 import cn from 'classnames';
 
 import View, { ViewProps } from '../View';
-// import './styles.scss';
-import { isEmpty } from '../../../validations';
+import { isEmpty } from '@/validations';
+// import { isEmpty } from '@/validations';
 
 const Element: React.FC<Props> = ({
   id,

@@ -1,8 +1,8 @@
 import React from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { Input } from '..';
-import { Callback } from '../../../redux/type';
-import { MoneyInputDetect } from '../../../utils';
+import { Callback } from '@/redux/type';
+import { MoneyInputDetect } from '@/utils';
 import { InputProps } from '../Input';
 
 const customInput = ({ iconName = 'ic_dollar', ...props }) => (

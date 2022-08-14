@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { connect } from 'react-redux';
-import { setAdminProfileAction } from '../../../../redux/configuration/configurationSlice';
-import { AdminAccount } from '../../../../redux/configuration/type';
-import { setSelectedProfile, updateMyProfileAction } from '../../../../redux/profile/profileSlice';
-import { Profile } from '../../../../redux/profile/type';
-import { IRootState } from '../../../../redux/rootReducer';
-import { Callback } from '../../../../redux/type';
-import { Checkbox, Grid, LoadingCommon, Text, View, ViewItem } from '../../../commons';
+import { setAdminProfileAction } from '@/redux/configuration/configurationSlice';
+import { AdminAccount } from '@/redux/configuration/type';
+import { setSelectedProfile, updateMyProfileAction } from '@/redux/profile/profileSlice';
+import { Profile } from '@/redux/profile/type';
+import { IRootState } from '@/redux/rootReducer';
+import { Callback } from '@/redux/type';
+import { Checkbox, Grid, LoadingCommon, Text, View, ViewItem } from '@/components/commons';
 
 const Configuration: NextPage<Props> = ({
   loading,

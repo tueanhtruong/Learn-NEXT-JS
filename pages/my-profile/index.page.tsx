@@ -1,25 +1,18 @@
 import type { NextPage } from 'next';
 import { connect } from 'react-redux';
-import {
-  Button,
-  FileRenderer,
-  Grid,
-  LoadingCommon,
-  View,
-  ViewItem,
-} from '../../components/commons';
-import LayoutFull from '../../layout/LayoutFull';
-import { IRootState } from '../../redux/rootReducer';
+import { Button, FileRenderer, Grid, LoadingCommon, View, ViewItem } from '@/components/commons';
+import LayoutFull from '@/layout/LayoutFull';
+import { IRootState } from '@/redux/rootReducer';
 import { FaDoorOpen } from 'react-icons/fa';
-import { getMyProfileAction, updateMyProfileAction } from '../../redux/profile/profileSlice';
-import { signOutAction } from '../../redux/auth/authSlice';
+import { getMyProfileAction, updateMyProfileAction } from '@/redux/profile/profileSlice';
+import { signOutAction } from '@/redux/auth/authSlice';
 import { useRouter } from 'next/router';
-import { PATHS } from '../../app-config/paths';
-import { ModalData, MODAL_TYPES } from '../../redux/modal/type';
-import UploadAvatar from '../../components/UploadAvatar';
-import { showModal } from '../../redux/modal/modalSlice';
-import { Profile } from '../../redux/profile/type';
-import { Callback } from '../../redux/type';
+import { PATHS } from '@/app-config/paths';
+import { ModalData, MODAL_TYPES } from '@/redux/modal/type';
+import UploadAvatar from '@/components/UploadAvatar';
+import { showModal } from '@/redux/modal/modalSlice';
+import { Profile } from '@/redux/profile/type';
+import { Callback } from '@/redux/type';
 import { formatPhoneNumber } from 'react-phone-number-input';
 
 const ProfileDetail: NextPage<Props> = ({

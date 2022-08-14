@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { hideModal } from '../../redux/modal/modalSlice';
-import { IRootState } from '../../redux/rootReducer';
+import { hideModal } from '@/redux/modal/modalSlice';
+import { IRootState } from '@/redux/rootReducer';
 import {
   Dialog as MuiDialog,
   DialogActions,
@@ -9,9 +9,9 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Text, View } from '../commons';
-import { isEmpty } from '../../validations';
+import { isEmpty } from '@/validations';
 import { GrClose } from 'react-icons/gr';
-import { MODAL_TYPES } from '../../redux/modal/type';
+import { MODAL_TYPES } from '@/redux/modal/type';
 import OkModal from './OkModal';
 import YesNoModal from './YesNoModal';
 import React from 'react';

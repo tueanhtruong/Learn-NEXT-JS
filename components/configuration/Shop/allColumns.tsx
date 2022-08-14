@@ -1,9 +1,9 @@
 import { MUIDataTableData, MUIDataTableMeta } from 'mui-datatables';
 import { FaClipboardCheck } from 'react-icons/fa';
 import { MdDomainDisabled } from 'react-icons/md';
-import { Item, ItemStatus } from '../../../redux/shop/type';
-import { Callback } from '../../../redux/type';
-import { formatMoney } from '../../../utils';
+import { Item, ItemStatus } from '@/redux/shop/type';
+import { Callback } from '@/redux/type';
+import { formatMoney } from '@/utils';
 
 type MetaData = Omit<MUIDataTableMeta, 'tableData'> & { tableData: Array<MUIDataTableData | Item> };
 

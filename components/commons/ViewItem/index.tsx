@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import { Grid, View } from '..';
-import { isEmpty } from '../../../validations';
+import { isEmpty } from '@/validations';
 
 const ViewItem: React.FC<Props> = ({ label, value, variant = 'is-half', renderIf = true }) => {
   if (!renderIf) return null;

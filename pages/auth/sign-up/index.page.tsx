@@ -1,14 +1,14 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { PATHS } from '../../../app-config/paths';
-import { Button, Form, Input, InputPassword, View } from '../../../components/commons';
+import { PATHS } from '@/app-config/paths';
+import { Button, Form, Input, InputPassword, View } from '@/components/commons';
 import { SigninSchema } from '../helpers';
 import { Formik, FormikProps } from 'formik';
 import { useRef } from 'react';
-import { IRootState } from '../../../redux/rootReducer';
-import { signUpAction } from '../../../redux/auth/authSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { signUpAction } from '@/redux/auth/authSlice';
 import { connect } from 'react-redux';
-import { SignUpPayload } from '../../../redux/auth/type';
+import { SignUpPayload } from '@/redux/auth/type';
 
 type FormValue = {
   email: string;

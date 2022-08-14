@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hideModal } from '../../../redux/modal/modalSlice';
-import { IRootState } from '../../../redux/rootReducer';
+import { hideModal } from '@/redux/modal/modalSlice';
+import { IRootState } from '@/redux/rootReducer';
 import { Button, Text, View } from '../../commons';
 
 const YesNoModal: React.FC<Props> = ({ modalData }) => {

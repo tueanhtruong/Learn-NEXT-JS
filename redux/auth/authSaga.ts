@@ -1,5 +1,5 @@
 import { call, takeLatest } from 'redux-saga/effects';
-import { Apis } from '../../services/api';
+import { Apis } from '@/services/api';
 import { callAuth } from '../commonSagas/callApi';
 import {
   sendEmailVerificationAction,

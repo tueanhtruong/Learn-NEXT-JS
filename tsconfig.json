@@ -13,7 +13,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/firebase/*": ["./firebase/*"],
+      "@/hooks*": ["./hooks/index"],
+      "@/app-config*": ["./app-config*"],
+      "@/assets/*": ["./assets/*"],
+      "@/redux/*": ["./redux/*"],
+      "@/layout/*": ["./layout/*"],
+      "@/service*": ["./service*"],
+      "@/utils*": ["./utils/index"],
+      "@/validations*": ["./validations/index"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { IRootState } from '../../redux/rootReducer';
-import { setAuthenticated, setIsCorrectRoute } from '../../redux/auth/authSlice';
-import { AuthUser } from '../../redux/auth/type';
+import { IRootState } from '@/redux/rootReducer';
+import { setAuthenticated, setIsCorrectRoute } from '@/redux/auth/authSlice';
+import { AuthUser } from '@/redux/auth/type';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { PATHS, PRIVATE_PATHS } from '../../app-config/paths';
-import { api } from '../../redux/rootSaga';
+import { PATHS, PRIVATE_PATHS } from '@/app-config/paths';
+import { api } from '@/redux/rootSaga';
 import { getAuth } from 'firebase/auth';
 import { NextPage } from 'next';
 import { LoadingCommon, View } from '../commons';
-import { useComponentDidMount } from '../../hooks';
+import useComponentDidMount from 'hooks/useComponentDidMount';
 
 const Screen: NextPage<Props> = ({
   authUser,

@@ -2,7 +2,7 @@ import React, { HTMLProps } from 'react';
 import cn from 'classnames';
 import { View } from '../commons';
 import { useRouter } from 'next/router';
-import { HIDE_NAV_PATHS } from '../../app-config/paths';
+import { HIDE_NAV_PATHS } from '@/app-config/paths';
 // import Footer from 'src/components/Footer';
 
 const Screen: React.FC<Props> = ({

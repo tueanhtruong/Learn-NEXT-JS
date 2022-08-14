@@ -1,8 +1,8 @@
 import { UploadResult } from 'firebase/storage';
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import { Toastify } from '../../services';
-import { Apis } from '../../services/api';
-import { compressFile, getRandomId } from '../../utils';
+import { Toastify } from '@/services';
+import { Apis } from '@/services/api';
+import { compressFile, getRandomId } from '@/utils';
 import { callFileApi, callFirebaseApi } from '../commonSagas/callApi';
 import { Callback } from '../type';
 import {

@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import {
   getConfigurationBannersAction,
   setSelectedBanner,
-} from '../../../redux/configuration/configurationSlice';
-import { Banner } from '../../../redux/configuration/type';
-import { showModal } from '../../../redux/modal/modalSlice';
-import { ModalData, MODAL_TYPES } from '../../../redux/modal/type';
-import { IRootState } from '../../../redux/rootReducer';
-import { TableParams } from '../../../redux/type';
-import { isEmpty } from '../../../validations';
+} from '@/redux/configuration/configurationSlice';
+import { Banner } from '@/redux/configuration/type';
+import { showModal } from '@/redux/modal/modalSlice';
+import { ModalData, MODAL_TYPES } from '@/redux/modal/type';
+import { IRootState } from '@/redux/rootReducer';
+import { TableParams } from '@/redux/type';
+import { isEmpty } from '@/validations';
 import { Button, Table, View } from '../../commons';
 import { allColumns } from './allColumns';
 import BannerForm from './BannerForm';

@@ -1,6 +1,6 @@
 /* eslint-disable react/self-closing-comp */
 import React, { useEffect, useRef } from 'react';
-import { Callback } from '../../../../../redux/type';
+import { Callback } from '@/redux/type';
 export enum Cart_State {
   _loading = 'https://assets1.lottiefiles.com/private_files/lf30_pqzcapyb.json',
   _success = 'https://assets1.lottiefiles.com/private_files/lf30_xs5elnbg.json',

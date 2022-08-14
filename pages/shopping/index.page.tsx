@@ -1,16 +1,17 @@
 import type { NextPage } from 'next';
-import { Grid, Text, View } from '../../components/commons';
 import Image from 'next/image';
-import { IMAGES } from '../../app-config/images';
-import { IRootState } from '../../redux/rootReducer';
+import { IMAGES } from '@/app-config/images';
+import { IRootState } from '@/redux/rootReducer';
 import { connect } from 'react-redux';
-import Footer from '../../components/LandingPage/Footer';
-import { ConfigurationSidebar } from '../../components/configuration';
-import { ItemSidebar } from '../../components/configuration/Sidebar';
+import Footer from '@/components/LandingPage/Footer';
+import { ConfigurationSidebar } from '@/components/configuration';
+import { ItemSidebar } from '@/components/configuration/Sidebar';
 import { AnimatePresence, motion } from 'framer-motion';
-import Shop from '../../components/shopping/Shop';
+import Shop from '@/components/shopping/Shop';
 import { useState } from 'react';
 import { BsShopWindow, BsCart2 } from 'react-icons/bs';
+import Order from '@/components/shopping/Order';
+import { Grid, Text, View } from '@/components/commons';
 
 const fadeImage: {
   urlKey: keyof typeof IMAGES;
@@ -88,7 +89,7 @@ const Shopping: NextPage<Props> = ({ loading }) => {
                 exit={{ x: 10, opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {tab === _SidebarTab._SHOP ? <Shop /> : null}
+                {tab === _SidebarTab._SHOP ? <Shop /> : <Order />}
               </motion.div>
             </AnimatePresence>
           </Grid.Item>

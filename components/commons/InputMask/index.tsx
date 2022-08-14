@@ -7,8 +7,8 @@ import Element from '../Element';
 import View from '../View';
 import InputMask from 'react-input-mask';
 import Icon from '../Icon';
-import { getRandomId } from '../../../utils';
-import { isEmpty } from '../../../validations';
+import { getRandomId } from '@/utils';
+import { isEmpty } from '@/validations';
 
 const Input: React.FC<InputProps> = ({
   errorMessage,

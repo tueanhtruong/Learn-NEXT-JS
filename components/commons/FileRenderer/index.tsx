@@ -6,13 +6,13 @@ import ContentLoader from 'react-content-loader';
 import { FiPaperclip } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { connect } from 'react-redux';
-import { IMAGES } from '../../../app-config/images';
-import { useComponentDidMount } from '../../../hooks';
-import { getDecodeUrlAction } from '../../../redux/file/fileSlice';
-import { IRootState } from '../../../redux/rootReducer';
-import { Callback } from '../../../redux/type';
-import { FileCache } from '../../../services';
-import { isURLImage } from '../../../utils';
+import { IMAGES } from '@/app-config/images';
+import { useComponentDidMount } from '@/hooks/';
+import { getDecodeUrlAction } from '@/redux/file/fileSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { Callback } from '@/redux/type';
+import { FileCache } from '@/services';
+import { isURLImage } from '@/utils';
 import View from '../View';
 
 type PlaceholderProps = {

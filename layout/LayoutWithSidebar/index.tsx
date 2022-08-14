@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import { View } from '../../components/commons';
-import { IRootState } from '../../redux/rootReducer';
+import { View } from '@/components/commons';
+import { IRootState } from '@/redux/rootReducer';
 
 const LayoutWithSidebar: React.FC<Props> = ({ sidebar, body, footer }) => {
   const hasFooter = !!footer;

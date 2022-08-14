@@ -3,8 +3,8 @@ import cn from 'classnames';
 import Element from '../Element';
 import View from '../View';
 import { Icon } from '..';
-import { getRandomId } from '../../../utils';
-import { isEmpty } from '../../../validations';
+import { getRandomId } from '@/utils';
+import { isEmpty } from '@/validations*';
 
 const Input: React.FC<InputProps> = ({
   errorMessage,

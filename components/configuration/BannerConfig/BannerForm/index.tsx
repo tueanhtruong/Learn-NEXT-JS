@@ -2,13 +2,13 @@ import { Formik, FormikProps } from 'formik';
 import type { NextPage } from 'next';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
-import { updateConfigurationBannerAction } from '../../../../redux/configuration/configurationSlice';
-import { Banner } from '../../../../redux/configuration/type';
-import { uploadFileAction } from '../../../../redux/file/fileSlice';
-import { FileUploadType, GetPresignedPayload } from '../../../../redux/file/type';
-import { hideModal } from '../../../../redux/modal/modalSlice';
-import { IRootState } from '../../../../redux/rootReducer';
-import { Toastify } from '../../../../services';
+import { updateConfigurationBannerAction } from '@/redux/configuration/configurationSlice';
+import { Banner } from '@/redux/configuration/type';
+import { uploadFileAction } from '@/redux/file/fileSlice';
+import { FileUploadType, GetPresignedPayload } from '@/redux/file/type';
+import { hideModal } from '@/redux/modal/modalSlice';
+import { IRootState } from '@/redux/rootReducer';
+import { Toastify } from '@/services';
 import {
   AttachmentUploadButton,
   Button,
@@ -20,7 +20,7 @@ import {
   Text,
   TextArea,
   View,
-} from '../../../commons';
+} from '@/components/commons';
 import { FormSchema, getInitialFormValue } from './helpers';
 
 type FormType = Banner;

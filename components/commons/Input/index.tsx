@@ -1,11 +1,11 @@
 import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
 import cn from 'classnames';
-import { getRandomId } from '../../../utils';
+import { getRandomId } from '@/utils';
 // import './styles.scss';
 import Element from '../Element';
 import View from '../View';
 import { Icon } from '..';
-import { isEmpty } from '../../../validations';
+import { isEmpty } from '@/validations';
 
 const Input: React.FC<InputProps> = ({
   errorMessage,

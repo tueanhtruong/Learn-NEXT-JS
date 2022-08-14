@@ -4,12 +4,12 @@ import _ from 'lodash';
 import type { NextPage } from 'next';
 import { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
-import { addOrderItemAction, setSuccessAddedItemKey } from '../../../../redux/order/orderSlice';
-import { OrderItem } from '../../../../redux/order/type';
-import { IRootState } from '../../../../redux/rootReducer';
-import { Item } from '../../../../redux/shop/type';
-import { formatMoney } from '../../../../utils';
-import { FileRenderer, Text, View } from '../../../commons';
+import { addOrderItemAction, setSuccessAddedItemKey } from '@/redux/order/orderSlice';
+import { OrderItem } from '@/redux/order/type';
+import { IRootState } from '@/redux/rootReducer';
+import { Item } from '@/redux/shop/type';
+import { formatMoney } from '@/utils';
+import { FileRenderer, Text, View } from '@/components/commons';
 import OrderField from './OrderField';
 
 const ShopItem: NextPage<Props> = ({

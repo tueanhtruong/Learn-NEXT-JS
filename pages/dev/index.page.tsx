@@ -7,21 +7,18 @@ import {
   LoadingCommon,
   Text,
   View,
-} from '../../components/commons';
-import Input from '../../components/commons/Input';
+} from '@/components/commons';
+import Input from '@/components/commons/Input';
 import { connect } from 'react-redux';
-import {
-  decrementValue,
-  getTodoListAction,
-  incrementValue,
-} from '../../redux/content/contentSlice';
-import { IRootState } from '../../redux/rootReducer';
+import { decrementValue, getTodoListAction, incrementValue } from '@/redux/content/contentSlice';
+import { IRootState } from '@/redux/rootReducer';
 import { useState } from 'react';
-import { FileUploadType, GetPresignedPayload } from '../../redux/file/type';
-import { getDecodeUrlAction, uploadFileAction } from '../../redux/file/fileSlice';
-// import { getRandomId } from '../../utils';
-import { Callback } from '../../redux/type';
+import { FileUploadType, GetPresignedPayload } from '@/redux/file/type';
+import { getDecodeUrlAction, uploadFileAction } from '@/redux/file/fileSlice';
+// import { getRandomId } from '@/utils';
+import { Callback } from '@/redux/type';
 import Image from 'next/image';
+import { IMAGES } from '@/app-config/images';
 
 const tempUrl = 'proof_of_identity/anne-sophie-benoit-Fan_HlAfpu0-unsplash.jpg';
 
@@ -62,12 +59,12 @@ const Home: NextPage<Props> = ({
     };
     return onGetDecodeUrl(payload);
   };
-
   return (
     <View className="c-container">
       <h1>
         Welcome to <a href="https://nextjs.org">Next.js!</a> Development Center
       </h1>
+      <Image src={IMAGES.moving} alt="test" width={600} height={600} />
       <Text size={24} className="my-12">
         Button value {value}
       </Text>

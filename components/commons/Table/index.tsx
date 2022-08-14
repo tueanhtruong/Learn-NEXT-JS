@@ -6,9 +6,9 @@ import {
   MUIDataTableState,
   MUISortOptions,
 } from 'mui-datatables';
-import appConfig from '../../../app-config';
+import appConfig from '@/app-config/index';
 import TableBasic from '../TableBasic';
-import { IRootState } from '../../../redux/rootReducer';
+import { IRootState } from '@/redux/rootReducer';
 
 const Table: React.FC<Props> = ({
   title,

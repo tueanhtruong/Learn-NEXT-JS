@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { Toastify } from '../../services';
-import { Apis } from '../../services/api';
+import { Toastify } from '@/services';
+import { Apis } from '@/services/api';
 import { callFirebaseApi } from '../commonSagas/callApi';
 import { hideModal } from '../modal/modalSlice';
 import { TableParams } from '../type';

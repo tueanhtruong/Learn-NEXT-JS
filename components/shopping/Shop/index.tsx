@@ -1,27 +1,20 @@
 import type { NextPage } from 'next';
 import { connect } from 'react-redux';
-import { useComponentDidMount } from '../../../hooks';
+import { useComponentDidMount } from '@/hooks';
 
-import { hideModal, showModal } from '../../../redux/modal/modalSlice';
-import { ModalData } from '../../../redux/modal/type';
-import { IRootState } from '../../../redux/rootReducer';
-import {
-  deleteShopItemAction,
-  getShopItemsAction,
-  setSelectedItem,
-} from '../../../redux/shop/shopSlice';
-import { Item } from '../../../redux/shop/type';
-import { TableParams } from '../../../redux/type';
-import { isEmpty } from '../../../validations';
+import { hideModal, showModal } from '@/redux/modal/modalSlice';
+import { ModalData } from '@/redux/modal/type';
+import { IRootState } from '@/redux/rootReducer';
+import { deleteShopItemAction, getShopItemsAction, setSelectedItem } from '@/redux/shop/shopSlice';
+import { Item } from '@/redux/shop/type';
+import { TableParams } from '@/redux/type';
+import { isEmpty } from '@/validations';
 import { Grid, LoadingCommon, View } from '../../commons';
 import ShopItem from './ShopItem';
 
 const Shop: NextPage<Props> = ({ loading, items, onGetShopProducts }) => {
   useComponentDidMount(() => {
     if (isEmpty(items)) onGetShopProducts({ order: 'asc', sort: 'price' });
-    //   React.useEffect(() => {
-    //
-    //   });
   });
 
   return (
