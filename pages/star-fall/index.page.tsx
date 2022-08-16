@@ -1,12 +1,13 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import { View } from '@/components/commons';
 import { IRootState } from '@/redux/rootReducer';
 import { connect } from 'react-redux';
+import { NextPageWithLayout, PageLayoutProps } from 'pages/_app.page';
+import EmptyLayout from '@/layout/EmptyLayout';
 
 // import LandingNavbar from '@/components/LandingPage/LandingNavbar';
 
-const Home: NextPage<Props> = () => {
+const Home: NextPageWithLayout<Props> = () => {
   return (
     <View className="p-star-fall">
       <Head>
@@ -31,6 +32,8 @@ const Home: NextPage<Props> = () => {
     </View>
   );
 };
+
+Home.Layout = EmptyLayout as PageLayoutProps;
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 const mapStateToProps = (state: IRootState) => ({

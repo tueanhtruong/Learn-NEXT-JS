@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Button, Grid, Text, View } from '../components/commons';
 import Image from 'next/image';
@@ -11,6 +10,8 @@ import ProductBanner from '../components/LandingPage/ProductBanner';
 import LandingNavbar from '../components/LandingPage/LandingNavbar';
 import BestSellingProduct from '../components/LandingPage/BestSellingProduct';
 import Footer from '../components/LandingPage/Footer';
+import { NextPageWithLayout, PageLayoutProps } from './_app.page';
+import { EmptyLayout } from '../layout';
 
 const fadeImages: {
   urlKey: keyof typeof IMAGES;
@@ -46,7 +47,7 @@ const bestSelling: {
   },
 ];
 
-const Home: NextPage<Props> = ({ isAuthenticated }) => {
+const Home: NextPageWithLayout<Props> = ({ isAuthenticated }) => {
   const router = useRouter();
   // const [currentSlide, setSlide] = useState<number>(0);
   // const bannerRef = useRef<SlideshowRef>();
@@ -170,6 +171,8 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
     </View>
   );
 };
+
+Home.Layout = EmptyLayout as PageLayoutProps;
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 const mapStateToProps = (state: IRootState) => ({

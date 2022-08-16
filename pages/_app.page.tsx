@@ -12,23 +12,38 @@ import 'react-toastify/dist/ReactToastify.css';
 import Content from '../components/Content';
 import Dialog from '../components/Dialog';
 import { useComponentDidMount } from '../hooks';
+import type { NextPage } from 'next';
+import { ReactElement } from 'react';
+import { NavLayout } from '../layout';
+import { LayoutProps } from '@/layout/EmptyLayout';
 
-type MyAppProps = AppProps;
+export type PageLayoutProps = (_page: LayoutProps) => ReactElement;
 
-function MyApp({ Component, pageProps: { _session, ...pageProps } }: MyAppProps) {
+export type NextPageWithLayout<T> = NextPage<T> & {
+  Layout?: PageLayoutProps;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout<any>;
+};
+
+function MyApp({ Component, pageProps: { _session, ...pageProps } }: AppPropsWithLayout) {
   useComponentDidMount(() => {
     import('@lottiefiles/lottie-player');
   });
+  const Layout = Component.Layout ?? NavLayout;
   return (
-    <Screen showNavbar>
-      <Navbar />
+    // <Screen showNavbar>
+    //   <Navbar />
+    <Layout>
       <Auth>
         <Component {...pageProps} />
       </Auth>
       <Toastify />
       <Content />
       <Dialog />
-    </Screen>
+    </Layout>
+    // </Screen>
   );
 }
 

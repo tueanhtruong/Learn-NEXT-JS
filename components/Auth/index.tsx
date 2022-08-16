@@ -78,7 +78,7 @@ const Screen: NextPage<Props> = ({
 
   if (!isCorrectRoute)
     return (
-      <View flexGrow={1} justify="center" align="center">
+      <View flexGrow={1} justify="center" align="center" className="my-64">
         <LoadingCommon />
       </View>
     );

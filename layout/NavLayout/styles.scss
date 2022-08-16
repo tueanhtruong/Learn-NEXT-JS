@@ -1,0 +1,7 @@
+@use 'vars' as *;
+@use 'mixin' as *;
+
+.ctn-nav-layout {
+  padding-top: $navbar-height;
+  min-height: calc(100vh - #{$navbar-height});
+}
