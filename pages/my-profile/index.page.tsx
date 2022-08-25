@@ -14,6 +14,7 @@ import { showModal } from '@/redux/modal/modalSlice';
 import { Profile } from '@/redux/profile/type';
 import { Callback } from '@/redux/type';
 import { formatPhoneNumber } from 'react-phone-number-input';
+import { useAuth } from 'hooks';
 
 const ProfileDetail: NextPage<Props> = ({
   loading,
@@ -24,6 +25,7 @@ const ProfileDetail: NextPage<Props> = ({
   onUpdateMyProfile,
 }) => {
   const router = useRouter();
+  const { logout } = useAuth();
   const handleSignOut = () => {
     if (isAuthenticated) return onSignOut();
   };
@@ -94,7 +96,7 @@ const ProfileDetail: NextPage<Props> = ({
               label="Log Out"
               variant="link-gray"
               icon={<FaDoorOpen size={24} />}
-              onClick={handleSignOut}
+              onClick={logout}
             />
 
             <Button label="Edit" variant="outline" onClick={handleEditProfile} />

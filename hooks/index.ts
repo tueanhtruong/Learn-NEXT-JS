@@ -9,3 +9,4 @@ export { default as useComponentDidMount } from './useComponentDidMount';
 export { default as useComponentWillUnmount } from './useComponentWillUnmount';
 export { default as useKeyPress } from './useKeyPress';
 export { default as useCopyToClipboard } from './useCopyToClipboard';
+export * from './useAuth';

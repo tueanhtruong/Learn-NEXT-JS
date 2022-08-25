@@ -3,8 +3,8 @@ import '../components/components.scss';
 import './pages.scss';
 import '../layout/layout.scss';
 import type { AppProps } from 'next/app';
-import Screen from '../components/Screen';
-import Navbar from '../components/Navbar';
+// import Screen from '../components/Screen';
+// import Navbar from '../components/Navbar';
 import { wrapper } from '../redux/store';
 import Auth from '../components/Auth';
 import Toastify from '../components/Toastify';
@@ -16,6 +16,16 @@ import type { NextPage } from 'next';
 import { ReactElement } from 'react';
 import { NavLayout } from '../layout';
 import { LayoutProps } from '@/layout/EmptyLayout';
+import { config } from 'aws-sdk';
+import appConfig from '@/app-config/index';
+import Amplify from 'aws-amplify';
+import { SWRConfig } from 'swr';
+import axiosClient from 'admin-service/axios-client';
+
+if (typeof window === 'undefined') {
+  config.update(appConfig.SDK_CONFIG);
+  Amplify.configure(appConfig.AWS_CONFIG);
+}
 
 export type PageLayoutProps = (_page: LayoutProps) => ReactElement;
 
@@ -33,17 +43,16 @@ function MyApp({ Component, pageProps: { _session, ...pageProps } }: AppPropsWit
   });
   const Layout = Component.Layout ?? NavLayout;
   return (
-    // <Screen showNavbar>
-    //   <Navbar />
-    <Layout>
-      <Auth>
-        <Component {...pageProps} />
-      </Auth>
-      <Toastify />
-      <Content />
-      <Dialog />
-    </Layout>
-    // </Screen>
+    <SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
+      <Layout>
+        <Auth>
+          <Component {...pageProps} />
+        </Auth>
+        <Toastify />
+        <Content />
+        <Dialog />
+      </Layout>
+    </SWRConfig>
   );
 }
 

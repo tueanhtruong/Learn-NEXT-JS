@@ -43,6 +43,26 @@ const textLength = {
   VERIFICATION_CODE_LENGTH: 6,
 };
 
+const AWS_CONFIG = {
+  region: process.env.AWS_IDENTITY_REGION,
+  userPoolId: process.env.AWS_USER_POOL_ID,
+  userPoolWebClientId: process.env.AWS_USER_POOL_WEB_CLIENT_ID,
+  authenticationFlowType: 'USER_PASSWORD_AUTH',
+  oauth: {
+    domain: process.env.AWS_USER_POOL_DOMAIN,
+    scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+    redirectSignIn: process.env.WEB_URL + '/signin',
+    redirectSignOut: process.env.WEB_URL + '/signin',
+    responseType: 'code',
+  },
+};
+
+const SDK_CONFIG = {
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+};
+
 const PERMISSIONS = {
   DASHBOARD_PERMISSION: [],
   WED_ADMIN: ['web_admin:read', 'web_admin:create', 'web_admin:update', 'web_admin:delete'],
@@ -78,4 +98,6 @@ export default {
   ...textLength,
   ...table,
   ...PERMISSIONS,
+  AWS_CONFIG,
+  SDK_CONFIG,
 };

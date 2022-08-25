@@ -10,17 +10,20 @@ import { getAuth } from 'firebase/auth';
 import { NextPage } from 'next';
 import { LoadingCommon, View } from '../commons';
 import useComponentDidMount from 'hooks/useComponentDidMount';
+import { useAuth } from 'hooks';
 
 const Screen: NextPage<Props> = ({
   authUser,
-  isAuthenticated,
+  // isAuthenticated,
   onSetAuthenticated,
-  isCorrectRoute,
-  onSetIsCorrectRoute,
+  // isCorrectRoute,
+  // onSetIsCorrectRoute,
   children,
 }) => {
   const router = useRouter();
 
+  const { profile, isValidating } = useAuth();
+  const isAuthenticated = !!profile;
   const authCheck = (url: string) => {
     const isAuthPage = url.includes('auth');
     if (isAuthPage && isAuthenticated) {
@@ -34,26 +37,26 @@ const Screen: NextPage<Props> = ({
         pathname: PATHS.signIn,
       });
     }
-    if (!isCorrectRoute && typeof isAuthenticated === 'boolean') return onSetIsCorrectRoute(true);
+    // if (isValidating && typeof isAuthenticated === 'boolean') return onSetIsCorrectRoute(true);
   };
 
-  const handleCheckAuthUser = () => {
-    const auth = getAuth(api.app);
-    const user = auth.currentUser;
-    if (user && !authUser) {
-      onSetAuthenticated({
-        email: user.email ?? '',
-        image: user.photoURL ?? '',
-        name: user.displayName ?? '',
-        emailPasswordAuthentication: true,
-        uid: user.uid,
-      });
-    } else if (!authUser) onSetAuthenticated(null);
-  };
+  // const handleCheckAuthUser = () => {
+  //   const auth = getAuth(api.app);
+  //   const user = auth.currentUser;
+  //   if (user && !authUser) {
+  //     onSetAuthenticated({
+  //       email: user.email ?? '',
+  //       image: user.photoURL ?? '',
+  //       name: user.displayName ?? '',
+  //       emailPasswordAuthentication: true,
+  //       uid: user.uid,
+  //     });
+  //   } else if (!authUser) onSetAuthenticated(null);
+  // };
 
-  useComponentDidMount(() => {
-    setTimeout(handleCheckAuthUser, 800);
-  });
+  // useComponentDidMount(() => {
+  //   setTimeout(handleCheckAuthUser, 800);
+  // });
 
   useEffect(() => {
     // on initial load - run auth check
@@ -76,12 +79,12 @@ const Screen: NextPage<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
-  if (!isCorrectRoute)
-    return (
-      <View flexGrow={1} justify="center" align="center" className="my-64">
-        <LoadingCommon />
-      </View>
-    );
+  // if (isValidating)
+  //   return (
+  //     <View flexGrow={1} justify="center" align="center" className="my-64">
+  //       <LoadingCommon />
+  //     </View>
+  //   );
 
   return children;
 };

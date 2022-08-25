@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -16,18 +20,53 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["./components/*"],
-      "@/firebase/*": ["./firebase/*"],
-      "@/hooks*": ["./hooks/index"],
-      "@/app-config*": ["./app-config*"],
-      "@/assets/*": ["./assets/*"],
-      "@/redux/*": ["./redux/*"],
-      "@/layout/*": ["./layout/*"],
-      "@/service*": ["./service*"],
-      "@/utils*": ["./utils/index"],
-      "@/validations*": ["./validations/index"]
+      "@/*": [
+        "./*"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/firebase/*": [
+        "./firebase/*"
+      ],
+      "@/hooks*": [
+        "./hooks/index"
+      ],
+      "@/app-config*": [
+        "./app-config*"
+      ],
+      "@/assets/*": [
+        "./assets/*"
+      ],
+      "@/redux/*": [
+        "./redux/*"
+      ],
+      "@/layout/*": [
+        "./layout/*"
+      ],
+      "@/service*": [
+        "./service*"
+      ],
+      "@/utils*": [
+        "./utils/index"
+      ],
+      "@/validations*": [
+        "./validations/index"
+      ],
+      "@/admin-service": [
+        "./admin-service/index.ts"
+      ],
+      "@/admin-service/*": [
+        "./admin-service/*"
+      ],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

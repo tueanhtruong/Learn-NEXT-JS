@@ -9,6 +9,7 @@ import { IRootState } from '@/redux/rootReducer';
 import { connect } from 'react-redux';
 import { signInAction } from '@/redux/auth/authSlice';
 import { SignInPayload } from '@/redux/auth/type';
+import { useAuth } from 'hooks';
 
 type FormValue = {
   email: string;
@@ -18,12 +19,18 @@ type FormValue = {
 const INITIAL: FormValue = { email: '', password: '' };
 
 const SignIn: NextPage<Props> = ({ onSignIn, loading }) => {
+  const { login, isValidating } = useAuth({});
+
   const formRef = useRef<FormikProps<FormValue>>(null);
   const handleSubmit = (value: FormValue) => {
-    onSignIn({
+    login({
       username: value.email,
       password: value.password,
     });
+    // onSignIn({
+    //   username: value.email,
+    //   password: value.password,
+    // });
   };
 
   // const handleSignInGoogle = () => signIn('google', { callbackUrl: appConfig.NEXT_AUTH_URL });
@@ -60,7 +67,7 @@ const SignIn: NextPage<Props> = ({ onSignIn, loading }) => {
                   type="submit"
                   variant="secondary"
                   className="mb-8 min-width"
-                  isLoading={loading}
+                  isLoading={isValidating || loading}
                 >
                   Log In
                 </Button>
